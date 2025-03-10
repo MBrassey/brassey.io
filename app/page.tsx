@@ -80,7 +80,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between">
           <Link className="flex items-center justify-center" href="#">
             <span className="font-mono text-xl">
-              <span className="text-[#4B7F9B]">blockchain</span>.dev
+              <span className="text-[#4B7F9B]">brassey</span>.io
             </span>
           </Link>
 
@@ -597,7 +597,7 @@ class BlockchainNode {
       <footer className="w-full border-t border-[#1F1D20] py-6">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-gray-500">
-            © 2025 <span className="text-[#4B7F9B]">blockchain</span>.dev
+            © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
