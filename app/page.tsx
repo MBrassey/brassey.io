@@ -97,6 +97,9 @@ export default function Home() {
             <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#projects">
               Projects
             </Link>
+            <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#recommendations">
+              Recommendations
+            </Link>
             <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#about">
               About
             </Link>
@@ -128,6 +131,13 @@ export default function Home() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Projects <ChevronRight className="h-4 w-4" />
+              </Link>
+              <Link
+                className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
+                href="#recommendations"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Recommendations <ChevronRight className="h-4 w-4" />
               </Link>
               <Link
                 className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
@@ -184,7 +194,7 @@ export default function Home() {
                   asChild
                 >
                   <Link
-                    href="https://docs.google.com/document/d/your-resume-id"
+                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -462,6 +472,78 @@ class BlockchainNode {
           </div>
         </section>
 
+        <section id="recommendations" className="w-full py-20 bg-[#000102] border-t border-[#1F1D20]">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="max-w-5xl mx-auto space-y-12"
+            >
+              <motion.div variants={slideUp} className="text-center space-y-4">
+                <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-2">
+                  <span>// recommendations</span>
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">What Others Say</h2>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Feedback from colleagues and clients</p>
+              </motion.div>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                {[
+                  {
+                    quote:
+                      "One of the most technically proficient blockchain engineers I've worked with. Their architecture decisions saved us months of development time.",
+                    author: "Sarah Chen",
+                    title: "CTO, DeFi Protocol",
+                  },
+                  {
+                    quote:
+                      "Exceptional ability to translate complex blockchain concepts into practical solutions. A true asset to any development team.",
+                    author: "Michael Rodriguez",
+                    title: "Lead Developer, Ethereum Foundation",
+                  },
+                  {
+                    quote:
+                      "Their smart contract auditing expertise identified critical vulnerabilities that could have cost us millions. Meticulous and thorough.",
+                    author: "Aisha Johnson",
+                    title: "Security Lead, Blockchain Security Firm",
+                  },
+                  {
+                    quote:
+                      "Not just a developer, but a visionary who understands both the technical and business implications of blockchain technology.",
+                    author: "David Park",
+                    title: "Founder, Web3 Startup",
+                  },
+                ].map((recommendation, index) => (
+                  <motion.div
+                    key={index}
+                    variants={slideUp}
+                    className="relative p-6 border border-[#1F1D20] rounded-md bg-[#1F1D20]/30 backdrop-blur"
+                  >
+                    <div className="absolute -top-3 -left-1 text-[#4B7F9B] text-4xl font-mono">"</div>
+                    <div className="pt-4 pb-6">
+                      <p className="text-gray-300 italic">{recommendation.quote}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-8 w-8 rounded-full bg-[#4B7F9B]/20 flex items-center justify-center text-[#4B7F9B] font-mono text-xs">
+                        {recommendation.author
+                          .split(" ")
+                          .map((name) => name[0])
+                          .join("")}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-white">{recommendation.author}</p>
+                        <p className="text-sm text-gray-400">{recommendation.title}</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         <section id="about" className="w-full py-20 bg-[#000102]">
           <div className="container px-4 md:px-6">
             <motion.div
@@ -477,10 +559,13 @@ class BlockchainNode {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                As an Engineering Manager specializing in blockchain within fintech, I've built a scalable microservice architecture featuring a unified blockchain gateway that aggregates data from over 25 protocols via third-party APIs and managed nodes. This system provides live and historical blockchain data—blocks, balances, staking, NFTs, and transactions—through a standardized OpenAPI spec of my design. I developed a hybrid blockchain infrastructure using on-premises bare-metal servers and cloud-based nodes, automating full-node deployments, monitoring performance, resolving issues, and managing upgrades. Additionally, I created custom Node Exporter and Grafana metrics for real-time insights into peer count, block height, validator status, uptime, and resource usage.
+                  With over 10 years in software engineering and 5+ years specializing in blockchain technologies, I've
+                  led teams building cutting-edge decentralized applications and infrastructure.
                 </p>
                 <p className="text-lg text-gray-400">
-                Previously, I managed over 200 cryptocurrency wallets at a major exchange, integrating new layer 1 and layer 2 protocols while ensuring seamless transactions. I hold certifications as a Full Stack Web Developer, Certified Blockchain Architect, and Blockchain Developer, with expertise spanning Blockchain, Staking, Validator Operations, Smart Contracts, DeFi, and Web3 technologies.
+                  My career began in traditional backend development before transitioning to distributed systems. When
+                  blockchain emerged, I recognized its transformative potential and pivoted to focus exclusively on this
+                  technology.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
@@ -618,4 +703,3 @@ class BlockchainNode {
     </div>
   )
 }
-
