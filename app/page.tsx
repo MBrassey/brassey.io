@@ -14,6 +14,7 @@ import {
   Menu,
   Server,
   X,
+  Clock,
 } from "lucide-react"
 import { motion } from "framer-motion"
 
@@ -133,6 +134,9 @@ export default function Home() {
             <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#projects">
               Projects
             </Link>
+            <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#coding-time">
+              Coding Time
+            </Link>
             <Link className="text-sm font-medium hover:text-[#4B7F9B] transition-colors" href="#recommendations">
               Recommendations
             </Link>
@@ -167,6 +171,13 @@ export default function Home() {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Projects <ChevronRight className="h-4 w-4" />
+              </Link>
+              <Link
+                className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
+                href="#coding-time"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Coding Time <ChevronRight className="h-4 w-4" />
               </Link>
               <Link
                 className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
@@ -602,7 +613,62 @@ function verifySignature(message, signature, address) {
           </div>
         </section>
 
-        <section id="recommendations" className="w-full py-20 bg-[#000102] border-t border-[#1F1D20]">
+        {/* New Coding Time Section */}
+        <section id="coding-time" className="w-full py-20 bg-[#000102] border-t border-[#1F1D20]">
+          <div className="container px-4 md:px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="max-w-5xl mx-auto space-y-12"
+            >
+              <motion.div variants={slideUp} className="text-center space-y-4">
+                <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-2">
+                  <span>// coding-time</span>
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My development activity tracked with WakaTime</p>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="w-full">
+                <Card className="bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] overflow-hidden">
+                  <CardContent className="p-1 sm:p-2 md:p-4">
+                    <div className="flex items-center gap-2 mb-4 px-4 pt-4">
+                      <Clock className="h-5 w-5 text-[#4B7F9B]" />
+                      <h3 className="text-lg font-mono text-white">Weekly Coding Stats</h3>
+                    </div>
+                    <div className="w-full overflow-hidden rounded-md">
+                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-transparent">
+                        <iframe
+                          src="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/717b03a2-d48e-41de-927b-7f6976b71cad.svg"
+                          className="absolute inset-0 w-full h-full bg-transparent"
+                          frameBorder="0"
+                          title="WakaTime Coding Activity"
+                          style={{ backgroundColor: "transparent" }}
+                        ></iframe>
+                      </div>
+                    </div>
+                    <div className="flex justify-end p-4">
+                      <Link
+                        href="https://github.com/mbrassey"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-mono text-[#4B7F9B] hover:text-[#4B7F9B]/80 transition-colors flex items-center"
+                      >
+                        <Github className="mr-1 h-4 w-4" />
+                        <span>View GitHub Profile</span>
+                        <ArrowRight className="ml-1 h-3 w-3" />
+                      </Link>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="recommendations" className="w-full py-20 bg-[#1F1D20]/20 border-t border-[#1F1D20]">
           <div className="container px-4 md:px-6">
             <motion.div
               initial="hidden"
@@ -680,27 +746,33 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                As an Engineering Manager for Blueprint, I’ve built a microservice architecture with a unified blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of bare-metal servers and cloud instances. I lead automation of full-node deployments, performance optimization, API integrations, archival storage, and indexing solutions.
+                  As an Engineering Manager for Blueprint, I've built a microservice architecture with a unified
+                  blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time
+                  and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of
+                  bare-metal servers and cloud instances. I lead automation of full-node deployments, performance
+                  optimization, API integrations, archival storage, and indexing solutions.
                 </p>
                 <p className="text-lg text-gray-400">
-                Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing transactions, and optimizing API servers. With expertise in Staking, Validator Operations, and Web3, I drive innovation in decentralized infrastructure.
+                  Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing
+                  transactions, and optimizing API servers. With expertise in Staking, Validator Operations, and Web3, I
+                  drive innovation in decentralized infrastructure.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
                   <div className="flex flex-wrap gap-2">
                     {[
-"Blockchain Architecture",
-"Node Infrastructure",
-"Smart Contracts",
-"System Design",
-"Team Leadership",
-"Technical Strategy",
-"Security",
-"Microservices Architecture",
-"Full-Node Deployment",
-"Blockchain API Integration",
-"Monitoring & Observability",
-"Staking & Validator Operations"
+                      "Blockchain Architecture",
+                      "Node Infrastructure",
+                      "Smart Contracts",
+                      "System Design",
+                      "Team Leadership",
+                      "Technical Strategy",
+                      "Security",
+                      "Microservices Architecture",
+                      "Full-Node Deployment",
+                      "Blockchain API Integration",
+                      "Monitoring & Observability",
+                      "Staking & Validator Operations",
                     ].map((skill, index) => (
                       <Badge key={index} variant="outline" className="bg-[#1F1D20]/50 border-[#1F1D20] text-gray-300">
                         {skill}
@@ -742,7 +814,7 @@ function verifySignature(message, signature, address) {
                     <div className="typing-effect">
                       <span>$ whoami</span>
                       <br />
-                      <span>blockchain_engineer</span>
+                      <span>engineering_manager : blueprint</span>
                     </div>
                   </div>
                 </div>
