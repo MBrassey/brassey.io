@@ -535,11 +535,11 @@ function verifySignature(message, signature, address) {
               <div className="grid gap-8 md:grid-cols-2">
                 {[
                   {
-                    title: "DeFi Lending Protocol",
-                    description: "Decentralized lending platform with automated interest rate adjustments.",
-                    tech: ["Solidity", "Ethereum", "React"],
-                    image: "/placeholder.svg?height=300&width=500",
-                    demoUrl: "https://defi-lending-demo.example.com",
+                    title: "waviii.io",
+                    description: "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
+                    tech: ["Solidity", "Ethereum", "React", "Web3.js"],
+                    image: "/waviii.io.png?height=300&width=500",
+                    demoUrl: "https://waviii.io",
                   },
                   {
                     title: "NFT Marketplace",
@@ -633,21 +633,21 @@ function verifySignature(message, signature, address) {
 
               <motion.div variants={slideUp} className="w-full">
                 <Card className="bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] overflow-hidden">
-                  <CardContent className="p-1 sm:p-2 md:p-4">
-                    <div className="flex items-center gap-2 mb-4 px-4 pt-4">
+                  <CardContent className="p-0">
+                    <div className="flex items-center gap-2 p-4">
                       <Clock className="h-5 w-5 text-[#4B7F9B]" />
                       <h3 className="text-lg font-mono text-white">Weekly Coding Stats</h3>
                     </div>
-                    <div className="w-full overflow-hidden rounded-md">
-                      <div className="relative w-full" style={{ height: "400px" }}>
+                    <div className="w-full overflow-hidden">
+                      <div className="relative w-full" style={{ height: "450px", maxWidth: "100%" }}>
                         <object
                           data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
                           type="image/svg+xml"
-                          className="absolute inset-0 w-full h-full"
+                          className="absolute inset-0 w-full h-full scale-110"
                           style={{
                             backgroundColor: "transparent",
-                            maxWidth: "100%",
-                            objectFit: "contain",
+                            transform: "scale(1.1)",
+                            transformOrigin: "center center",
                           }}
                         >
                           Coding activity chart
