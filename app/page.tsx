@@ -733,7 +733,7 @@ function verifySignature(message, signature, address) {
                   <img
                     alt="Professional headshot"
                     className="h-full w-full object-cover"
-                    src="/placeholder.svg?height=400&width=400"
+                    src="/mbrassey.jpg?height=400&width=400"
                     width={400}
                     height={400}
                   />
