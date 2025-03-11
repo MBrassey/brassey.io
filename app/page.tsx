@@ -542,11 +542,11 @@ function verifySignature(message, signature, address) {
                     demoUrl: "https://waviii.io",
                   },
                   {
-                    title: "NFT Marketplace",
-                    description: "High-performance NFT marketplace with royalty enforcement.",
-                    tech: ["Rust", "Solana", "Next.js"],
-                    image: "/placeholder.svg?height=300&width=500",
-                    demoUrl: "https://nft-marketplace-demo.example.com",
+                    title: "TossUp",
+                    description: "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
+                    tech: ["Solidity", "React", "Web3.js", "Chainlink VRF"],
+                    image: "/TossUp.png?height=300&width=500",
+                    demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
                   {
                     title: "DAO Governance System",
