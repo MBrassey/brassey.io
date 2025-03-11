@@ -209,7 +209,7 @@ export default function Home() {
         <section className="w-full py-20 md:py-32 lg:py-40 relative overflow-hidden">
           {/* Code Animation Background - Now covers the entire section */}
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="absolute inset-0 overflow-hidden opacity-28">
+          <div className="absolute inset-0 overflow-hidden opacity-25">
             <motion.div
               initial={{ y: 0 }}
               animate={{ y: "-100%" }}
