@@ -842,6 +842,7 @@ function verifySignature(message, signature, address) {
                   <span>// contact</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Connect</h2>
+                <p className="text-xl text-gray-400">Ways to contact me</p>
               </motion.div>
 
               <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-4 justify-center">
