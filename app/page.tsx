@@ -687,7 +687,7 @@ function verifySignature(message, signature, address) {
                   <span>// recommendations</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Feedback</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Testimonials from colleagues and clients</p>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Comments from colleagues and clients</p>
               </motion.div>
 
               <div className="grid gap-6 md:grid-cols-2">
