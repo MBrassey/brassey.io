@@ -354,7 +354,7 @@ function verifySignature(message, signature, address) {
           </div>
 
           {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/80 via-[#000102]/40 to-[#000102]/80 z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/70 via-[#000102]/30 to-[#000102]/70 z-0"></div>
 
           <div className="container px-4 md:px-6 relative z-10">
             <motion.div
