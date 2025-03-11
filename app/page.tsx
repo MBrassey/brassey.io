@@ -196,64 +196,18 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="w-full py-20 md:py-32 lg:py-40 relative overflow-hidden">
+          {/* Code Animation Background - Now covers the entire section */}
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="container px-4 md:px-6 relative">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={fadeIn}
-              className="max-w-3xl mx-auto text-center space-y-8"
-            >
-              <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-4">
-                <span className="mr-2">$</span>
-                <span className="typing-cursor">{text}</span>
-                <span className="animate-blink">_</span>
-              </div>
-
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none font-mono">
-                <span className="text-[#4B7F9B]">Blockchain</span> Architecture &{" "}
-                <span className="text-[#4B7F9B]">Engineering</span>
-              </h1>
-              <p className="text-xl text-gray-400">
-                Building decentralized systems with security, scalability, and performance.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90" asChild>
-                  <Link href="#expertise">
-                    View My Expertise <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-[#4B7F9B] text-[#4B7F9B] hover:bg-[#4B7F9B]/10"
-                  asChild
-                >
-                  <Link
-                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FileText className="mr-2 h-4 w-4" />
-                    View Resume
-                  </Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Code Animation Background */}
-          <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[#000102] to-transparent z-10"></div>
-          <div className="absolute -bottom-4 left-0 right-0 overflow-hidden h-20 opacity-20">
+          <div className="absolute inset-0 overflow-hidden opacity-20">
             <motion.div
               initial={{ y: 0 }}
-              animate={{ y: -400 }}
+              animate={{ y: "-100%" }}
               transition={{
                 repeat: Number.POSITIVE_INFINITY,
-                duration: 20,
+                duration: 60,
                 ease: "linear",
               }}
-              className="text-[#4B7F9B] font-mono text-xs whitespace-pre leading-tight"
+              className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full"
             >
               {`
 function deploySmartContract(bytecode, abi, args) {
@@ -308,7 +262,131 @@ class BlockchainNode {
     return this.web3.eth.getBlock('latest');
   }
 }
-              `}
+
+function createWallet(entropy) {
+  const wallet = ethers.Wallet.createRandom(entropy);
+  return {
+    address: wallet.address,
+    privateKey: wallet.privateKey,
+    mnemonic: wallet.mnemonic.phrase
+  };
+}
+
+async function estimateGas(txData) {
+  try {
+    const gas = await web3.eth.estimateGas(txData);
+    const gasPrice = await web3.eth.getGasPrice();
+    const gasCost = web3.utils.fromWei(
+      (gas * gasPrice).toString(), 
+      'ether'
+    );
+    
+    return {
+      gas,
+      gasPrice,
+      gasCost,
+      totalCost: gasCost
+    };
+  } catch (error) {
+    console.error('Gas estimation failed:', error);
+    throw new Error('Transaction would fail');
+  }
+}
+
+class SmartContractEvent {
+  constructor(contract, eventName) {
+    this.contract = contract;
+    this.eventName = eventName;
+    this.listeners = [];
+  }
+  
+  subscribe(callback) {
+    this.listeners.push(callback);
+    this.contract.events[this.eventName]((error, event) => {
+      if (error) {
+        console.error(\`Event error: \${error}\`);
+        return;
+      }
+      
+      this.listeners.forEach(listener => {
+        listener(event.returnValues);
+      });
+    });
+  }
+  
+  unsubscribe(callback) {
+    this.listeners = this.listeners.filter(
+      listener => listener !== callback
+    );
+  }
+}
+
+async function signMessage(message, privateKey) {
+  const web3 = new Web3();
+  const signature = web3.eth.accounts.sign(
+    message, 
+    privateKey
+  );
+  return signature;
+}
+
+function verifySignature(message, signature, address) {
+  const web3 = new Web3();
+  const recovered = web3.eth.accounts.recover(
+    message,
+    signature
+  );
+  return recovered.toLowerCase() === address.toLowerCase();
+}
+      `}
+            </motion.div>
+          </div>
+
+          {/* Gradient overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/80 via-[#000102]/40 to-[#000102]/80 z-0"></div>
+
+          <div className="container px-4 md:px-6 relative z-10">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeIn}
+              className="max-w-3xl mx-auto text-center space-y-8"
+            >
+              <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-4">
+                <span className="mr-2">$</span>
+                <span className="typing-cursor">{text}</span>
+                <span className="animate-blink">_</span>
+              </div>
+
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none font-mono">
+                <span className="text-[#4B7F9B]">Blockchain</span> Architecture &{" "}
+                <span className="text-[#4B7F9B]">Engineering</span>
+              </h1>
+              <p className="text-xl text-gray-400">
+                Building decentralized systems with security, scalability, and performance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90" asChild>
+                  <Link href="#expertise">
+                    View My Expertise <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-[#4B7F9B] text-[#4B7F9B] hover:bg-[#4B7F9B]/10"
+                  asChild
+                >
+                  <Link
+                    href="https://docs.google.com/document/d/your-resume-id"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FileText className="mr-2 h-4 w-4" />
+                    View Resume
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -602,10 +680,13 @@ class BlockchainNode {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                As a blockchain Engineering Manager in the fintech industry, I built a scalable microservice architecture with a unified gateway aggregating data from 25+ protocols via APIs and managed nodes. This system delivers live and historical blockchain data through a standardized OpenAPI spec of my design. I developed a hybrid infrastructure combining on-premises servers and cloud instances, automating full-node deployments, monitoring performance, and managing upgrades.
+                  With over 10 years in software engineering and 5+ years specializing in blockchain technologies, I've
+                  led teams building cutting-edge decentralized applications and infrastructure.
                 </p>
                 <p className="text-lg text-gray-400">
-                Previously, I managed 200+ cryptocurrency wallets at a major exchange, integrating new layer 1 and layer 2 protocols for seamless transactions. I hold certifications as a Full Stack Web Developer, Certified Blockchain Architect, and Blockchain Developer, with expertise in Blockchain, Staking, Validator Operations, Smart Contracts, DeFi, and Web3.
+                  My career began in traditional backend development before transitioning to distributed systems. When
+                  blockchain emerged, I recognized its transformative potential and pivoted to focus exclusively on this
+                  technology.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
@@ -632,7 +713,7 @@ class BlockchainNode {
                     asChild
                   >
                     <Link
-                      href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
+                      href="https://docs.google.com/document/d/your-resume-id"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
