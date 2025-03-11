@@ -435,12 +435,12 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
-                        <p className="text-gray-400 text-sm">Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos</p>
+                        <p className="text-gray-400 text-sm">Bitcoin, Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
-                        <p className="text-gray-400 text-sm">Express.js, Vercel, OpenApi 3.0, Web3.js, Ethers.js, Axios</p>
+                        <p className="text-gray-400 text-sm">Express.js, Vercel, Web3.js, Ethers.js, Axios, OpenApi 3.0</p>
                       </div>
 
                       <div className="space-y-2">
@@ -463,18 +463,18 @@ function verifySignature(message, signature, address) {
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
-                        <p className="text-gray-400 text-sm">ethers.js, web3.js, Blockchain Node RPC</p>
+                        <h4 className="font-mono text-[#4B7F9B]">Web3/API Integration</h4>
+                        <p className="text-gray-400 text-sm">ethers.js, web3.js, Blockchain Node RPC, Web3 Providers, Axios</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">DApp Development</h4>
-                        <p className="text-gray-400 text-sm">Solidity, Next.js, Node.js, React, TypeScript, state management</p>
+                        <p className="text-gray-400 text-sm">Solidity, Next.js, Node.js, React, TypeScript, State Management, Hardhat, Truffle, Remix</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">UI/UX Design</h4>
-                        <p className="text-gray-400 text-sm">v0.dev, Tailwind, React</p>
+                        <p className="text-gray-400 text-sm">v0.dev, Tailwind, React, ShadCN</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -493,7 +493,7 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Node Infrastructure</h4>
-                        <p className="text-gray-400 text-sm">Validator setup, RPC endpoints, monitoring</p>
+                        <p className="text-gray-400 text-sm">Validator setup, RPC endpoints, monitoring, upgrades</p>
                       </div>
 
                       <div className="space-y-2">
@@ -502,8 +502,8 @@ function verifySignature(message, signature, address) {
                       </div>
 
                       <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Security</h4>
-                        <p className="text-gray-400 text-sm">Key management, audit preparation, compliance</p>
+                        <h4 className="font-mono text-[#4B7F9B]">Tools</h4>
+                        <p className="text-gray-400 text-sm">Docker, Proxmox, Bash, Node.js, Caddy, Grafana, Prometheus</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -841,8 +841,7 @@ function verifySignature(message, signature, address) {
                 <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-2">
                   <span>// contact</span>
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Get In Touch</h2>
-                <p className="text-xl text-gray-400">Interested in collaborating on blockchain projects?</p>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Connect</h2>
               </motion.div>
 
               <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-4 justify-center">
