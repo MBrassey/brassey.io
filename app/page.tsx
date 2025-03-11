@@ -78,34 +78,34 @@ export default function Home() {
   const recommendations = [
     {
       quote:
-        "One of the most technically proficient blockchain engineers I've worked with. Their architecture decisions saved us months of development time.",
-      author: "Sarah Chen",
-      title: "CTO, DeFi Protocol",
-      profileUrl: "https://linkedin.com/in/sarahchen",
+        "Matt has been an integral part of the Wallet Operations team for the last two years and has consistently demonstrated his ability to efficiently manage and maintain complex wallet infrastructure and integrate new blockchain projects. His strong technical knowledge allows him to implement innovative solutions and significantly improve our operational processes.",
+      author: "Artem Tarasov",
+      title: "Lead Engineer, Fintech Industry",
+      profileUrl: "https://www.linkedin.com/in/artem-tarasov-07907091/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
     {
       quote:
-        "Exceptional ability to translate complex blockchain concepts into practical solutions. A true asset to any development team.",
-      author: "Michael Rodriguez",
-      title: "Lead Developer, Ethereum Foundation",
-      profileUrl: "https://linkedin.com/in/michaelrodriguez",
+        "I worked with Matt for two years and it was an absolute pleasure. His work ethic set the bar for the team. He is an outstanding Blockchain Wallet Engineer. He knocked all of his assigned projects out of the park. He is excellent at writing clear and precise technical documentation. Last, but not least, he was always available to troubleshoot issues with fellow engineers no matter what his workload was like at the time.",
+      author: "Scott Sisco",
+      title: "Linux Operations Engineer, Fintech Industry",
+      profileUrl: "https://www.linkedin.com/in/scott-sisco-b079053a/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
     {
       quote:
-        "Their smart contract auditing expertise identified critical vulnerabilities that could have cost us millions. Meticulous and thorough.",
-      author: "Aisha Johnson",
-      title: "Security Lead, Blockchain Security Firm",
-      profileUrl: "https://linkedin.com/in/aishajohnson",
+        "Matt is a hard worker and was able to produce great code in a neat and timely manner. His contributions to our projects were beyond valuable, showing a great understanding of the technologies we used within our full stack web app.",
+      author: "Ryan Brown",
+      title: "Full Stack Web Developer, Startup",
+      profileUrl: "https://www.linkedin.com/in/ryan-brown-83760479/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
     {
       quote:
-        "Not just a developer, but a visionary who understands both the technical and business implications of blockchain technology.",
-      author: "David Park",
-      title: "Founder, Web3 Startup",
-      profileUrl: "https://linkedin.com/in/davidpark",
+        "It was awesome to watch the project come together thanks to Matt's ability to translate wireframed concepts into reality and his deep knowledge of the technologies our app is built upon.",
+      author: "Matthew Ondrovic",
+      title: "Full Stack Web Developer, Startup",
+      profileUrl: "https://www.linkedin.com/in/matthew-ondrovic-a43826131/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
   ]
@@ -378,7 +378,7 @@ function verifySignature(message, signature, address) {
                   asChild
                 >
                   <Link
-                    href="https://docs.google.com/document/d/your-resume-id"
+                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -680,13 +680,10 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                  With over 10 years in software engineering and 5+ years specializing in blockchain technologies, I've
-                  led teams building cutting-edge decentralized applications and infrastructure.
+                As an Engineering Manager for Blockchain Infrastructure, I’ve built a microservice architecture with a unified blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of bare-metal servers and cloud instances. I lead automation of full-node deployments, performance optimization, API integrations, archival storage, and indexing solutions.
                 </p>
                 <p className="text-lg text-gray-400">
-                  My career began in traditional backend development before transitioning to distributed systems. When
-                  blockchain emerged, I recognized its transformative potential and pivoted to focus exclusively on this
-                  technology.
+                I developed real-time Grafana monitoring, custom Node Exporter metrics, and an engineering portal combining live blockchain data with extensive documentation. Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing transactions, and optimizing API servers. With expertise in Staking, Validator Operations, and Web3, I drive innovation in decentralized infrastructure.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
@@ -713,7 +710,7 @@ function verifySignature(message, signature, address) {
                     asChild
                   >
                     <Link
-                      href="https://docs.google.com/document/d/your-resume-id"
+                      href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -767,7 +764,7 @@ function verifySignature(message, signature, address) {
 
               <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90" asChild>
-                  <Link href="mailto:your.email@example.com">
+                  <Link href="mailto:matt@brassey.io">
                     <Mail className="mr-2 h-5 w-5" />
                     Email Me
                   </Link>
@@ -806,15 +803,15 @@ function verifySignature(message, signature, address) {
             © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
           <div className="flex items-center gap-4">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/mbrassey" target="_blank" rel="noopener noreferrer">
               <Github className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
               <span className="sr-only">GitHub</span>
             </Link>
-            <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://linkedin.com/in/mbrassey" target="_blank" rel="noopener noreferrer">
               <Linkedin className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
               <span className="sr-only">LinkedIn</span>
             </Link>
-            <Link href="mailto:your.email@example.com">
+            <Link href="mailto:matt@brassey.io">
               <Mail className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
               <span className="sr-only">Email</span>
             </Link>
