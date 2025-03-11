@@ -434,18 +434,18 @@ function verifySignature(message, signature, address) {
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Blockchain Core</h4>
-                        <p className="text-gray-400 text-sm">Ethereum, Solana, Polkadot, Layer 2 solutions</p>
+                        <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
+                        <p className="text-gray-400 text-sm">Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos.</p>
                       </div>
 
                       <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Smart Contracts</h4>
-                        <p className="text-gray-400 text-sm">Solidity, Rust, ERC standards, security auditing</p>
+                        <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
+                        <p className="text-gray-400 text-sm">Express.js, Vercel, OpenApi 3.0, Web3.js, Ethers.js, Axios.</p>
                       </div>
 
                       <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Consensus</h4>
-                        <p className="text-gray-400 text-sm">PoW, PoS, DPoS, Byzantine fault tolerance</p>
+                        <h4 className="font-mono text-[#4B7F9B]">Hosting Infrastructure</h4>
+                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, AWS EC2, OVHcloud, Azure.</p>
                       </div>
                     </CardContent>
                   </Card>
