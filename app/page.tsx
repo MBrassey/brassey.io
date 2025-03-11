@@ -435,17 +435,17 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
-                        <p className="text-gray-400 text-sm">Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos.</p>
+                        <p className="text-gray-400 text-sm">Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
-                        <p className="text-gray-400 text-sm">Express.js, Vercel, OpenApi 3.0, Web3.js, Ethers.js, Axios.</p>
+                        <p className="text-gray-400 text-sm">Express.js, Vercel, OpenApi 3.0, Web3.js, Ethers.js, Axios</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Hosting Infrastructure</h4>
-                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, AWS EC2, OVHcloud, Azure.</p>
+                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, AWS EC2, OVHcloud, Azure</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -464,17 +464,17 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
-                        <p className="text-gray-400 text-sm">ethers.js, web3.js, wallet integration</p>
+                        <p className="text-gray-400 text-sm">ethers.js, web3.js, Blockchain Node RPC</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">DApp Development</h4>
-                        <p className="text-gray-400 text-sm">React, Next.js, TypeScript, state management</p>
+                        <p className="text-gray-400 text-sm">Solidity, Next.js, Node.js, React, TypeScript, state management</p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">UI/UX Design</h4>
-                        <p className="text-gray-400 text-sm">Responsive interfaces, blockchain data visualization</p>
+                        <p className="text-gray-400 text-sm">v0.dev, Tailwind, React</p>
                       </div>
                     </CardContent>
                   </Card>
