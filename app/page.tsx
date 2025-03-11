@@ -81,7 +81,7 @@ export default function Home() {
       quote:
         "Matt has been an integral part of the Wallet Operations team for the last two years and has consistently demonstrated his ability to efficiently manage and maintain complex wallet infrastructure and integrate new blockchain projects. His strong technical knowledge allows him to implement innovative solutions and significantly improve our operational processes.",
       author: "Artem Tarasov",
-      title: "Lead Engineer, Fintech Industry",
+      title: "Lead Engineer",
       profileUrl: "https://www.linkedin.com/in/artem-tarasov-07907091/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
@@ -89,7 +89,7 @@ export default function Home() {
       quote:
         "I worked with Matt for two years and it was an absolute pleasure. His work ethic set the bar for the team. He is an outstanding Blockchain Wallet Engineer. He knocked all of his assigned projects out of the park. He is excellent at writing clear and precise technical documentation. Last, but not least, he was always available to troubleshoot issues with fellow engineers no matter what his workload was like at the time.",
       author: "Scott Sisco",
-      title: "Linux Operations Engineer, Fintech Industry",
+      title: "Linux Operations Engineer",
       profileUrl: "https://www.linkedin.com/in/scott-sisco-b079053a/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
@@ -97,7 +97,7 @@ export default function Home() {
       quote:
         "Matt is a hard worker and was able to produce great code in a neat and timely manner. His contributions to our projects were beyond valuable, showing a great understanding of the technologies we used within our full stack web app.",
       author: "Ryan Brown",
-      title: "Full Stack Web Developer, Startup",
+      title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/ryan-brown-83760479/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
@@ -105,7 +105,7 @@ export default function Home() {
       quote:
         "It was awesome to watch the project come together thanks to Matt's ability to translate wireframed concepts into reality and his deep knowledge of the technologies our app is built upon.",
       author: "Matthew Ondrovic",
-      title: "Full Stack Web Developer, Startup",
+      title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/matthew-ondrovic-a43826131/",
       image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
     },
