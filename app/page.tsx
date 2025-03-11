@@ -74,13 +74,49 @@ export default function Home() {
     },
   }
 
+  // Recommendations data with manual profile URLs and images
+  const recommendations = [
+    {
+      quote:
+        "One of the most technically proficient blockchain engineers I've worked with. Their architecture decisions saved us months of development time.",
+      author: "Sarah Chen",
+      title: "CTO, DeFi Protocol",
+      profileUrl: "https://linkedin.com/in/sarahchen",
+      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+    },
+    {
+      quote:
+        "Exceptional ability to translate complex blockchain concepts into practical solutions. A true asset to any development team.",
+      author: "Michael Rodriguez",
+      title: "Lead Developer, Ethereum Foundation",
+      profileUrl: "https://linkedin.com/in/michaelrodriguez",
+      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+    },
+    {
+      quote:
+        "Their smart contract auditing expertise identified critical vulnerabilities that could have cost us millions. Meticulous and thorough.",
+      author: "Aisha Johnson",
+      title: "Security Lead, Blockchain Security Firm",
+      profileUrl: "https://linkedin.com/in/aishajohnson",
+      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+    },
+    {
+      quote:
+        "Not just a developer, but a visionary who understands both the technical and business implications of blockchain technology.",
+      author: "David Park",
+      title: "Founder, Web3 Startup",
+      profileUrl: "https://linkedin.com/in/davidpark",
+      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+    },
+  ]
+
   return (
     <div className="flex flex-col min-h-[100dvh] bg-[#000102] text-white">
       <header className="sticky top-0 z-40 w-full border-b border-[#1F1D20] bg-[#000102]/95 backdrop-blur supports-[backdrop-filter]:bg-[#000102]/60">
         <div className="container flex h-16 items-center justify-between">
           <Link className="flex items-center justify-center" href="#">
             <span className="font-mono text-xl">
-              <span className="text-[#4B7F9B]">brassey</span>.io
+              <span className="text-[#4B7F9B]">blockchain</span>.dev
             </span>
           </Link>
 
@@ -194,7 +230,7 @@ export default function Home() {
                   asChild
                 >
                   <Link
-                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
+                    href="https://docs.google.com/document/d/your-resume-id"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -490,32 +526,7 @@ class BlockchainNode {
               </motion.div>
 
               <div className="grid gap-6 md:grid-cols-2">
-                {[
-                  {
-                    quote:
-                      "One of the most technically proficient blockchain engineers I've worked with. Their architecture decisions saved us months of development time.",
-                    author: "Sarah Chen",
-                    title: "CTO, DeFi Protocol",
-                  },
-                  {
-                    quote:
-                      "Exceptional ability to translate complex blockchain concepts into practical solutions. A true asset to any development team.",
-                    author: "Michael Rodriguez",
-                    title: "Lead Developer, Ethereum Foundation",
-                  },
-                  {
-                    quote:
-                      "Their smart contract auditing expertise identified critical vulnerabilities that could have cost us millions. Meticulous and thorough.",
-                    author: "Aisha Johnson",
-                    title: "Security Lead, Blockchain Security Firm",
-                  },
-                  {
-                    quote:
-                      "Not just a developer, but a visionary who understands both the technical and business implications of blockchain technology.",
-                    author: "David Park",
-                    title: "Founder, Web3 Startup",
-                  },
-                ].map((recommendation, index) => (
+                {recommendations.map((recommendation, index) => (
                   <motion.div
                     key={index}
                     variants={slideUp}
@@ -525,15 +536,31 @@ class BlockchainNode {
                     <div className="pt-4 pb-6">
                       <p className="text-gray-300 italic">{recommendation.quote}</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="h-8 w-8 rounded-full bg-[#4B7F9B]/20 flex items-center justify-center text-[#4B7F9B] font-mono text-xs">
-                        {recommendation.author
-                          .split(" ")
-                          .map((name) => name[0])
-                          .join("")}
-                      </div>
+                    <div className="flex items-center gap-3">
+                      {/* Profile Image */}
+                      <Link
+                        href={recommendation.profileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block h-10 w-10 rounded-full overflow-hidden border border-[#4B7F9B]/30 hover:border-[#4B7F9B] transition-colors"
+                      >
+                        <img
+                          src={recommendation.image || "/placeholder.svg"}
+                          alt={`${recommendation.author}'s profile`}
+                          className="h-full w-full object-cover"
+                          width={40}
+                          height={40}
+                        />
+                      </Link>
                       <div>
-                        <p className="font-semibold text-white">{recommendation.author}</p>
+                        <Link
+                          href={recommendation.profileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-semibold text-white hover:text-[#4B7F9B] transition-colors"
+                        >
+                          {recommendation.author}
+                        </Link>
                         <p className="text-sm text-gray-400">{recommendation.title}</p>
                       </div>
                     </div>
@@ -682,7 +709,7 @@ class BlockchainNode {
       <footer className="w-full border-t border-[#1F1D20] py-6">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-gray-500">
-            © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
+            © 2025 <span className="text-[#4B7F9B]">blockchain</span>.dev
           </p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
@@ -703,3 +730,4 @@ class BlockchainNode {
     </div>
   )
 }
+
