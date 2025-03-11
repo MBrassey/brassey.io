@@ -639,14 +639,19 @@ function verifySignature(message, signature, address) {
                       <h3 className="text-lg font-mono text-white">Weekly Coding Stats</h3>
                     </div>
                     <div className="w-full overflow-hidden rounded-md">
-                      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-transparent">
-                        <iframe
-                          src="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/717b03a2-d48e-41de-927b-7f6976b71cad.svg"
-                          className="absolute inset-0 w-full h-full bg-transparent"
-                          frameBorder="0"
-                          title="WakaTime Coding Activity"
-                          style={{ backgroundColor: "transparent" }}
-                        ></iframe>
+                      <div className="relative w-full" style={{ height: "400px" }}>
+                        <object
+                          data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
+                          type="image/svg+xml"
+                          className="absolute inset-0 w-full h-full"
+                          style={{
+                            backgroundColor: "transparent",
+                            maxWidth: "100%",
+                            objectFit: "contain",
+                          }}
+                        >
+                          Coding activity chart
+                        </object>
                       </div>
                     </div>
                     <div className="flex justify-end p-4">
