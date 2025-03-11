@@ -209,7 +209,7 @@ export default function Home() {
         <section className="w-full py-20 md:py-32 lg:py-40 relative overflow-hidden">
           {/* Code Animation Background - Now covers the entire section */}
           <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
-          <div className="absolute inset-0 overflow-hidden opacity-20">
+          <div className="absolute inset-0 overflow-hidden opacity-33">
             <motion.div
               initial={{ y: 0 }}
               animate={{ y: "-100%" }}
@@ -374,7 +374,7 @@ function verifySignature(message, signature, address) {
                 <span className="text-[#4B7F9B]">Engineering</span>
               </h1>
               <p className="text-xl text-gray-400">
-                Building decentralized systems with security, scalability, and performance.
+              Building decentralized infrastructure with blockchain expertise, from node operations to cross-chain data aggregation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90" asChild>
