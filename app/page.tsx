@@ -116,7 +116,7 @@ export default function Home() {
         <div className="container flex h-16 items-center justify-between">
           <Link className="flex items-center justify-center" href="#">
             <span className="font-mono text-xl">
-              <span className="text-[#4B7F9B]">blockchain</span>.dev
+              <span className="text-[#4B7F9B]">brassey</span>.io
             </span>
           </Link>
 
@@ -230,7 +230,7 @@ export default function Home() {
                   asChild
                 >
                   <Link
-                    href="https://docs.google.com/document/d/your-resume-id"
+                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -450,24 +450,28 @@ class BlockchainNode {
                     description: "Decentralized lending platform with automated interest rate adjustments.",
                     tech: ["Solidity", "Ethereum", "React"],
                     image: "/placeholder.svg?height=300&width=500",
+                    demoUrl: "https://defi-lending-demo.example.com",
                   },
                   {
                     title: "NFT Marketplace",
                     description: "High-performance NFT marketplace with royalty enforcement.",
                     tech: ["Rust", "Solana", "Next.js"],
                     image: "/placeholder.svg?height=300&width=500",
+                    demoUrl: "https://nft-marketplace-demo.example.com",
                   },
                   {
                     title: "DAO Governance System",
                     description: "Sophisticated governance framework for decentralized organizations.",
                     tech: ["Solidity", "Polygon", "Vue.js"],
                     image: "/placeholder.svg?height=300&width=500",
+                    demoUrl: "https://dao-governance-demo.example.com",
                   },
                   {
                     title: "Cross-Chain Bridge",
                     description: "Secure bridge for asset transfers between blockchain networks.",
                     tech: ["Rust", "Substrate", "React"],
                     image: "/placeholder.svg?height=300&width=500",
+                    demoUrl: "https://cross-chain-bridge-demo.example.com",
                   },
                 ].map((project, index) => (
                   <motion.div
@@ -475,14 +479,26 @@ class BlockchainNode {
                     variants={slideUp}
                     className="group overflow-hidden rounded-md border border-[#1F1D20] bg-[#1F1D20]/50 backdrop-blur hover:bg-[#1F1D20]/80 transition-all duration-300"
                   >
-                    <div className="aspect-video overflow-hidden border-b border-[#1F1D20]">
-                      <img
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        className="object-cover transition-all duration-500 group-hover:scale-105 h-full w-full"
-                        width={500}
-                        height={300}
-                      />
+                    <div className="aspect-video overflow-hidden border-b border-[#1F1D20] relative group">
+                      <Link
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block w-full h-full"
+                      >
+                        <img
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          className="object-cover transition-all duration-500 group-hover:scale-105 h-full w-full"
+                          width={500}
+                          height={300}
+                        />
+                        <div className="absolute inset-0 bg-[#4B7F9B]/0 group-hover:bg-[#4B7F9B]/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <span className="bg-[#000102]/80 text-white px-3 py-1 rounded-md text-sm font-mono">
+                            View Demo
+                          </span>
+                        </div>
+                      </Link>
                     </div>
                     <div className="p-6 space-y-4">
                       <h3 className="text-xl font-bold font-mono group-hover:text-[#4B7F9B] transition-colors">
@@ -586,13 +602,10 @@ class BlockchainNode {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                  With over 10 years in software engineering and 5+ years specializing in blockchain technologies, I've
-                  led teams building cutting-edge decentralized applications and infrastructure.
+                As a blockchain Engineering Manager in the fintech industry, I built a scalable microservice architecture with a unified gateway aggregating data from 25+ protocols via APIs and managed nodes. This system delivers live and historical blockchain data through a standardized OpenAPI spec of my design. I developed a hybrid infrastructure combining on-premises servers and cloud instances, automating full-node deployments, monitoring performance, and managing upgrades.
                 </p>
                 <p className="text-lg text-gray-400">
-                  My career began in traditional backend development before transitioning to distributed systems. When
-                  blockchain emerged, I recognized its transformative potential and pivoted to focus exclusively on this
-                  technology.
+                Previously, I managed 200+ cryptocurrency wallets at a major exchange, integrating new layer 1 and layer 2 protocols for seamless transactions. I hold certifications as a Full Stack Web Developer, Certified Blockchain Architect, and Blockchain Developer, with expertise in Blockchain, Staking, Validator Operations, Smart Contracts, DeFi, and Web3.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
@@ -619,7 +632,7 @@ class BlockchainNode {
                     asChild
                   >
                     <Link
-                      href="https://docs.google.com/document/d/your-resume-id"
+                      href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -709,7 +722,7 @@ class BlockchainNode {
       <footer className="w-full border-t border-[#1F1D20] py-6">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-gray-500">
-            © 2025 <span className="text-[#4B7F9B]">blockchain</span>.dev
+            © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
           <div className="flex items-center gap-4">
             <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
