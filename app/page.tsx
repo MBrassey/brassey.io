@@ -528,7 +528,7 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Featured Projects</h2>
                 <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                  Blockchain solutions I've architected and delivered
+                  Blockchain solutions & Dapps
                 </p>
               </motion.div>
 
@@ -686,8 +686,8 @@ function verifySignature(message, signature, address) {
                 <div className="inline-block mx-auto bg-[#1F1D20] rounded-lg p-1 px-3 text-xs font-mono text-[#4B7F9B] mb-2">
                   <span>// recommendations</span>
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">What Others Say</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Feedback from colleagues and clients</p>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Feedback</h2>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Testimonials from colleagues and clients</p>
               </motion.div>
 
               <div className="grid gap-6 md:grid-cols-2">
