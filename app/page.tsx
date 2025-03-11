@@ -680,21 +680,27 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                As an Engineering Manager for Blockchain Infrastructure, I’ve built a microservice architecture with a unified blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of bare-metal servers and cloud instances. I lead automation of full-node deployments, performance optimization, API integrations, archival storage, and indexing solutions.
+                As an Engineering Manager for Blueprint, I’ve built a microservice architecture with a unified blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of bare-metal servers and cloud instances. I lead automation of full-node deployments, performance optimization, API integrations, archival storage, and indexing solutions.
                 </p>
                 <p className="text-lg text-gray-400">
-                I developed real-time Grafana monitoring, custom Node Exporter metrics, and an engineering portal combining live blockchain data with extensive documentation. Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing transactions, and optimizing API servers. With expertise in Staking, Validator Operations, and Web3, I drive innovation in decentralized infrastructure.
+                Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing transactions, and optimizing API servers. With expertise in Staking, Validator Operations, and Web3, I drive innovation in decentralized infrastructure.
                 </p>
                 <div className="space-y-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">Core Skills</h3>
                   <div className="flex flex-wrap gap-2">
                     {[
-                      "Blockchain Architecture",
-                      "Smart Contracts",
-                      "System Design",
-                      "Team Leadership",
-                      "Technical Strategy",
-                      "Security",
+"Blockchain Architecture",
+"Node Infrastructure",
+"Smart Contracts",
+"System Design",
+"Team Leadership",
+"Technical Strategy",
+"Security",
+"Microservices Architecture",
+"Full-Node Deployment",
+"Blockchain API Integration",
+"Monitoring & Observability",
+"Staking & Validator Operations"
                     ].map((skill, index) => (
                       <Badge key={index} variant="outline" className="bg-[#1F1D20]/50 border-[#1F1D20] text-gray-300">
                         {skill}
@@ -775,7 +781,7 @@ function verifySignature(message, signature, address) {
                   className="border-[#4B7F9B] text-[#4B7F9B] hover:bg-[#4B7F9B]/10"
                   asChild
                 >
-                  <Link href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                  <Link href="https://www.linkedin.com/in/mbrassey/" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="mr-2 h-5 w-5" />
                     LinkedIn
                   </Link>
@@ -786,7 +792,7 @@ function verifySignature(message, signature, address) {
                   className="border-[#4B7F9B] text-[#4B7F9B] hover:bg-[#4B7F9B]/10"
                   asChild
                 >
-                  <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+                  <Link href="https://github.com/mbrassey" target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-5 w-5" />
                     GitHub
                   </Link>
