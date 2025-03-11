@@ -370,7 +370,7 @@ function verifySignature(message, signature, address) {
               </div>
 
               <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none font-mono">
-                <span className="text-[#4B7F9B]">Blockchain</span> Architecture &{" "}
+                <span className="text-[#4B7F9B]">Blockchain</span> Infrastructure &{" "}
                 <span className="text-[#4B7F9B]">Engineering</span>
               </h1>
               <p className="text-xl text-gray-400">
@@ -549,18 +549,18 @@ function verifySignature(message, signature, address) {
                     demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
                   {
-                    title: "DAO Governance System",
-                    description: "Sophisticated governance framework for decentralized organizations.",
-                    tech: ["Solidity", "Polygon", "Vue.js"],
-                    image: "/placeholder.svg?height=300&width=500",
-                    demoUrl: "https://dao-governance-demo.example.com",
+                    title: "Audius",
+                    description: "Node operator for the decentralized music platform Audius, managing 17 nodes and earning over 13,000 AUDIO tokens weekly by hosting music, images, and media discovery on its Solana-based sidechain.",
+                    tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers"],
+                    image: "/Audius.png?height=300&width=500",
+                    demoUrl: "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
                   },
                   {
-                    title: "Cross-Chain Bridge",
-                    description: "Secure bridge for asset transfers between blockchain networks.",
-                    tech: ["Rust", "Substrate", "React"],
-                    image: "/placeholder.svg?height=300&width=500",
-                    demoUrl: "https://cross-chain-bridge-demo.example.com",
+                    title: "phiSquares",
+                    description: "Explore the aesthetically pleasing placement and orientation of squares using the Golden Ratio, Phi, and the Fibonacci Sequence.",
+                    tech: ["React", "Ethereum", "OpenSea"],
+                    image: "/phiSquares.png?height=300&width=500",
+                    demoUrl: "https://phisquares.io/",
                   },
                 ].map((project, index) => (
                   <motion.div
