@@ -453,13 +453,13 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
                         <p className="text-gray-400 text-sm">
-                          Vercel, Express.js, Web3.js, Ethers.js, Axios, OpenApi 3.0
+                          Vercel, Express.js, Node.js, Web3.js, Ethers.js, Axios, Swagger, OAP 3.0
                         </p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Hosting Infrastructure</h4>
-                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, AWS EC2, OVHcloud, Azure</p>
+                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, Proxmox, AWS EC2, OVHcloud, Azure</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -508,24 +508,22 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                    <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Node Infrastructure</h4>
-                        <p className="text-gray-400 text-sm">Validator setup, RPC endpoints, monitoring, upgrades</p>
-                      </div>
+                  <CardContent className="p-6 space-y-4">
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Infrastructure Management</h4>
+    <p className="text-gray-400 text-sm">Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization, Kubernetes orchestration, High-availability clusters</p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">CI/CD Pipeline</h4>
-                        <p className="text-gray-400 text-sm">Smart contract testing, automated security scanning</p>
-                      </div>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Blockchain Operations</h4>
+    <p className="text-gray-400 text-sm">Full-node deployment, Validator setup, Network upgrades, RPC endpoint configuration, Consensus monitoring, Archival node management, Snapshot automation</p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Tools</h4>
-                        <p className="text-gray-400 text-sm">
-                          Docker, Proxmox, Bash, Node.js, Caddy, Grafana, Prometheus
-                        </p>
-                      </div>
-                    </CardContent>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Monitoring & Observability</h4>
+    <p className="text-gray-400 text-sm">Grafana dashboards, Prometheus metrics, Node Exporter customization, Alert management, Log aggregation, Performance benchmarking, Health checks</p>
+  </div>
+</CardContent>
                   </Card>
                 </motion.div>
               </div>
@@ -651,7 +649,7 @@ function verifySignature(message, signature, address) {
                   <span>// coding-time</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My development activity tracked with VS Code.</p>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My recent development activity tracked with VS Code.</p>
               </motion.div>
 
               <motion.div variants={slideUp} className="w-full">
