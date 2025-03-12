@@ -240,31 +240,6 @@ export default function Home() {
               >
                 Contact <ChevronRight className="h-4 w-4" />
               </Link>
-              <Link
-                className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
-                href="https://github.com/mbrassey"
-                onClick={() => setIsMenuOpen(false)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub <ChevronRight className="h-4 w-4" />
-              </Link>
-              <Link
-                className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
-                href="https://www.linkedin.com/in/mbrassey/"
-                onClick={() => setIsMenuOpen(false)}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn <ChevronRight className="h-4 w-4" />
-              </Link>
-              <Link
-                className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
-                href="mailto:matt@brassey.io"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Email <ChevronRight className="h-4 w-4" />
-              </Link>
             </nav>
           </motion.div>
         )}
