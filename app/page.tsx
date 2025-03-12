@@ -445,7 +445,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
                         <p className="text-gray-400 text-sm">
-                          Bitcoin, Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail,
+                          Bitcoin, Ethereum, Avalanche, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail,
                           Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos
                         </p>
                       </div>
@@ -453,7 +453,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
                         <p className="text-gray-400 text-sm">
-                          Express.js, Vercel, Web3.js, Ethers.js, Axios, OpenApi 3.0
+                          Vercel, Express.js, Web3.js, Ethers.js, Axios, OpenApi 3.0
                         </p>
                       </div>
 
@@ -662,21 +662,23 @@ function verifySignature(message, signature, address) {
                       <h3 className="text-lg font-mono text-white">Monthly Coding Stats</h3>
                     </div>
                     <div className="w-full overflow-hidden">
-                      <div className="relative w-full" style={{ height: "769px", maxWidth: "100%" }}>
-                        <object
-                          data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
-                          type="image/svg+xml"
-                          className="absolute w-full h-full"
-                          style={{
-                            backgroundColor: "transparent",
-                            maxWidth: "1048px",
-                            margin: "0 auto",
-                            left: "0",
-                            right: "0",
-                          }}
-                        >
-                          Coding activity chart
-                        </object>
+                      <div className="relative w-full" style={{ maxWidth: "100%" }}>
+                        <div className="h-[400px] sm:h-[500px] md:h-[600px] lg:h-[769px]">
+                          <object
+                            data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
+                            type="image/svg+xml"
+                            className="absolute w-full h-full"
+                            style={{
+                              backgroundColor: "transparent",
+                              maxWidth: "1048px",
+                              margin: "0 auto",
+                              left: "0",
+                              right: "0",
+                            }}
+                          >
+                            Coding activity chart
+                          </object>
+                        </div>
                       </div>
                     </div>
                     <div className="flex justify-end p-4">
