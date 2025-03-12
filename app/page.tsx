@@ -83,7 +83,7 @@ export default function Home() {
       author: "Artem Tarasov",
       title: "Lead Engineer",
       profileUrl: "https://www.linkedin.com/in/artem-tarasov-07907091/",
-      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+      image: "/artem.jpeg?height=80&width=80", 
     },
     {
       quote:
@@ -91,7 +91,7 @@ export default function Home() {
       author: "Scott Sisco",
       title: "Linux Operations Engineer",
       profileUrl: "https://www.linkedin.com/in/scott-sisco-b079053a/",
-      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+      image: "/scott.jpeg?height=80&width=80", 
     },
     {
       quote:
@@ -99,7 +99,7 @@ export default function Home() {
       author: "Ryan Brown",
       title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/ryan-brown-83760479/",
-      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+      image: "/ryan.jpeg?height=80&width=80", 
     },
     {
       quote:
@@ -107,7 +107,7 @@ export default function Home() {
       author: "Matthew Ondrovic",
       title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/matthew-ondrovic-a43826131/",
-      image: "/placeholder.svg?height=80&width=80", // Replace with actual image path
+      image: "/matthew.jpeg?height=80&width=80", 
     },
   ]
 
@@ -459,7 +459,7 @@ function verifySignature(message, signature, address) {
   <div className="space-y-2">
     <h4 className="font-mono text-[#4B7F9B]">Data Engineering</h4>
     <p className="text-gray-400 text-sm">
-      On-chain data extraction, Block explorers, Transaction indexing, MongoDB/PostgreSQL, Redis caching, Time-series analytics, Real-time metrics, Data archiving strategies
+      On-chain data extraction, Block explorers, MongoDB/MySQL/MsSQL, Redis caching, Time-series analytics, Real-time metrics, Data archiving strategies
     </p>
   </div>
 </CardContent>
