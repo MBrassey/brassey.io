@@ -83,7 +83,7 @@ export default function Home() {
       author: "Artem Tarasov",
       title: "Lead Engineer",
       profileUrl: "https://www.linkedin.com/in/artem-tarasov-07907091/",
-      image: "/artem.jpeg?height=80&width=80", 
+      image: "/artem.jpeg?height=80&width=80",
     },
     {
       quote:
@@ -91,7 +91,7 @@ export default function Home() {
       author: "Scott Sisco",
       title: "Linux Operations Engineer",
       profileUrl: "https://www.linkedin.com/in/scott-sisco-b079053a/",
-      image: "/scott.jpeg?height=80&width=80", 
+      image: "/scott.jpeg?height=80&width=80",
     },
     {
       quote:
@@ -99,7 +99,7 @@ export default function Home() {
       author: "Ryan Brown",
       title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/ryan-brown-83760479/",
-      image: "/ryan.jpeg?height=80&width=80", 
+      image: "/ryan.jpeg?height=80&width=80",
     },
     {
       quote:
@@ -107,7 +107,7 @@ export default function Home() {
       author: "Matthew Ondrovic",
       title: "Full Stack Web Developer",
       profileUrl: "https://www.linkedin.com/in/matthew-ondrovic-a43826131/",
-      image: "/matthew.jpeg?height=80&width=80", 
+      image: "/matthew.jpeg?height=80&width=80",
     },
   ]
 
@@ -207,7 +207,6 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="w-full py-20 md:py-32 lg:py-40 relative overflow-hidden">
-          {/* Grid Pattern Background - Now with higher opacity */}
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             {/* Grid Pattern - Only visible on right side with fade in middle */}
@@ -216,17 +215,20 @@ export default function Home() {
             {/* Code Animation - Only visible on left side */}
             <div className="absolute inset-0 overflow-hidden">
               <div className="absolute inset-0 left-0 right-1/2 overflow-hidden">
-                <motion.div
-                  initial={{ y: 0 }}
-                  animate={{ y: "-100%" }}
-                  transition={{
-                    repeat: Number.POSITIVE_INFINITY,
-                    duration: 60,
-                    ease: "linear",
-                  }}
-                  className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full opacity-30"
-                >
-                  {`
+                <div className="relative h-[200%]">
+                  {/* First copy of the code */}
+                  <motion.div
+                    initial={{ y: 0 }}
+                    animate={{ y: "-50%" }}
+                    transition={{
+                      repeat: Number.POSITIVE_INFINITY,
+                      duration: 60,
+                      ease: "linear",
+                      repeatType: "loop",
+                    }}
+                    className="absolute top-0 left-0 w-full text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight opacity-30"
+                  >
+                    {`
 function deploySmartContract(bytecode, abi, args) {
   const contract = new web3.eth.Contract(abi);
   return contract.deploy({
@@ -356,7 +358,151 @@ function verifySignature(message, signature, address) {
   return recovered.toLowerCase() === address.toLowerCase();
 }
         `}
-                </motion.div>
+                  </motion.div>
+                  {/* Second copy of the code (identical) to create seamless loop */}
+                  <motion.div
+                    initial={{ y: "-50%" }}
+                    animate={{ y: "-100%" }}
+                    transition={{
+                      repeat: Number.POSITIVE_INFINITY,
+                      duration: 60,
+                      ease: "linear",
+                      repeatType: "loop",
+                    }}
+                    className="absolute top-0 left-0 w-full text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight opacity-30"
+                  >
+                    {`
+function deploySmartContract(bytecode, abi, args) {
+  const contract = new web3.eth.Contract(abi);
+  return contract.deploy({
+    data: bytecode,
+    arguments: args
+  }).send({
+    from: account,
+    gas: 1500000,
+    gasPrice: '30000000000'
+  });
+}
+
+async function verifyTransaction(txHash) {
+  const receipt = await web3.eth.getTransactionReceipt(txHash);
+  if (!receipt) return { status: 'pending' };
+  
+  const block = await web3.eth.getBlock(receipt.blockNumber);
+  const confirmations = 
+    await web3.eth.getBlockNumber() - receipt.blockNumber;
+  
+  return {
+    status: receipt.status ? 'confirmed' : 'failed',
+    blockNumber: receipt.blockNumber,
+    timestamp: block.timestamp,
+    confirmations
+  };
+}
+
+class BlockchainNode {
+  constructor(network, nodeUrl) {
+    this.network = network;
+    this.web3 = new Web3(nodeUrl);
+    this.connected = false;
+  }
+  
+  async connect() {
+    try {
+      await this.web3.eth.net.isListening();
+      this.connected = true;
+      console.log(\`Connected to \${this.network}\`);
+      return true;
+    } catch (error) {
+      console.error(\`Failed to connect: \${error.message}\`);
+      return false;
+    }
+  }
+  
+  async getLatestBlock() {
+    if (!this.connected) await this.connect();
+    return this.web3.eth.getBlock('latest');
+  }
+}
+
+function createWallet(entropy) {
+  const wallet = ethers.Wallet.createRandom(entropy);
+  return {
+    address: wallet.address,
+    privateKey: wallet.privateKey,
+    mnemonic: wallet.mnemonic.phrase
+  };
+}
+
+async function estimateGas(txData) {
+  try {
+    const gas = await web3.eth.estimateGas(txData);
+    const gasPrice = await web3.eth.getGasPrice();
+    const gasCost = web3.utils.fromWei(
+      (gas * gasPrice).toString(), 
+      'ether'
+    );
+    
+    return {
+      gas,
+      gasPrice,
+      gasCost,
+      totalCost: gasCost
+    };
+  } catch (error) {
+    console.error('Gas estimation failed:', error);
+    throw new Error('Transaction would fail');
+  }
+}
+
+class SmartContractEvent {
+  constructor(contract, eventName) {
+    this.contract = contract;
+    this.eventName = eventName;
+    this.listeners = [];
+  }
+  
+  subscribe(callback) {
+    this.listeners.push(callback);
+    this.contract.events[this.eventName]((error, event) => {
+      if (error) {
+        console.error(\`Event error: \${error}\`);
+        return;
+      }
+      
+      this.listeners.forEach(listener => {
+        listener(event.returnValues);
+      });
+    });
+  }
+  
+  unsubscribe(callback) {
+    this.listeners = this.listeners.filter(
+      listener => listener !== callback
+    );
+  }
+}
+
+async function signMessage(message, privateKey) {
+  const web3 = new Web3();
+  const signature = web3.eth.accounts.sign(
+    message, 
+    privateKey
+  );
+  return signature;
+}
+
+function verifySignature(message, signature, address) {
+  const web3 = new Web3();
+  const recovered = web3.eth.accounts.recover(
+    message,
+    signature
+  );
+  return recovered.toLowerCase() === address.toLowerCase();
+}
+        `}
+                  </motion.div>
+                </div>
               </div>
             </div>
           </div>
@@ -441,28 +587,32 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                  <CardContent className="p-6 space-y-4">
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Multi-Chain Infrastructure</h4>
-    <p className="text-gray-400 text-sm">
-      EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), ZK chains (Aleo, zkSync), Custom node configuration, Consensus management, Chain data indexing
-    </p>
-  </div>
+                    <CardContent className="p-6 space-y-4">
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Multi-Chain Infrastructure</h4>
+                        <p className="text-gray-400 text-sm">
+                          EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos,
+                          NEAR), ZK chains (Aleo, zkSync), Custom node configuration, Consensus management, Chain data
+                          indexing
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">API & Microservices</h4>
-    <p className="text-gray-400 text-sm">
-      Express/Node.js, OpenAPI specification, RESTful design, GraphQL endpoints, WebSockets, JWT authentication, Rate limiting, API gateways
-    </p>
-  </div>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">API & Microservices</h4>
+                        <p className="text-gray-400 text-sm">
+                          Express/Node.js, OpenAPI specification, RESTful design, GraphQL endpoints, WebSockets, JWT
+                          authentication, Rate limiting, API gateways
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Data Engineering</h4>
-    <p className="text-gray-400 text-sm">
-      On-chain data extraction, Block explorers, MongoDB/MySQL/MsSQL, Redis caching, Time-series analytics, Real-time metrics, Data archiving strategies
-    </p>
-  </div>
-</CardContent>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Data Engineering</h4>
+                        <p className="text-gray-400 text-sm">
+                          On-chain data extraction, Block explorers, MongoDB/MySQL/MsSQL, Redis caching, Time-series
+                          analytics, Real-time metrics, Data archiving strategies
+                        </p>
+                      </div>
+                    </CardContent>
                   </Card>
                 </motion.div>
 
@@ -476,28 +626,31 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                  <CardContent className="p-6 space-y-4">
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
-    <p className="text-gray-400 text-sm">
-      Ethers.js, Web3.js, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF, OpenSea SDK
-    </p>
-  </div>
+                    <CardContent className="p-6 space-y-4">
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
+                        <p className="text-gray-400 text-sm">
+                          Ethers.js, Web3.js, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF,
+                          OpenSea SDK
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Modern Frontend Stack</h4>
-    <p className="text-gray-400 text-sm">
-      React/Next.js, TypeScript, React Hook Form, Vite, Server Components, Incremental Static Regeneration
-    </p>
-  </div>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Modern Frontend Stack</h4>
+                        <p className="text-gray-400 text-sm">
+                          React/Next.js, TypeScript, React Hook Form, Vite, Server Components, Incremental Static
+                          Regeneration
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">UI/UX Architecture</h4>
-    <p className="text-gray-400 text-sm">
-      Tailwind CSS, ShadCN UI, Responsive layouts, Dark mode theming, Animation libraries, v0.dev AI design
-    </p>
-  </div>
-</CardContent>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">UI/UX Architecture</h4>
+                        <p className="text-gray-400 text-sm">
+                          Tailwind CSS, ShadCN UI, Responsive layouts, Dark mode theming, Animation libraries, v0.dev AI
+                          design
+                        </p>
+                      </div>
+                    </CardContent>
                   </Card>
                 </motion.div>
 
@@ -511,22 +664,30 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                  <CardContent className="p-6 space-y-4">
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Infrastructure Management</h4>
-    <p className="text-gray-400 text-sm">Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization</p>
-  </div>
+                    <CardContent className="p-6 space-y-4">
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Infrastructure Management</h4>
+                        <p className="text-gray-400 text-sm">
+                          Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Blockchain Operations</h4>
-    <p className="text-gray-400 text-sm">Full-node deployment, Validator setup, Network upgrades, RPC endpoint configuration, Consensus monitoring, Archival node management, Snapshot automation</p>
-  </div>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Blockchain Operations</h4>
+                        <p className="text-gray-400 text-sm">
+                          Full-node deployment, Validator setup, Network upgrades, RPC endpoint configuration, Consensus
+                          monitoring, Archival node management, Snapshot automation
+                        </p>
+                      </div>
 
-  <div className="space-y-2">
-    <h4 className="font-mono text-[#4B7F9B]">Monitoring & Observability</h4>
-    <p className="text-gray-400 text-sm">Grafana dashboards, Prometheus metrics, Node Exporter customization, Alert management, Log aggregation, Performance benchmarking, Health checks</p>
-  </div>
-</CardContent>
+                      <div className="space-y-2">
+                        <h4 className="font-mono text-[#4B7F9B]">Monitoring & Observability</h4>
+                        <p className="text-gray-400 text-sm">
+                          Grafana dashboards, Prometheus metrics, Node Exporter customization, Alert management, Log
+                          aggregation, Performance benchmarking, Health checks
+                        </p>
+                      </div>
+                    </CardContent>
                   </Card>
                 </motion.div>
               </div>
@@ -554,37 +715,37 @@ function verifySignature(message, signature, address) {
               <div className="grid gap-8 md:grid-cols-2">
                 {[
                   {
+                    title: "Bina",
+                    description:
+                      "Decentralized exchange and blockchain portfolio app with comprehensive user authentication, including Supabase integration, 2FA, password reset, and signup capabilities. Features robust security measures and state management.",
+                    tech: ["React", "Vite", "TypeScript", "Supabase", "2FA", "Redux", "Web3.js"],
+                    image: "/bina.png?height=300&width=500",
+                    demoUrl: "https://bina-demo-omega.vercel.app/",
+                  },
+                  {
                     title: "waviii.io",
                     description:
-                      "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
-                    tech: ["Solidity", "Ethereum", "React", "Web3.js", "Metamask"],
+                      "ERC-20 token platform with integrated wallet and exchange functionality. Features MetaMask integration, real-time price charts, and transaction history tracking. Built with OpenZeppelin and React.",
+                    tech: ["Solidity", "Ethereum", "React", "Web3.js", "MetaMask", "OpenZeppelin", "DeFi"],
                     image: "/waviii.png?height=300&width=500",
                     demoUrl: "https://waviii.io",
                   },
                   {
                     title: "TossUp",
                     description:
-                      "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
-                    tech: ["Solidity", "React", "Web3.js", "IPFS", "Chainlink VRF", "Metamask"],
+                      "Decentralized betting platform using Chainlink's VRF for verifiable randomness. Implements Ethereum smart contracts and IPFS for decentralized storage. Provides trustless gambling experience.",
+                    tech: ["Solidity", "React", "Web3.js", "IPFS", "Chainlink VRF", "MetaMask", "Smart Contracts"],
                     image: "/tossup.png?height=300&width=500",
                     demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
                   {
                     title: "Audius",
                     description:
-                      "Node operator for the decentralized music platform Audius, managing 17 nodes and earning over 13,000 AUDIO tokens weekly by hosting music, images, and media discovery on its Solana-based sidechain.",
-                    tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers"],
+                      "Node operator for decentralized music platform, managing 17 nodes on Solana-based sidechain. Earns 13,000+ AUDIO tokens weekly by hosting music and media content. Supports Web3 music ecosystem.",
+                    tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers", "Web3", "Content Delivery"],
                     image: "/audius.png?height=300&width=500",
                     demoUrl:
                       "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
-                  },
-                  {
-                    title: "phiSquares",
-                    description:
-                      "Explore the aesthetically pleasing placement and orientation of squares using the Golden Ratio, Phi, and the Fibonacci Sequence.",
-                    tech: ["React", "Javascript", "Ethereum", "OpenSea"],
-                    image: "/phiSquares.png?height=300&width=500",
-                    demoUrl: "https://phisquares.io/",
                   },
                 ].map((project, index) => (
                   <motion.div
@@ -637,7 +798,7 @@ function verifySignature(message, signature, address) {
           </div>
         </section>
 
-        {/* New Coding Time Section */}
+        {/* Coding Time Section */}
         <section id="coding-time" className="w-full py-20 bg-[#000102] border-t border-[#1F1D20]">
           <div className="container px-4 md:px-6">
             <motion.div
@@ -652,7 +813,9 @@ function verifySignature(message, signature, address) {
                   <span>// coding-time</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My recent development activity tracked with VS Code.</p>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                  My recent development activity tracked with VS Code.
+                </p>
               </motion.div>
 
               <motion.div variants={slideUp} className="w-full">
@@ -779,11 +942,11 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                  Hi, I'm Matt Brassey. As Engineering Manager @ Blueprint, I've built a microservice architecture with a unified
-                  blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time
-                  and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of
-                  bare-metal servers and cloud instances. I lead automation of full-node deployments, performance
-                  optimization, API integrations, archival storage, and indexing solutions.
+                  Hi, I'm Matt Brassey. As Engineering Manager @ Blueprint, I've built a microservice architecture with
+                  a unified blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers
+                  real-time and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid
+                  infrastructure of bare-metal servers and cloud instances. I lead automation of full-node deployments,
+                  performance optimization, API integrations, archival storage, and indexing solutions.
                 </p>
                 <p className="text-lg text-gray-400">
                   Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing
