@@ -207,20 +207,26 @@ export default function Home() {
 
       <main className="flex-1">
         <section className="w-full py-20 md:py-32 lg:py-40 relative overflow-hidden">
-          {/* Code Animation Background - Now covers the entire section */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-4"></div>
-          <div className="absolute inset-0 overflow-hidden opacity-25">
-            <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: "-100%" }}
-              transition={{
-                repeat: Number.POSITIVE_INFINITY,
-                duration: 60,
-                ease: "linear",
-              }}
-              className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full"
-            >
-              {`
+          {/* Grid Pattern Background - Now with higher opacity */}
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Grid Pattern - Only visible on right side with fade in middle */}
+            <div className="absolute inset-0 bg-grid-pattern opacity-100 bg-gradient-to-l from-100% via-30% to-transparent"></div>
+
+            {/* Code Animation - Only visible on left side */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div className="absolute inset-0 left-0 right-1/2 overflow-hidden">
+                <motion.div
+                  initial={{ y: 0 }}
+                  animate={{ y: "-100%" }}
+                  transition={{
+                    repeat: Number.POSITIVE_INFINITY,
+                    duration: 60,
+                    ease: "linear",
+                  }}
+                  className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full opacity-60"
+                >
+                  {`
 function deploySmartContract(bytecode, abi, args) {
   const contract = new web3.eth.Contract(abi);
   return contract.deploy({
@@ -349,12 +355,14 @@ function verifySignature(message, signature, address) {
   );
   return recovered.toLowerCase() === address.toLowerCase();
 }
-      `}
-            </motion.div>
+        `}
+                </motion.div>
+              </div>
+            </div>
           </div>
 
           {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/70 via-[#000102]/30 to-[#000102]/70 z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/70 via-[#000102]/10 to-[#000102]/70 z-0"></div>
 
           <div className="container px-4 md:px-6 relative z-10">
             <motion.div
@@ -374,7 +382,8 @@ function verifySignature(message, signature, address) {
                 <span className="text-[#4B7F9B]">Engineering</span>
               </h1>
               <p className="text-xl text-gray-400">
-              Building decentralized infrastructure with blockchain expertise, from node operations to cross-chain data aggregation.
+                Building decentralized infrastructure with blockchain expertise, from node operations to cross-chain
+                data aggregation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90" asChild>
@@ -435,12 +444,17 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
-                        <p className="text-gray-400 text-sm">Bitcoin, Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail, Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos</p>
+                        <p className="text-gray-400 text-sm">
+                          Bitcoin, Avalanche, Ethereum, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail,
+                          Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos
+                        </p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
-                        <p className="text-gray-400 text-sm">Express.js, Vercel, Web3.js, Ethers.js, Axios, OpenApi 3.0</p>
+                        <p className="text-gray-400 text-sm">
+                          Express.js, Vercel, Web3.js, Ethers.js, Axios, OpenApi 3.0
+                        </p>
                       </div>
 
                       <div className="space-y-2">
@@ -464,12 +478,16 @@ function verifySignature(message, signature, address) {
                     <CardContent className="p-6 space-y-4">
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Web3/API Integration</h4>
-                        <p className="text-gray-400 text-sm">ethers.js, web3.js, Blockchain Node RPC, Web3 Providers, Axios</p>
+                        <p className="text-gray-400 text-sm">
+                          ethers.js, web3.js, Blockchain Node RPC, Web3 Providers, Axios
+                        </p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">DApp Development</h4>
-                        <p className="text-gray-400 text-sm">Solidity, Next.js, Node.js, React, TypeScript, State Management, Hardhat, Truffle, Remix</p>
+                        <p className="text-gray-400 text-sm">
+                          Solidity, Next.js, Node.js, React, TypeScript, State Management, Hardhat, Truffle, Remix
+                        </p>
                       </div>
 
                       <div className="space-y-2">
@@ -503,7 +521,9 @@ function verifySignature(message, signature, address) {
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Tools</h4>
-                        <p className="text-gray-400 text-sm">Docker, Proxmox, Bash, Node.js, Caddy, Grafana, Prometheus</p>
+                        <p className="text-gray-400 text-sm">
+                          Docker, Proxmox, Bash, Node.js, Caddy, Grafana, Prometheus
+                        </p>
                       </div>
                     </CardContent>
                   </Card>
@@ -527,37 +547,40 @@ function verifySignature(message, signature, address) {
                   <span>// projects</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Featured Projects</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                  Blockchain solutions & Dapps
-                </p>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">Blockchain solutions & Dapps</p>
               </motion.div>
 
               <div className="grid gap-8 md:grid-cols-2">
                 {[
                   {
                     title: "waviii.io",
-                    description: "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
+                    description:
+                      "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
                     tech: ["Solidity", "Ethereum", "React", "Web3.js"],
                     image: "/waviii.io.png?height=300&width=500",
                     demoUrl: "https://waviii.io",
                   },
                   {
                     title: "TossUp",
-                    description: "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
+                    description:
+                      "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
                     tech: ["Solidity", "React", "Web3.js", "Chainlink VRF"],
                     image: "/TossUp.png?height=300&width=500",
                     demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
                   {
                     title: "Audius",
-                    description: "Node operator for the decentralized music platform Audius, managing 17 nodes and earning over 13,000 AUDIO tokens weekly by hosting music, images, and media discovery on its Solana-based sidechain.",
+                    description:
+                      "Node operator for the decentralized music platform Audius, managing 17 nodes and earning over 13,000 AUDIO tokens weekly by hosting music, images, and media discovery on its Solana-based sidechain.",
                     tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers"],
                     image: "/Audius.png?height=300&width=500",
-                    demoUrl: "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
+                    demoUrl:
+                      "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
                   },
                   {
                     title: "phiSquares",
-                    description: "Explore the aesthetically pleasing placement and orientation of squares using the Golden Ratio, Phi, and the Fibonacci Sequence.",
+                    description:
+                      "Explore the aesthetically pleasing placement and orientation of squares using the Golden Ratio, Phi, and the Fibonacci Sequence.",
                     tech: ["React", "Ethereum", "OpenSea"],
                     image: "/phiSquares.png?height=300&width=500",
                     demoUrl: "https://phisquares.io/",
@@ -639,15 +662,17 @@ function verifySignature(message, signature, address) {
                       <h3 className="text-lg font-mono text-white">Weekly Coding Stats</h3>
                     </div>
                     <div className="w-full overflow-hidden">
-                      <div className="relative w-full" style={{ height: "450px", maxWidth: "100%" }}>
+                      <div className="relative w-full" style={{ height: "769px", maxWidth: "100%" }}>
                         <object
                           data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
                           type="image/svg+xml"
-                          className="absolute inset-0 w-full h-full scale-110"
+                          className="absolute w-full h-full"
                           style={{
                             backgroundColor: "transparent",
-                            transform: "scale(1.1)",
-                            transformOrigin: "center center",
+                            maxWidth: "1048px",
+                            margin: "0 auto",
+                            left: "0",
+                            right: "0",
                           }}
                         >
                           Coding activity chart
