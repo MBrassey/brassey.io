@@ -763,12 +763,12 @@ function verifySignature(message, signature, address) {
                     demoUrl: "https://bina-demo-omega.vercel.app/",
                   },
                   {
-                    title: "waviii.io",
+                    title: "Waviii",
                     description:
                       "ERC-20 token platform with integrated wallet and exchange functionality. Features MetaMask integration, real-time price charts, and transaction history tracking. Built with OpenZeppelin and React.",
                     tech: ["Solidity", "Ethereum", "React", "Web3.js", "MetaMask", "OpenZeppelin", "DeFi"],
                     image: "/waviii.png?height=300&width=500",
-                    demoUrl: "https://waviii.io",
+                    demoUrl: "https://waviii.io/",
                   },
                   {
                     title: "TossUp",
@@ -785,7 +785,7 @@ function verifySignature(message, signature, address) {
                     tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers", "Web3", "Content Delivery"],
                     image: "/audius.png?height=300&width=500",
                     demoUrl:
-                      "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
+                      "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B/",
                   },
                 ].map((project, index) => (
                   <motion.div
