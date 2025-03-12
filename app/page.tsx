@@ -479,7 +479,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Web3/API Integration</h4>
                         <p className="text-gray-400 text-sm">
-                          ethers.js, web3.js, Blockchain Node RPC, Web3 Providers, Axios
+                          Ethers.js, Web3.js, Blockchain Node RPC, Web3 Providers, Axios
                         </p>
                       </div>
 
@@ -663,7 +663,7 @@ function verifySignature(message, signature, address) {
                     </div>
                     <div className="w-full overflow-hidden">
                       <div className="relative w-full" style={{ maxWidth: "100%" }}>
-                        <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
+                        <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[769px]">
                           <object
                             data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
                             type="image/svg+xml"
