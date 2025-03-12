@@ -125,19 +125,18 @@
 /* Dev Icons Styling */
 .dev-icons {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   gap: 1.25rem;
   justify-content: center;
   padding: 0;
   margin: 0;
-  max-width: 800px;
 }
 
 .list-inline-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0;
 }
 
 .list-inline-item i {
@@ -162,5 +161,18 @@
   .list-inline-item:hover:after {
     color: #4b7f9b;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
 }
 
