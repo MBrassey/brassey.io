@@ -558,7 +558,7 @@ function verifySignature(message, signature, address) {
                     description:
                       "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
                     tech: ["Solidity", "Ethereum", "React", "Web3.js"],
-                    image: "/waviii.io.png?height=300&width=500",
+                    image: "/waviii.png?height=300&width=500",
                     demoUrl: "https://waviii.io",
                   },
                   {
@@ -566,7 +566,7 @@ function verifySignature(message, signature, address) {
                     description:
                       "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
                     tech: ["Solidity", "React", "Web3.js", "Chainlink VRF"],
-                    image: "/TossUp.png?height=300&width=500",
+                    image: "/tossup.png?height=300&width=500",
                     demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
                   {
@@ -574,7 +574,7 @@ function verifySignature(message, signature, address) {
                     description:
                       "Node operator for the decentralized music platform Audius, managing 17 nodes and earning over 13,000 AUDIO tokens weekly by hosting music, images, and media discovery on its Solana-based sidechain.",
                     tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers"],
-                    image: "/Audius.png?height=300&width=500",
+                    image: "/audius.png?height=300&width=500",
                     demoUrl:
                       "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
                   },
