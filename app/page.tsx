@@ -631,7 +631,7 @@ function verifySignature(message, signature, address) {
                         <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
                         <p className="text-gray-400 text-sm">
                           Ethers.js, Web3.js, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF,
-                          OpenSea SDK
+                          OpenSea SDK, Supabase
                         </p>
                       </div>
 
@@ -720,7 +720,7 @@ function verifySignature(message, signature, address) {
                       "Decentralized exchange and blockchain portfolio app with comprehensive user authentication, including Supabase integration, 2FA, password reset, and signup capabilities. Features robust security measures and state management.",
                     tech: ["React", "Vite", "TypeScript", "Supabase", "2FA", "Redux", "Web3.js"],
                     image: "/bina.png?height=300&width=500",
-                    demoUrl: "https://bina-demo-omega.vercel.app/",
+                    demoUrl: "https://bina-exchange.vercel.app/",
                   },
                   {
                     title: "waviii.io",
@@ -976,6 +976,14 @@ function verifySignature(message, signature, address) {
                     ))}
                   </div>
                 </div>
+                <div className="space-y-3 pt-3">
+                  <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">AI Proficiency</h3>
+                  <p className="text-gray-400">
+                    Years of experience wielding Cursor, GitHub Copilot, Claude, and v0.dev for solving complex computer
+                    science problems with consistent and verifiable AI code generation that is vetted, coherent, and
+                    ready to ship.
+                  </p>
+                </div>
                 <div className="pt-4">
                   <Button
                     variant="outline"
@@ -1017,9 +1025,7 @@ function verifySignature(message, signature, address) {
               </motion.div>
             </motion.div>
           </div>
-        </section>
 
-        <section id="contact" className="w-full py-20 bg-[#1F1D20]/20 border-t border-[#1F1D20]">
           <div className="container px-4 md:px-6">
             <motion.div
               initial="hidden"
@@ -1076,20 +1082,38 @@ function verifySignature(message, signature, address) {
           <p className="text-sm text-gray-500">
             © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
-          <div className="flex items-center gap-4">
-            <Link href="https://github.com/mbrassey" target="_blank" rel="noopener noreferrer">
-              <Github className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
-              <span className="sr-only">GitHub</span>
-            </Link>
-            <Link href="https://linkedin.com/in/mbrassey" target="_blank" rel="noopener noreferrer">
-              <Linkedin className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
-              <span className="sr-only">LinkedIn</span>
-            </Link>
-            <Link href="mailto:matt@brassey.io">
-              <Mail className="h-5 w-5 text-gray-500 hover:text-[#4B7F9B] transition-colors" />
-              <span className="sr-only">Email</span>
-            </Link>
-          </div>
+          <ul className="dev-icons">
+            <li className="list-inline-item" data-name="HTML5">
+              <i className="fab fa-html5"></i>
+            </li>
+            <li className="list-inline-item" data-name="CSS3">
+              <i className="fab fa-css3-alt"></i>
+            </li>
+            <li className="list-inline-item" data-name="Bootstrap">
+              <i className="fab fa-bootstrap"></i>
+            </li>
+            <li className="list-inline-item" data-name="Markdown">
+              <i className="fab fa-markdown"></i>
+            </li>
+            <li className="list-inline-item" data-name="Ethereum">
+              <i className="fab fa-ethereum"></i>
+            </li>
+            <li className="list-inline-item" data-name="JavaScript">
+              <i className="fab fa-js-square"></i>
+            </li>
+            <li className="list-inline-item" data-name="React">
+              <i className="fab fa-react"></i>
+            </li>
+            <li className="list-inline-item" data-name="Node.js">
+              <i className="fab fa-node-js"></i>
+            </li>
+            <li className="list-inline-item" data-name="NPM">
+              <i className="fab fa-npm"></i>
+            </li>
+            <li className="list-inline-item" data-name="Git">
+              <i className="fab fa-git"></i>
+            </li>
+          </ul>
         </div>
       </footer>
     </div>

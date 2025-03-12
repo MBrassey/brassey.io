@@ -6,9 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "brassey.io | Senior Blockchain Engineer",
+  title: "blockchain.dev | Senior Blockchain Engineer",
   description: "Blockchain architecture, smart contracts, and distributed systems",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -18,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+      </head>
       <body className={`${jetbrainsMono.className} dark`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           {children}
@@ -27,6 +29,3 @@ export default function RootLayout({
   )
 }
 
-
-
-import './globals.css'
