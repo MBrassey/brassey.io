@@ -663,7 +663,7 @@ function verifySignature(message, signature, address) {
                     </div>
                     <div className="w-full overflow-hidden">
                       <div className="relative w-full" style={{ maxWidth: "100%" }}>
-                        <div className="h-[400px] sm:h-[500px] md:h-[600px] lg:h-[769px]">
+                        <div className="h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]">
                           <object
                             data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
                             type="image/svg+xml"
