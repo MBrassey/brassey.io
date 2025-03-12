@@ -1083,18 +1083,6 @@ function verifySignature(message, signature, address) {
             © 2025 <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
           <ul className="dev-icons">
-            <li className="list-inline-item" data-name="HTML5">
-              <i className="fab fa-html5"></i>
-            </li>
-            <li className="list-inline-item" data-name="CSS3">
-              <i className="fab fa-css3-alt"></i>
-            </li>
-            <li className="list-inline-item" data-name="Bootstrap">
-              <i className="fab fa-bootstrap"></i>
-            </li>
-            <li className="list-inline-item" data-name="Markdown">
-              <i className="fab fa-markdown"></i>
-            </li>
             <li className="list-inline-item" data-name="Ethereum">
               <i className="fab fa-ethereum"></i>
             </li>

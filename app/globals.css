@@ -126,16 +126,18 @@
 .dev-icons {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1.25rem;
   justify-content: center;
   padding: 0;
   margin: 0;
+  max-width: 800px;
 }
 
 .list-inline-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 0.75rem;
 }
 
 .list-inline-item i {
