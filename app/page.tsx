@@ -441,27 +441,28 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                    <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Blockchain Nodes</h4>
-                        <p className="text-gray-400 text-sm">
-                          Bitcoin, Ethereum, Avalanche, Moonbeam, Polygon, Aleo, Algorand, Aptos, Audius, Avail,
-                          Cardano, Cosmos, Flow, Graph, Near, Polkadot, Solana, Sui, Tezos
-                        </p>
-                      </div>
+                  <CardContent className="p-6 space-y-4">
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Multi-Chain Infrastructure</h4>
+    <p className="text-gray-400 text-sm">
+      EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), ZK chains (Aleo, zkSync), Custom node configuration, Consensus management, Chain data indexing
+    </p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Microservices Architecture</h4>
-                        <p className="text-gray-400 text-sm">
-                          Vercel, Express.js, Node.js, Web3.js, Ethers.js, Axios, Swagger, OAP 3.0
-                        </p>
-                      </div>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">API & Microservices</h4>
+    <p className="text-gray-400 text-sm">
+      Express/Node.js, OpenAPI specification, RESTful design, GraphQL endpoints, WebSockets, JWT authentication, Rate limiting, API gateways
+    </p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Hosting Infrastructure</h4>
-                        <p className="text-gray-400 text-sm">Bare Metal Datacenter, Proxmox, AWS EC2, OVHcloud, Azure</p>
-                      </div>
-                    </CardContent>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Data Engineering</h4>
+    <p className="text-gray-400 text-sm">
+      On-chain data extraction, Block explorers, Transaction indexing, MongoDB/PostgreSQL, Redis caching, Time-series analytics, Real-time metrics, Data archiving strategies
+    </p>
+  </div>
+</CardContent>
                   </Card>
                 </motion.div>
 
@@ -475,26 +476,28 @@ function verifySignature(message, signature, address) {
                   </div>
 
                   <Card className="flex-1 bg-[#1F1D20]/50 backdrop-blur border-[#1F1D20] hover:border-[#4B7F9B]/40 transition-colors">
-                    <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">Web3/API Integration</h4>
-                        <p className="text-gray-400 text-sm">
-                          Ethers.js, Web3.js, Blockchain Node RPC, Web3 Providers, Axios
-                        </p>
-                      </div>
+                  <CardContent className="p-6 space-y-4">
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
+    <p className="text-gray-400 text-sm">
+      Ethers.js, Web3.js, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF, OpenSea SDK
+    </p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">DApp Development</h4>
-                        <p className="text-gray-400 text-sm">
-                          Solidity, Next.js, Node.js, React, TypeScript, State Management, Hardhat, Truffle, Remix
-                        </p>
-                      </div>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">Modern Frontend Stack</h4>
+    <p className="text-gray-400 text-sm">
+      React/Next.js, TypeScript, React Hook Form, Vite, Server Components, Incremental Static Regeneration
+    </p>
+  </div>
 
-                      <div className="space-y-2">
-                        <h4 className="font-mono text-[#4B7F9B]">UI/UX Design</h4>
-                        <p className="text-gray-400 text-sm">v0.dev, Tailwind, React, ShadCN</p>
-                      </div>
-                    </CardContent>
+  <div className="space-y-2">
+    <h4 className="font-mono text-[#4B7F9B]">UI/UX Architecture</h4>
+    <p className="text-gray-400 text-sm">
+      Tailwind CSS, ShadCN UI, Responsive layouts, Dark mode theming, Animation libraries, v0.dev AI design
+    </p>
+  </div>
+</CardContent>
                   </Card>
                 </motion.div>
 
