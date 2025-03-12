@@ -211,7 +211,7 @@ export default function Home() {
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden">
             {/* Grid Pattern - Only visible on right side with fade in middle */}
-            <div className="absolute inset-0 bg-grid-pattern opacity-100 bg-gradient-to-l from-100% via-30% to-transparent"></div>
+            <div className="absolute inset-0 bg-grid-pattern opacity-50 bg-gradient-to-l from-100% via-30% to-transparent"></div>
 
             {/* Code Animation - Only visible on left side */}
             <div className="absolute inset-0 overflow-hidden">
@@ -224,7 +224,7 @@ export default function Home() {
                     duration: 60,
                     ease: "linear",
                   }}
-                  className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full opacity-60"
+                  className="text-[#4B7F9B] font-mono text-xs sm:text-sm whitespace-pre leading-tight w-full opacity-30"
                 >
                   {`
 function deploySmartContract(bytecode, abi, args) {
@@ -362,7 +362,7 @@ function verifySignature(message, signature, address) {
           </div>
 
           {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/70 via-[#000102]/10 to-[#000102]/70 z-0"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000102]/80 via-[#000102]/30 to-[#000102]/80 z-0"></div>
 
           <div className="container px-4 md:px-6 relative z-10">
             <motion.div
@@ -651,7 +651,7 @@ function verifySignature(message, signature, address) {
                   <span>// coding-time</span>
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
-                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My development activity tracked with WakaTime</p>
+                <p className="text-xl text-gray-400 max-w-2xl mx-auto">My development activity tracked with VS Code.</p>
               </motion.div>
 
               <motion.div variants={slideUp} className="w-full">
@@ -659,7 +659,7 @@ function verifySignature(message, signature, address) {
                   <CardContent className="p-0">
                     <div className="flex items-center gap-2 p-4">
                       <Clock className="h-5 w-5 text-[#4B7F9B]" />
-                      <h3 className="text-lg font-mono text-white">Weekly Coding Stats</h3>
+                      <h3 className="text-lg font-mono text-white">Monthly Coding Stats</h3>
                     </div>
                     <div className="w-full overflow-hidden">
                       <div className="relative w-full" style={{ height: "769px", maxWidth: "100%" }}>
