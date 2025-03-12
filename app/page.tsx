@@ -557,7 +557,7 @@ function verifySignature(message, signature, address) {
                     title: "waviii.io",
                     description:
                       "Fully Decentralized ERC-20 Token, Wallet, Exchange & Price Chart - React, Web3js & RESTful API's.",
-                    tech: ["Solidity", "Ethereum", "React", "Web3.js"],
+                    tech: ["Solidity", "Ethereum", "React", "Web3.js", "Metamask"],
                     image: "/waviii.png?height=300&width=500",
                     demoUrl: "https://waviii.io",
                   },
@@ -565,7 +565,7 @@ function verifySignature(message, signature, address) {
                     title: "TossUp",
                     description:
                       "Fully decentralized betting platform using Chainlink's Verifiable Randomness, Ethereum Smartcontracts, IPFS & React.",
-                    tech: ["Solidity", "React", "Web3.js", "Chainlink VRF"],
+                    tech: ["Solidity", "React", "Web3.js", "IPFS", "Chainlink VRF", "Metamask"],
                     image: "/tossup.png?height=300&width=500",
                     demoUrl: "https://mbrassey-toss-up.on.fleek.co/",
                   },
@@ -582,7 +582,7 @@ function verifySignature(message, signature, address) {
                     title: "phiSquares",
                     description:
                       "Explore the aesthetically pleasing placement and orientation of squares using the Golden Ratio, Phi, and the Fibonacci Sequence.",
-                    tech: ["React", "Ethereum", "OpenSea"],
+                    tech: ["React", "Javascript", "Ethereum", "OpenSea"],
                     image: "/phiSquares.png?height=300&width=500",
                     demoUrl: "https://phisquares.io/",
                   },
