@@ -757,7 +757,7 @@ function verifySignature(message, signature, address) {
                   {
                     title: "Bina",
                     description:
-                      "Decentralized exchange and blockchain portfolio app with comprehensive user authentication, including Supabase integration, 2FA, password reset, and signup capabilities. Features robust security measures and state management.",
+                      "Decentralized exchange and blockchain portfolio wrapper with comprehensive user authentication, including Supabase integration, 2FA, password reset, and signup capabilities. Features robust security measures and state management.",
                     tech: ["React", "Vite", "TypeScript", "Supabase", "2FA", "Redux", "Web3.js"],
                     image: "/bina.png?height=300&width=500",
                     demoUrl: "https://bina-demo-omega.vercel.app/",
