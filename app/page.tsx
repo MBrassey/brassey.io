@@ -514,7 +514,7 @@ function verifySignature(message, signature, address) {
                   <CardContent className="p-6 space-y-4">
   <div className="space-y-2">
     <h4 className="font-mono text-[#4B7F9B]">Infrastructure Management</h4>
-    <p className="text-gray-400 text-sm">Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization, Kubernetes orchestration, High-availability clusters</p>
+    <p className="text-gray-400 text-sm">Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization</p>
   </div>
 
   <div className="space-y-2">
@@ -779,7 +779,7 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
-                  As an Engineering Manager for Blueprint, I've built a microservice architecture with a unified
+                  Hi, I'm Matt Brassey. As an Engineering Manager for Blueprint, I've built a microservice architecture with a unified
                   blockchain gateway, aggregating data from managed nodes and third-party APIs. It delivers real-time
                   and historical OpenAPI blockchain data across 25+ protocols, powered by a hybrid infrastructure of
                   bare-metal servers and cloud instances. I lead automation of full-node deployments, performance
@@ -847,7 +847,7 @@ function verifySignature(message, signature, address) {
                     <div className="typing-effect">
                       <span>$ whoami</span>
                       <br />
-                      <span>engineering_manager : blueprint</span>
+                      <span>matt brassey : engineering_manager : blueprint</span>
                     </div>
                   </div>
                 </div>
