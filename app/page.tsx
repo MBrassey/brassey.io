@@ -198,33 +198,6 @@ export default function Home() {
             className="md:hidden border-b border-[#1F1D20]"
           >
             <nav className="container py-4 flex flex-col gap-4">
-              <div className="flex justify-center gap-6 py-3 mb-2 border-b border-[#1F1D20]/50">
-                <Link
-                  href="https://github.com/mbrassey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center text-gray-400 hover:text-[#4B7F9B] transition-colors"
-                >
-                  <Github className="h-5 w-5 mb-1" />
-                  <span className="text-xs">GitHub</span>
-                </Link>
-                <Link
-                  href="https://www.linkedin.com/in/mbrassey/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center text-gray-400 hover:text-[#4B7F9B] transition-colors"
-                >
-                  <Linkedin className="h-5 w-5 mb-1" />
-                  <span className="text-xs">LinkedIn</span>
-                </Link>
-                <Link
-                  href="mailto:matt@brassey.io"
-                  className="flex flex-col items-center text-gray-400 hover:text-[#4B7F9B] transition-colors"
-                >
-                  <Mail className="h-5 w-5 mb-1" />
-                  <span className="text-xs">Email</span>
-                </Link>
-              </div>
               <Link
                 className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
                 href="#expertise"
