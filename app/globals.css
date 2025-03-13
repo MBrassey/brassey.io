@@ -149,6 +149,8 @@
   color: #4b7f9b;
 }
 
+/* Remove the media query that adds titles under icons */
+/* 
 @media (min-width: 768px) {
   .list-inline-item:after {
     content: attr(data-name);
@@ -162,6 +164,7 @@
     color: #4b7f9b;
   }
 }
+*/
 
 @keyframes fadeIn {
   from {
