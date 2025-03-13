@@ -1,0 +1,71 @@
+// simple-redis-connection.js
+const Redis = require('ioredis');
+
+console.log('Loading simplified Redis connection with TLS');
+
+// Basic Redis client with minimal configuration
+const redisClient = new Redis({
+  host: 'redis.theblueprint.xyz',
+  port: 443,
+  password: 'P3k;lkaaaaa!',
+  tls: {
+    rejectUnauthorized: false
+  },
+  connectTimeout: 30000,
+  retryStrategy: function(times) {
+    const delay = Math.min(times * 1000, 30000);
+    console.log(`Redis retry attempt ${times}, delay: ${delay}ms`);
+    return delay;
+  }
+});
+
+// Event handlers
+redisClient.on('connect', () => console.log('Connected to Redis server'));
+redisClient.on('ready', () => console.log('Redis client ready'));
+redisClient.on('error', (err) => console.error('Redis error:', err.message));
+redisClient.on('reconnecting', (delay) => console.log(`Reconnecting in ${delay}ms...`));
+redisClient.on('close', () => console.log('Connection closed'));
+
+// Simple wrapper for basic operations
+const redis = {
+  ping: async () => redisClient.ping(),
+  set: async (key, value) => redisClient.set(key, typeof value === 'string' ? value : JSON.stringify(value)),
+  get: async (key) => {
+    const val = await redisClient.get(key);
+    try { return JSON.parse(val); } catch { return val; }
+  },
+  sadd: async (key, ...members) => redisClient.sadd(key, ...members),
+  smembers: async (key) => redisClient.smembers(key),
+  hset: async (key, object) => {
+    const args = [key];
+    for (const [field, value] of Object.entries(object)) {
+      args.push(field, typeof value === 'string' ? value : JSON.stringify(value));
+    }
+    return redisClient.hset(...args);
+  },
+  hgetall: async (key) => {
+    const obj = await redisClient.hgetall(key);
+    if (obj) {
+      for (const [field, value] of Object.entries(obj)) {
+        try { obj[field] = JSON.parse(value); } catch {}
+      }
+    }
+    return obj;
+  },
+  multi: () => redisClient.multi()
+};
+
+// Simple initialization function
+async function initRedis() {
+  try {
+    await redis.set('redis:test', 'success');
+    const test = await redis.get('redis:test');
+    console.log('Redis connection test:', test === 'success' ? 'Successful' : 'Failed');
+    return test === 'success';
+  } catch (error) {
+    console.error('Redis connection test failed:', error.message);
+    return false;
+  }
+}
+
+module.exports = { redis, redisClient, initRedis };
