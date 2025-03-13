@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Matt Brassey | Blockchain Engineering & Web3 Infrastructure",
+  title: "Matt Brassey | Engineering Manager",
   description: "Expert in EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), ZK chains (Aleo, zkSync). Specialized in custom node configuration, consensus management, chain data indexing, smart contracts, and scalable blockchain API gateways with Node.js, Next.js, Web3.js, and Ethers.js. Engineering at Hivemind Capital & Blueprint.",
 }
 
