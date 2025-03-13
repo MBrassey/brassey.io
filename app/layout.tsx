@@ -7,7 +7,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
   title: "Matt Brassey | Engineering Manager",
-  description: "Senior Blockchain Engineer. Expert in EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), ZK chains (Aleo, zkSync). Specialized in custom node configuration, consensus management, chain data indexing, smart contracts, and scalable blockchain API gateways with Node.js, Next.js, Web3.js, and Ethers.js. Engineering at Hivemind Capital & Blueprint.",
+  description: "Engineering Manager specializing in blockchain infrastructure, multi-chain architecture, and Web3 technology. Expert in EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), and ZK chains (Aleo, zkSync). Specialized in custom node configuration, consensus management, full-node deployments, chain data indexing, and scalable blockchain API gateways with Node.js, Next.js, Web3.js, and Ethers.js. Skilled in microservices, backend architecture, on-chain data analytics, and DevOps, including containerization, cloud provisioning, and observability with Grafana and Prometheus. Experienced in Web3 frontend development with React, TypeScript, Tailwind CSS, and WalletConnect. Engineering at Hivemind Capital & Blueprint.",
 }
 
 export default function RootLayout({
