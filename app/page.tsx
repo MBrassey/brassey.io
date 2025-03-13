@@ -235,7 +235,7 @@ export default function Home() {
               </Link>
               <Link
                 className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
-                href="#about"
+                href="#contact"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact <ChevronRight className="h-4 w-4" />
@@ -984,11 +984,11 @@ function verifySignature(message, signature, address) {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">About Me</h2>
                 <p className="text-lg text-gray-400">
                   Hi, I'm <span className="text-[#4B7F9B]">Matt Brassey</span>. As Engineering Manager @ Blueprint, I've
-                  built a comprehensive microservice architecture with a unified blockchain gateway, aggregating data from managed
-                  nodes and third-party APIs. It delivers real-time and historical blockchain data across 25+
-                  protocols, powered by a hybrid infrastructure of bare-metal servers, cloud instances & Web3 providers. I lead
-                  automation of full-node deployments, monitoring, upgrades, performance optimization, archival storage, and
-                  indexing solutions.
+                  built a comprehensive microservice architecture with a unified blockchain gateway, aggregating data
+                  from managed nodes and third-party APIs. It delivers real-time and historical blockchain data across
+                  25+ protocols, powered by a hybrid infrastructure of bare-metal servers, cloud instances & Web3
+                  providers. I lead automation of full-node deployments, monitoring, upgrades, performance optimization,
+                  archival storage, and indexing solutions.
                 </p>
                 <p className="text-lg text-gray-400">
                   Previously, I managed 200+ wallets at a top exchange, integrating L1 & L2 protocols, securing
