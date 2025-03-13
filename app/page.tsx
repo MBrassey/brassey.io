@@ -803,7 +803,7 @@ function verifySignature(message, signature, address) {
                         <img
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
-                          className="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105"
+                          className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                           width={500}
                           height={300}
                         />
