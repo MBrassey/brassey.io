@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "brassey.io | Engineering Manager",
+  title: "Matt Brassey | Engineering Manager",
   description: "Blockchain infrastructure, smart contracts, and distributed systems",
 }
 
