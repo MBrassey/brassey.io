@@ -1060,7 +1060,7 @@ function verifySignature(message, signature, address) {
                     <div className="typing-effect">
                       <span>$ whoami</span>
                       <br />
-                      <span>matt brassey : engineering_manager : blueprint</span>
+                      <span>matt_brassey : engineering_manager : blueprint</span>
                     </div>
                   </div>
                 </div>
