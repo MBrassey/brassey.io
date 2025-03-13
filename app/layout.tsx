@@ -6,8 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "blockchain.dev | Senior Blockchain Engineer",
-  description: "Blockchain architecture, smart contracts, and distributed systems",
+  title: "brassey.io | Engineering Manager",
+  description: "Blockchain infrastructure, smart contracts, and distributed systems",
 }
 
 export default function RootLayout({

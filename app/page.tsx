@@ -854,7 +854,7 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
                 <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                  My recent development activity tracked with VS Code.
+                  My recent development activity tracked in VS Code.
                 </p>
               </motion.div>
 
