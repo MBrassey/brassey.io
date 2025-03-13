@@ -804,6 +804,7 @@ function verifySignature(message, signature, address) {
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
                           className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
+                          style={{ objectPosition: "center 10%" }}
                           width={500}
                           height={300}
                         />
