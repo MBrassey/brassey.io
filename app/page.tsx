@@ -803,7 +803,7 @@ function verifySignature(message, signature, address) {
                         <img
                           src={project.image || "/placeholder.svg"}
                           alt={project.title}
-                          className="object-cover transition-all duration-500 group-hover:scale-105 h-full w-full"
+                          className="object-contain w-full h-full transition-transform duration-500 group-hover:scale-105"
                           width={500}
                           height={300}
                         />
@@ -854,7 +854,7 @@ function verifySignature(message, signature, address) {
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl font-mono">Coding Activity</h2>
                 <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                  My recent development activity tracked in VS Code.
+                  My recent development activity tracked with VS Code.
                 </p>
               </motion.div>
 
