@@ -235,7 +235,7 @@ export default function Home() {
               </Link>
               <Link
                 className="flex w-full justify-between items-center text-sm font-medium hover:text-[#4B7F9B] transition-colors"
-                href="#contact"
+                href="#about"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact <ChevronRight className="h-4 w-4" />
