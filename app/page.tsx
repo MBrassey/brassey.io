@@ -584,7 +584,7 @@ function verifySignature(message, signature, address) {
                   asChild
                 >
                   <Link
-                    href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
+                    href="https://docs.google.com/document/d/1Dpr80YVKB8gVMqLhfATrwvSWXX9PPRkTcwx9W2EodbM"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -1034,7 +1034,7 @@ function verifySignature(message, signature, address) {
                     asChild
                   >
                     <Link
-                      href="https://docs.google.com/document/d/1T7uHv2RcH_wzERwJKoahqh9ODKdaJ48ci40nKEBViNY"
+                      href="https://docs.google.com/document/d/1Dpr80YVKB8gVMqLhfATrwvSWXX9PPRkTcwx9W2EodbM"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
