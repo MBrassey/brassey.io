@@ -1021,7 +1021,7 @@ function verifySignature(message, signature, address) {
                 <div className="space-y-3 pt-3">
                   <h3 className="text-xl font-bold font-mono text-[#4B7F9B]">AI Proficiency</h3>
                   <p className="text-gray-400">
-                    Years of experience wielding Cursor, GitHub Copilot, Claude, and v0.dev for solving complex computer
+                    Significant experience wielding Cursor, GitHub Copilot, Claude, and v0.dev for solving complex computer
                     science problems with consistent and verifiable AI code generation that is vetted, coherent, and
                     ready to ship.
                   </p>
