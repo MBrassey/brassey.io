@@ -2,8 +2,6 @@
 
 A modern, responsive portfolio website showcasing blockchain infrastructure and engineering expertise. Built with Next.js 15, React 19, and TypeScript.
 
-![brassey.io](public/mbrassey.jpg)
-
 ## 🚀 Live Site
 
 Visit the live site at [brassey.io](https://brassey.io)
