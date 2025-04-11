@@ -671,14 +671,14 @@ function verifySignature(message, signature, address) {
                         <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
                         <p className="text-gray-400 text-sm">
                           Ethers.js, Web3.js, Wagmi, Alchemy SDK, OnchainKit, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF,
-                          OpenSea SDK, Supabase
+                          OpenSea SDK, Supabase, Alchemy/Quicknode RPC providers
                         </p>
                       </div>
 
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Modern Frontend Stack</h4>
                         <p className="text-gray-400 text-sm">
-                          Next.js, React, TypeScript, React Hook Form, TanStack Query, Server Components, Incremental Static
+                          Next.js, React, TypeScript, React Hook Form, TanStack Query, Vite, Server Components, Incremental Static
                           Regeneration
                         </p>
                       </div>
@@ -708,7 +708,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Infrastructure Management</h4>
                         <p className="text-gray-400 text-sm">
-                          Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization
+                          Bare-metal servers, Cloud provisioning, Proxmox virtualization, Docker containerization, Physical, Docker & Cloud based Networking
                         </p>
                       </div>
 
