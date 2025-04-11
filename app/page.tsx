@@ -631,7 +631,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Multi-Chain Infrastructure</h4>
                         <p className="text-gray-400 text-sm">
-                          EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos,
+                          EVM chains (Ethereum, Base, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos,
                           NEAR), ZK chains (Aleo, zkSync), Custom node configuration, Consensus management, Chain data
                           indexing
                         </p>
@@ -670,7 +670,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Web3 Integration</h4>
                         <p className="text-gray-400 text-sm">
-                          Ethers.js, Web3.js, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF,
+                          Ethers.js, Web3.js, Wagmi, Alchemy SDK, OnchainKit, WalletConnect, MetaMask SDK, IPFS/Filecoin, The Graph, Chainlink VRF,
                           OpenSea SDK, Supabase
                         </p>
                       </div>
@@ -678,7 +678,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">Modern Frontend Stack</h4>
                         <p className="text-gray-400 text-sm">
-                          React/Next.js, TypeScript, React Hook Form, Vite, Server Components, Incremental Static
+                          Next.js, React, TypeScript, React Hook Form, TanStack Query, Server Components, Incremental Static
                           Regeneration
                         </p>
                       </div>
@@ -686,7 +686,7 @@ function verifySignature(message, signature, address) {
                       <div className="space-y-2">
                         <h4 className="font-mono text-[#4B7F9B]">UI/UX Architecture</h4>
                         <p className="text-gray-400 text-sm">
-                          Tailwind CSS, ShadCN UI, Responsive layouts, Dark mode theming, Animation libraries, v0.dev AI
+                          Tailwind CSS, ShadCN UI, Radix UI, Responsive layouts, Dark mode theming, Animation libraries, v0.dev AI
                           design
                         </p>
                       </div>
@@ -755,12 +755,12 @@ function verifySignature(message, signature, address) {
               <div className="grid gap-8 md:grid-cols-2">
                 {[
                   {
-                    title: "Bina",
+                    title: "Base",
                     description:
-                      "Decentralized exchange and blockchain portfolio wrapper with comprehensive user authentication, including Supabase integration, 2FA, password reset, and signup capabilities. Features robust security measures and state management.",
-                    tech: ["React", "Vite", "TypeScript", "Supabase", "2FA", "Redux", "Web3.js"],
-                    image: "/bina.png?height=300&width=500",
-                    demoUrl: "https://bina-demo-omega.vercel.app/",
+                      "Web3 dashboard for Base blockchain with comprehensive wallet connectivity including MetaMask, Coinbase, and WalletConnect. Features NFT gallery, OnchainKit identity resolution, token balances, and ENS-compatible name resolution built with Next.js, React, and TypeScript.",
+                    tech: ["Next.js", "React", "TypeScript", "Wagmi", "Alchemy SDK", "TailwindCSS", "OnchainKit"],
+                    image: "/base.png?height=300&width=500",
+                    demoUrl: "https://base.brassey.io/",
                   },
                   {
                     title: "Waviii",
