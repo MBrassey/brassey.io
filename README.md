@@ -2,11 +2,11 @@
 
 A modern, responsive portfolio website showcasing blockchain infrastructure and engineering expertise. Built with Next.js 15, React 19, and TypeScript.
 
-## 🚀 Live Site
+## Live Site
 
 Visit the live site at [brassey.io](https://brassey.io)
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core Framework
 - **Next.js 15**: Modern React framework with App Router for server components and routing
@@ -68,7 +68,7 @@ Visit the live site at [brassey.io](https://brassey.io)
 - **Tailwind CSS plugins**: Additional Tailwind functionality
 - **PostCSS**: CSS transformer
 
-## 🏗️ Architecture
+## Architecture
 
 The website follows the modern Next.js App Router architecture:
 
@@ -92,7 +92,7 @@ lib/                  # Utility functions and shared logic
 hooks/                # Custom React hooks
 ```
 
-## 📱 Features
+## Features
 
 - **Responsive Design**: Mobile-first approach for all screen sizes
 - **Dark Mode**: Default dark theme with custom styling
@@ -103,7 +103,7 @@ hooks/                # Custom React hooks
 - **SEO Optimized**: Meta tags and structured data for search engines
 - **Performance Optimized**: Fast load times and optimized assets
 
-## 🖼️ Projects Showcase
+## Projects Showcase
 
 The website features several blockchain projects:
 
@@ -112,7 +112,7 @@ The website features several blockchain projects:
 3. **TossUp**: Decentralized betting platform using Chainlink VRF
 4. **Audius**: Node operator for decentralized music platform
 
-## 🚀 Deployment
+## Deployment
 
 The website is deployed on Vercel, leveraging:
 
@@ -121,7 +121,7 @@ The website is deployed on Vercel, leveraging:
 - **Analytics**: Performance and usage metrics
 - **Domain Management**: Custom domain with SSL
 
-## 📈 Performance
+## Performance
 
 The website is optimized for performance:
 
@@ -130,7 +130,7 @@ The website is optimized for performance:
 - **Code Splitting**: Only load what's necessary
 - **Asset Optimization**: Compressed images and optimized fonts
 
-## 🧰 DevOps Integration
+## DevOps Integration
 
 The project implements modern DevOps practices:
 
@@ -139,7 +139,7 @@ The project implements modern DevOps practices:
 - **Infrastructure as Code**: Deployment configuration
 - **Monitoring**: Performance and error tracking
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -173,11 +173,11 @@ The project implements modern DevOps practices:
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-## 📝 License
+## License
 
 This project is proprietary and owned by Matt Brassey.
 
-## 👨‍💻 Author
+## Author
 
 **Matt Brassey** - Engineering Manager specializing in blockchain infrastructure and Web3 technology.
 
