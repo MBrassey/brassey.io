@@ -757,7 +757,7 @@ function verifySignature(message, signature, address) {
                   {
                     title: "Base",
                     description:
-                      "Web3 dashboard for Base blockchain with comprehensive wallet connectivity including MetaMask, Coinbase, and WalletConnect. Features NFT gallery, OnchainKit identity resolution, token balances, and ENS-compatible name resolution built with Next.js, React, and TypeScript.",
+                      "Web3 dashboard for Base blockchain with comprehensive wallet connectivity including MetaMask, Coinbase, and WalletConnect. Features NFT gallery, OnchainKit identity & socials resolution, token balances, and ENS-compatible name resolution built with Next.js, React, and TypeScript.",
                     tech: ["Next.js", "React", "TypeScript", "Wagmi", "Alchemy SDK", "TailwindCSS", "OnchainKit"],
                     image: "/base.png?height=300&width=500",
                     demoUrl: "https://base.brassey.io/",
