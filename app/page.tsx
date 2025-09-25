@@ -785,7 +785,7 @@ function verifySignature(message, signature, address) {
                     tech: ["Node Operation", "Ethereum", "Solana", "Bare Metal Servers", "Web3", "Content Delivery"],
                     image: "/audius.png?height=300&width=500",
                     demoUrl:
-                      "https://dashboard-audius-org.ipns.dweb.link/#/nodes/operator/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B/",
+                      "https://dashboard.audius.org/nodes#/nodes/user/0x68f656d19AC6d14dF209B1dd6E543b2E81d53D7B",
                   },
                 ].map((project, index) => (
                   <motion.div
