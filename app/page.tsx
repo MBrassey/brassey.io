@@ -208,16 +208,15 @@ const experience = [
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
-      "Lead for blockchain infrastructure at Blueprint, a Hivemind Capital venture startup specializing in blockchain services. Personally designed and built the entire backend for the flagship blockchain wallet portfolio and financial analytics product.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, and Canton — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Designed and implemented robust microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via standardized OpenAPI specification",
-      "Orchestrated creation and oversight of comprehensive blockchain infrastructure — design, testing, and deployment of fleets of full nodes and profitable validators across multiple protocols",
-      "Operation of profitable mainnet validators for several distinct L1s with $500M+ AUM",
-      "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival Ethereum/Avalanche/Algorand from cloud to bare-metal",
-      "Developed custom Node Exporter and Grafana metrics for real-time visibility into peer count, block height, validator version, uptime, and resource utilization",
+      "Operating profitable mainnet validator fleets across 6 distinct L1s with $500M+ AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), and Canton",
+      "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
+      "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
+      "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
+      "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
       "Created custom ETH2 indexer using Redis for bidirectional mapping between ETH1 deposit addresses and ETH2 validator public keys",
-      "Developed AWS launch templates for 10+ blockchain nodes with unique specifications",
-      "Built CC Ledger (Canton DApp) and Solentic — the first agent-facing Solana staking platform",
+      "Built CC Ledger (15 REST endpoints, 15 MCP tools for Canton) and Solentic (30 REST endpoints, 26 MCP tools — the first agent-facing Solana staking platform)",
     ],
   },
   {
