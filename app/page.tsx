@@ -206,7 +206,7 @@ const experience = [
     title: "Engineering Manager",
     company: "Blueprint, inc (hivemind.capital venture)",
     location: "Remote | NYC, NY",
-    period: "2023 — 2025",
+    period: "2023 — Present",
     description:
       "Lead for blockchain infrastructure at Blueprint, a Hivemind Capital venture startup specializing in blockchain services. Personally designed and built the entire backend for the flagship blockchain wallet portfolio and financial analytics product.",
     highlights: [
@@ -1651,7 +1651,7 @@ export default function Home() {
       <footer className="border-t border-[#1F1D20] py-8">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-slate-600">
-            &copy; 2025 <span className="text-[#4B7F9B]">brassey</span>.io
+            &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
           <ul className="dev-icons">
             <li className="list-inline-item"><i className="fab fa-ethereum"></i></li>
