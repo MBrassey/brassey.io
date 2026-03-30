@@ -6,8 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider"
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
 export const metadata = {
-  title: "Matt Brassey | Engineering Manager",
-  description: "Engineering Manager specializing in blockchain infrastructure, multi-chain architecture, and Web3 technology. Expert in EVM chains (Ethereum, Polygon, Avalanche, Arbitrum), L1 protocols (Solana, Cardano, Cosmos, NEAR), and ZK chains (Aleo, zkSync). Specialized in custom node configuration, consensus management, full-node deployments, chain data indexing, and scalable blockchain API gateways with Node.js, Next.js, Web3.js, and Ethers.js. Skilled in microservices, backend architecture, on-chain data analytics, and DevOps, including containerization, cloud provisioning, and observability with Grafana and Prometheus. Experienced in Web3 frontend development with React, TypeScript, Tailwind CSS, and WalletConnect. Engineering at Hivemind Capital & Blueprint. Brassey, Matt Brassey, Matthew Brassey, Matthew A. Brassey. Brassey.Crypto, Bitcoin, Ethereum.",
+  title: "Matt Brassey | Blockchain Infrastructure Architect & Engineering Manager",
+  description:
+    "Engineering Manager and Blockchain Infrastructure Architect with 15+ years of DevOps expertise and 5+ years in blockchain. Operating 40+ validators across Solana, Ethereum, Avalanche, Audius, and Algorand. Leading AI-augmented development at Blueprint Infrastructure. Specializing in validator operations, multi-chain architecture, staking infrastructure, and decentralized systems. Matt Brassey, Matthew Brassey, Brassey.Crypto.",
 }
 
 export default function RootLayout({
@@ -18,14 +19,21 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
       </head>
-      <body className={`${jetbrainsMono.className} dark`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
+      <body className={`${jetbrainsMono.className} dark`} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>
     </html>
   )
 }
-
