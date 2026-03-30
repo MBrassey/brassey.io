@@ -28,6 +28,7 @@ import {
   X,
   Zap,
 } from "lucide-react"
+import CountUp from "react-countup"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -430,26 +431,12 @@ function AnimatedCounter({
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true })
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!isInView) return
-    const duration = 2000
-    const start = Date.now()
-    const tick = () => {
-      const progress = Math.min((Date.now() - start) / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setCount(Math.floor(eased * end))
-      if (progress < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [isInView, end])
 
   return (
     <div ref={ref} className="text-center">
       <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4B7F9B]">
         {prefix}
-        {count}
+        <CountUp start={0} end={isInView ? end : 0} duration={2.5} separator="," useEasing enableScrollSpy scrollSpyOnce />
         {suffix}
       </div>
       <div className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-[0.2em]">{label}</div>
@@ -643,16 +630,43 @@ const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
+    transition: { staggerChildren: 0.1 },
   },
 }
 
 const slideUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5 },
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+  },
+}
+
+const slideInLeft = {
+  hidden: { opacity: 0, x: -40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+  },
+}
+
+const slideInRight = {
+  hidden: { opacity: 0, x: 40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+  },
+}
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
   },
 }
 
@@ -824,7 +838,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5"
             >
               <span className="status-dot" style={{ width: 6, height: 6 }} />
-              <span className="text-emerald-400 text-xs tracking-wider">ALL SYSTEMS OPERATIONAL</span>
+              <span className="text-emerald-400 text-xs tracking-wider">50+ VALIDATORS ONLINE</span>
             </motion.div>
 
             <motion.h1
@@ -911,14 +925,14 @@ export default function Home() {
         <section className="relative py-20">
           <div className="section-divider" />
           <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-12">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col md:flex-row items-center gap-8 md:gap-12"
-            >
-              <div className="relative flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+              <motion.div
+                initial={{ opacity: 0, x: -40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative flex-shrink-0"
+              >
                 <div className="w-56 h-56 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-[#4B7F9B]/20 shadow-[0_0_40px_rgba(75,127,155,0.1)]">
                   <img
                     src="/mbrassey.jpg"
@@ -936,9 +950,15 @@ export default function Home() {
                     <div className="text-[#4B7F9B]/60">matt_brassey : eng_manager_staking : blueprint</div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="text-center md:text-left space-y-4">
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                className="text-center md:text-left space-y-4"
+              >
                 <p className="text-slate-300 text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
@@ -969,8 +989,8 @@ export default function Home() {
                     <Mail className="h-5 w-5" />
                   </Link>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
@@ -1088,7 +1108,7 @@ export default function Home() {
               </motion.div>
 
               <div className="grid lg:grid-cols-2 gap-8">
-                <motion.div variants={slideUp} className="space-y-6">
+                <motion.div variants={slideInLeft} className="space-y-6">
                   <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
@@ -1126,7 +1146,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideUp}>
+                <motion.div variants={slideInRight}>
                   <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden h-full flex flex-col">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
@@ -1410,7 +1430,7 @@ export default function Home() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {projects.map((project, i) => (
-                  <motion.div key={i} variants={slideUp}>
+                  <motion.div key={i} variants={scaleIn}>
                     <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block group">
                       <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full space-y-4">
                         <div className="flex items-start justify-between">
@@ -1464,7 +1484,7 @@ export default function Home() {
                 {certifications.map((cert, i) => (
                   <motion.div
                     key={i}
-                    variants={slideUp}
+                    variants={scaleIn}
                     className="cert-card p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur text-center space-y-3"
                   >
                     <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
