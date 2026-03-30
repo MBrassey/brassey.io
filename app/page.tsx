@@ -236,11 +236,11 @@ const experience = [
   },
   {
     title: "Operations Center Administrator",
-    company: "Taos, an IBM company (at IBM Entertainment)",
+    company: "Taos, an IBM company",
     location: "Remote | Culver City, CA",
     period: "2015 — 2021",
     description:
-      "Lead Systems Administrator at IBM Entertainment via Taos/IBM (MSP). Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
+      "Lead Systems Administrator via Taos/IBM (MSP). Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
     highlights: [
       "Effective contributor to Ansible codebase via GitHub Enterprise for daily continuous integration",
       "Maintained 98+% security compliance across over 900 Windows/Unix systems",
