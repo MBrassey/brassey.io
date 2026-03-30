@@ -942,11 +942,13 @@ export default function Home() {
                 <p className="text-slate-300 text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
-                  <span className="text-[#4B7F9B]">Hivemind Capital</span> venture. I&apos;ve designed and built a robust
-                  microservice architecture with a unified blockchain gateway that aggregates data from managed nodes
-                  and third-party APIs &mdash; delivering accurate live and historical block, balance, staked balance,
-                  NFT balance, and transaction data across 25+ protocols through a standardized OpenAPI spec of my
-                  design. I built the hybrid bare-metal and cloud infrastructure from the ground up to power it all.
+                  <span className="text-[#4B7F9B]">Hivemind Capital</span> venture. I operate and maintain profitable
+                  validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, and Canton &mdash; 50+ nodes
+                  with $500M+ AUM. I built the hybrid bare-metal and cloud infrastructure from the ground up, designed
+                  a unified blockchain gateway across 25+ protocols, and created deploy, upgrade, and resync primitives
+                  that enable AI agents to manage validator operations. With 16 years of engineering experience I wield
+                  Claude Code and OpenClaw as a 1000x developer &mdash; the hard-won wisdom to architect production
+                  systems at scale, combined with cutting-edge AI tooling to ship them in days instead of months.
                 </p>
                 <div className="flex gap-4 justify-center md:justify-start">
                   <Link
