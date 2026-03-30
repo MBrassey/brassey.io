@@ -1269,7 +1269,7 @@ export default function Home() {
 
               <div className="space-y-8">
                 {experience.map((role, i) => (
-                  <motion.div key={i} variants={slideUp} className="relative pl-8 sm:pl-10">
+                  <motion.div key={i} variants={slideUp} className="relative pl-8 sm:pl-10 group">
                     <div className="absolute left-0 top-1 w-10 flex justify-center">
                       <div className="w-3 h-3 rounded-full bg-[#4B7F9B]/30 border-2 border-[#4B7F9B] shadow-[0_0_12px_rgba(34,211,238,0.3)]" />
                     </div>
@@ -1286,7 +1286,7 @@ export default function Home() {
                           <p className="text-[#4B7F9B] text-sm">{role.company}</p>
                           <p className="text-slate-600 text-xs">{role.location}</p>
                         </div>
-                        <span className="text-sm text-slate-500 font-mono mt-1 md:mt-0 flex-shrink-0">
+                        <span className="text-sm text-slate-500 font-mono mt-1 md:mt-0 flex-shrink-0 transition-colors group-hover:text-[#4B7F9B]">
                           {role.period}
                         </span>
                       </div>
