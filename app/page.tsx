@@ -56,6 +56,7 @@ interface InfraNode {
   links?: { label: string; url: string }[]
   metric?: string
   count?: number
+  logo?: string
 }
 
 const infrastructureNodes: InfraNode[] = [
@@ -63,6 +64,7 @@ const infrastructureNodes: InfraNode[] = [
     name: "Solana Firedancer Validator",
     network: "Solana",
     type: "Validator",
+    logo: "/logos/solana.svg",
     description:
       "High-performance bare-metal validator running Firedancer client. AMD EPYC 9654 (96 cores, 192 threads), 768GB DDR5, dual 3.84TB NVMe, 10Gbps dedicated.",
     links: [
@@ -75,8 +77,9 @@ const infrastructureNodes: InfraNode[] = [
     name: "Ethereum Whale Validators",
     network: "Ethereum",
     type: "Validator",
+    logo: "/logos/ethereum.svg",
     description:
-      "Two enterprise-grade beacon chain validators with MEV boost. Running Geth execution client, Prysm beacon chain client, and Prysm validator client.",
+      "Two enterprise-grade beacon chain validators with MEV boost. Running Besu execution client and Teku consensus/validator client.",
     links: [
       { label: "Validator 1", url: "https://beaconcha.in/validator/0xa2397591c0af340e609253f2a18296e5a5a92895a5018871e907a693743f303a0e7d756caa889a471e04ea8ff438c0fe" },
       { label: "Validator 2", url: "https://beaconcha.in/validator/0x9869101897319059e08373a1980da6d0eff082a40eab64ae144cb31baab6122f6de15ee91ed71bd4e2a620a8f4ca5046" },
@@ -87,6 +90,7 @@ const infrastructureNodes: InfraNode[] = [
     name: "Avalanche Validators",
     network: "Avalanche",
     type: "Validator",
+    logo: "/logos/avalanche.svg",
     description:
       "Fleet of 8 Avalanche validators under infrastructure contract with Hivemind Capital Partners. Operating and maintaining all validators that the AVAX One treasury stakes to for rewards. Supporting 13.9M+ AVAX holdings.",
     links: [
@@ -107,6 +111,7 @@ const infrastructureNodes: InfraNode[] = [
     name: "Audius Validators",
     network: "Audius",
     type: "Validator",
+    logo: "/logos/audius.svg",
     description:
       "17-node validator fleet supporting the decentralized music platform. Hosting media content and earning 13,000+ AUDIO tokens weekly.",
     links: [
@@ -119,6 +124,7 @@ const infrastructureNodes: InfraNode[] = [
     name: "Algorand Participation Nodes",
     network: "Algorand",
     type: "Participation",
+    logo: "/logos/algorand.svg",
     description:
       "Four participation nodes contributing to Algorand's Pure Proof-of-Stake consensus mechanism and network security.",
     links: [
@@ -133,20 +139,11 @@ const infrastructureNodes: InfraNode[] = [
     name: "Canton Validator",
     network: "Canton",
     type: "Validator",
+    logo: "/logos/canton.svg",
     description:
       "Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets.",
     links: [
       { label: "CantonScan", url: "https://www.cantonscan.com/party/blueprint-validator-1::1220daab58adcae026bd2ca7ad95014f678bda3ce2a6f91b744cf3ec3d87f09deeac" },
-    ],
-  },
-  {
-    name: "Chainlink Operator",
-    network: "Ethereum",
-    type: "Oracle Node",
-    description:
-      "Chainlink oracle node operator providing decentralized data feeds to smart contracts on Ethereum.",
-    links: [
-      { label: "GitHub", url: "https://github.com/MBrassey/chainlink" },
     ],
   },
 ]
@@ -239,11 +236,11 @@ const experience = [
   },
   {
     title: "Operations Center Administrator",
-    company: "Taos, an IBM company (at Sony Pictures Entertainment)",
+    company: "Taos, an IBM company (at IBM Entertainment)",
     location: "Remote | Culver City, CA",
     period: "2015 — 2021",
     description:
-      "Lead Systems Administrator at Sony Pictures Entertainment via Taos/IBM (MSP). Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
+      "Lead Systems Administrator at IBM Entertainment via Taos/IBM (MSP). Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
     highlights: [
       "Effective contributor to Ansible codebase via GitHub Enterprise for daily continuous integration",
       "Maintained 98+% security compliance across over 900 Windows/Unix systems",
@@ -696,7 +693,7 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-[#000102] text-slate-200 scan-lines">
+    <div className="min-h-screen bg-[#000102] text-slate-200 scan-lines overflow-x-hidden">
       <ParticleNetwork />
 
       {/* ==================== ORBITAL NAV ==================== */}
@@ -820,7 +817,7 @@ export default function Home() {
       <main>
         {/* ==================== HERO ==================== */}
         <section id="hero" className="relative min-h-screen flex items-center justify-center pt-14">
-          <div className="absolute inset-0 grid-bg" />
+          <div className="absolute inset-0 grid-bg" style={{ maskImage: "linear-gradient(to right, transparent 20%, black 80%)", WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 80%)" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-[#000102] via-transparent to-[#000102]" />
 
           {/* Claude Code streaming diff background */}
@@ -830,7 +827,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 container px-4 md:px-6 text-center space-y-8">
+          <div className="relative z-10 container px-4 md:px-6 text-left sm:text-center space-y-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -838,7 +835,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5"
             >
               <span className="status-dot" style={{ width: 6, height: 6 }} />
-              <span className="text-emerald-400 text-xs tracking-wider">50+ VALIDATORS ONLINE</span>
+              <span className="text-emerald-400 text-xs tracking-wider">ENGINEERING MANAGER, STAKING</span>
             </motion.div>
 
             <motion.h1
@@ -869,9 +866,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center"
             >
-              <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B] text-black font-semibold" asChild>
+              <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                 <Link href="#infrastructure">
                   View Infrastructure <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -879,7 +876,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10"
+                className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10 w-full sm:w-auto"
                 asChild
               >
                 <Link
@@ -922,18 +919,18 @@ export default function Home() {
         </section>
 
         {/* ==================== PROFILE ==================== */}
-        <section className="relative py-20">
+        <section className="relative py-12 sm:py-20">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-12">
-            <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-8 sm:pt-12">
+            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 md:gap-12">
               <motion.div
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                className="relative flex-shrink-0"
+                className="relative w-full md:w-auto md:flex-shrink-0"
               >
-                <div className="w-56 h-56 md:w-80 md:h-80 rounded-2xl overflow-hidden border-2 border-[#4B7F9B]/20 shadow-[0_0_40px_rgba(75,127,155,0.1)]">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden border-2 border-[#4B7F9B]/20 shadow-[0_0_40px_rgba(75,127,155,0.1)] md:w-80 md:h-80">
                   <img
                     src="/mbrassey.jpg"
                     alt="Matt Brassey"
@@ -945,7 +942,7 @@ export default function Home() {
                   <div className="absolute bottom-0 left-0 right-0 p-3 font-mono text-[10px] text-[#4B7F9B]/80">
                     <div>
                       <span className="text-emerald-400/70">$</span> whoami
-                      <span className="inline-block w-[5px] h-[8px] bg-[#4B7F9B] ml-0.5 animate-pulse align-baseline" />
+                      <span className="inline-block w-[5px] h-[7px] bg-[#4B7F9B] ml-0.5 align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
                     </div>
                     <div className="text-[#4B7F9B]/60">matt_brassey : eng_manager_staking : blueprint</div>
                   </div>
@@ -957,18 +954,19 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-                className="text-center md:text-left space-y-4"
+                className="text-left space-y-4"
               >
-                <p className="text-slate-300 text-lg leading-relaxed">
+                <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
                   fleets across Solana, Ethereum, Avalanche, Algorand, Audius, and Canton &mdash; 50+ nodes with
-                  $500M+ AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. With 16 years
-                  of engineering experience I wield Claude Code and OpenClaw as a 1000x developer &mdash; architecting
-                  production systems at scale and shipping them in days instead of months.
+                  $500M+ AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
+                  a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
+                  custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
+                  AI-driven validator operations.
                 </p>
-                <div className="flex gap-4 justify-center md:justify-start">
+                <div className="flex gap-4">
                   <Link
                     href="https://github.com/mbrassey"
                     target="_blank"
@@ -1004,13 +1002,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Network className="h-3 w-3" />
                   <span>infrastructure</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Infrastructure Command</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Infrastructure Command</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Real-time validator and node operations across multiple blockchain networks. Deploying, monitoring,
                   upgrading &amp; maintaining profitable mainnet validators and data RPC nodes.
                 </p>
@@ -1024,9 +1022,20 @@ export default function Home() {
                     className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift overflow-hidden"
                   >
                     <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="status-dot" />
-                        <span className="text-emerald-400 text-[10px] uppercase tracking-wider">Live</span>
+                      <div className="flex items-center gap-3">
+                        {node.logo && (
+                          <img
+                            src={node.logo}
+                            alt={node.network}
+                            className="w-6 h-6 protocol-logo"
+                            width={24}
+                            height={24}
+                          />
+                        )}
+                        <div className="flex items-center gap-2">
+                          <span className="status-dot" />
+                          <span className="text-emerald-400 text-[10px] uppercase tracking-wider">Live</span>
+                        </div>
                       </div>
                       {node.count && (
                         <span className="text-[#4B7F9B]/60 text-xs font-mono">&times;{node.count}</span>
@@ -1052,7 +1061,7 @@ export default function Home() {
                         <div className="text-sm font-mono text-[#4B7F9B]">{node.metric}</div>
                       )}
                       {node.links && node.links.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-1.5">
                           {node.links.map((link, j) => (
                             <Link
                               key={j}
@@ -1075,7 +1084,7 @@ export default function Home() {
         </section>
 
         {/* ==================== AI DEVELOPMENT ==================== */}
-        <section id="ai" className="relative py-24 overflow-hidden">
+        <section id="ai" className="relative py-16 md:py-24 overflow-hidden">
           <div className="section-divider" />
 
           <div className="absolute inset-0 pointer-events-none opacity-[0.03]">
@@ -1091,12 +1100,12 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Terminal className="h-3 w-3" />
                   <span>ai-development</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   The <span className="gradient-text">1000x</span> Developer
                 </h2>
                 <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
@@ -1137,7 +1146,8 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       16 years of extreme DevOps and engineering &mdash; from founding a solar-powered hosting company
-                      and managing 900+ servers at Sony Pictures to running $500M+ in validator infrastructure &mdash;
+                      and managing 900+ servers at IBM, to maintaining 200+ wallet infrastructure at Bittrex,
+                      to running $500M+ in validator infrastructure &mdash;
                       provides the hard-won wisdom and guidance that separates an elite AI operator from someone just
                       prompting. Combined with 5+ years of blockchain-focused development and relentless adoption of
                       cutting-edge tooling, every AI-generated artifact is vetted against production-grade standards
@@ -1153,7 +1163,7 @@ export default function Home() {
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
                           <Terminal className="h-2.5 w-2.5 text-slate-400" />
                         </div>
-                        <span className="text-slate-400 text-[11px] font-mono">matt@blueprint:~/ai-command-center</span>
+                        <span className="text-slate-400 text-[10px] sm:text-[11px] font-mono truncate">matt@blueprint:~/ai-command-center</span>
                       </div>
                       <div className="flex items-center gap-0.5">
                         <div className="w-6 h-5 flex items-center justify-center rounded-sm hover:bg-slate-700/50 cursor-default">
@@ -1171,12 +1181,18 @@ export default function Home() {
                       <div>
                         <span className="text-emerald-400">$</span>{" "}
                         <span className="text-[#4B7F9B]">claude</span>{" "}
-                        <span className="text-slate-300">deploy solana-validator --firedancer --bare-metal</span>
+                        <span className="text-slate-300">audit ccledger --security --pentest --full</span>
                       </div>
                       <div className="text-slate-500 pl-4 space-y-0.5">
-                        <div>Provisioning AMD EPYC 9654 node... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Configuring Firedancer client... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Validator live on mainnet <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Scanning 15 REST endpoints... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>API key auth chain validated... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>SQL injection vectors: <span className="text-emerald-400">0 found</span></div>
+                        <div>gRPC ledger connection hardened... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Rate limiting verified (100 RPM)... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>SHA-256 key hashing confirmed... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>HSTS, CSP, X-Frame headers... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Daml contract permissions audited... <span className="text-emerald-400">&#10003;</span></div>
+                        <div className="text-emerald-400">All checks passed &mdash; 0 critical, 0 high, 0 medium</div>
                       </div>
 
                       <div className="pt-2">
@@ -1209,14 +1225,14 @@ export default function Home() {
 
                       <div className="pt-2">
                         <span className="text-emerald-400">$</span>{" "}
-                        <span className="typing-cursor text-slate-500" />
+                        <span className="inline-block w-[6px] h-[11px] bg-slate-400 align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
                       </div>
                     </div>
                   </div>
                 </motion.div>
               </div>
 
-              <motion.div variants={slideUp} className="flex flex-wrap gap-3 justify-center mt-12">
+              <motion.div variants={slideUp} className="flex flex-wrap gap-3 sm:justify-center mt-12">
                 {["Claude Code", "OpenClaw", "Cursor", "GitHub Copilot", "v0.dev", "Claude AI", "MCP Protocol"].map(
                   (tool) => (
                     <Badge key={tool} variant="outline" className="border-[#4B7F9B]/20 text-[#4B7F9B]/70 px-4 py-1.5">
@@ -1239,13 +1255,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <GitBranch className="h-3 w-3" />
                   <span>experience</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   16+ years of engineering &mdash; from founding a hosting company to managing $500M+ in blockchain
                   infrastructure.
                 </p>
@@ -1253,7 +1269,7 @@ export default function Home() {
 
               <div className="space-y-8">
                 {experience.map((role, i) => (
-                  <motion.div key={i} variants={slideUp} className="relative pl-10">
+                  <motion.div key={i} variants={slideUp} className="relative pl-8 sm:pl-10">
                     <div className="absolute left-0 top-1 w-10 flex justify-center">
                       <div className="w-3 h-3 rounded-full bg-[#4B7F9B]/30 border-2 border-[#4B7F9B] shadow-[0_0_12px_rgba(34,211,238,0.3)]" />
                     </div>
@@ -1301,13 +1317,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Layers className="h-3 w-3" />
                   <span>expertise</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Technical Expertise</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Technical Expertise</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Specialized knowledge across the full blockchain infrastructure stack.
                 </p>
               </motion.div>
@@ -1417,13 +1433,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Code2 className="h-3 w-3" />
                   <span>projects</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Decentralized applications and blockchain platforms built with cutting-edge technology.
                 </p>
               </motion.div>
@@ -1469,13 +1485,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Award className="h-3 w-3" />
                   <span>certifications</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Certifications</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Certifications</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Professional credentials and industry certifications.
                 </p>
               </motion.div>
@@ -1519,13 +1535,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Users className="h-3 w-3" />
                   <span>recommendations</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Colleague Feedback</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Colleague Feedback</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   What colleagues and collaborators have to say.
                 </p>
               </motion.div>
@@ -1577,13 +1593,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-center space-y-4 mb-16">
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Activity className="h-3 w-3" />
                   <span>activity</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Coding Activity</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-lg">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Coding Activity</h2>
+                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Development activity tracked in real-time.
                 </p>
               </motion.div>
@@ -1625,7 +1641,7 @@ export default function Home() {
         {/* ==================== CONTACT ==================== */}
         <section id="contact" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-3xl mx-auto pt-12 text-center">
+          <div className="container px-4 md:px-6 max-w-3xl mx-auto pt-12 text-left sm:text-center">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -1637,25 +1653,25 @@ export default function Home() {
                   <Mail className="h-3 w-3" />
                   <span>contact</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Let&apos;s Connect</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Let&apos;s Connect</h2>
                 <p className="text-slate-400 text-lg">
                   Interested in blockchain infrastructure, validator operations, or decentralized systems?
                   Let&apos;s talk.
                 </p>
               </motion.div>
 
-              <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B] text-black font-semibold" asChild>
+              <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center">
+                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                   <Link href="mailto:matt@brassey.io">
                     <Mail className="mr-2 h-5 w-5" /> Email Me
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10" asChild>
+                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10 w-full sm:w-auto" asChild>
                   <Link href="https://www.linkedin.com/in/mbrassey/" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="mr-2 h-5 w-5" /> LinkedIn
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10" asChild>
+                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10 w-full sm:w-auto" asChild>
                   <Link href="https://github.com/mbrassey" target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-5 w-5" /> GitHub
                   </Link>
