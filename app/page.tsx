@@ -1128,11 +1128,11 @@ export default function Home() {
                     <p className="text-slate-400 text-sm leading-relaxed">
                       Beyond prompt engineering &mdash; I practice compound engineering, where every code review,
                       bug fix, and deployment becomes a persistent rule that compounds across all future work. I build
-                      custom MCP servers from scratch (CC Ledger: 15 tools, Solentic: 26 tools + A2A agent card),
-                      author agent-facing documentation and runbooks, and design deterministic AI workflows where
-                      agents execute against well-defined specifications rather than open-ended prompts. The result
-                      is reproducible, auditable output at institutional scale &mdash; not AI-assisted development,
-                      but AI-orchestrated engineering.
+                      custom MCP servers that give infrastructure auditing and remediation agents direct access to
+                      Blueprint&apos;s validator fleet, author agent-facing runbooks and operational documentation,
+                      and design deterministic AI workflows where agents execute against well-defined specifications
+                      rather than open-ended prompts. The result is reproducible, auditable output at institutional
+                      scale &mdash; not AI-assisted development, but AI-orchestrated engineering.
                     </p>
                   </div>
 
