@@ -1142,13 +1142,13 @@ export default function Home() {
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Zap className="h-5 w-5 text-[#4B7F9B]" />
                       </div>
-                      <h3 className="text-lg font-bold">Wisdom + Velocity = Elite Operator</h3>
+                      <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       16 years of extreme DevOps and engineering &mdash; from founding a solar-powered hosting company
                       and managing 900+ servers at IBM, to maintaining 200+ wallet infrastructure at Bittrex,
                       to running $500M+ in validator infrastructure &mdash;
-                      provides the hard-won wisdom and guidance that separates an elite AI operator from someone just
+                      provides the hard-won experience and guidance that separates an elite AI operator from someone just
                       prompting. Combined with 5+ years of blockchain-focused development and relentless adoption of
                       cutting-edge tooling, every AI-generated artifact is vetted against production-grade standards
                       born from real-world failures and victories. Experience is the compass; AI is the engine.
