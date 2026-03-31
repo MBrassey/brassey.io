@@ -206,7 +206,7 @@ const experience = [
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
-      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, and Canton — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
       "Operating profitable mainnet validator fleets across 6 distinct L1s with $500M+ AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), and Canton",
       "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
@@ -960,7 +960,7 @@ export default function Home() {
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
-                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, and Canton &mdash; 50+ nodes with
+                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot &mdash; 50+ nodes with
                   $500M+ AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
@@ -1336,8 +1336,9 @@ export default function Home() {
                     <div>
                       <h4 className="text-[#4B7F9B] text-sm mb-1.5">Multi-Chain Protocols</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        Most EVM chains (Ethereum, Polygon, Avalanche, Arbitrum) &amp; Layer 2s, L1 protocols (Solana,
-                        Cardano, Cosmos, NEAR), ZK chains (Aleo, zkSync), Algorand, Aptos, Bitcoin, Hedera, Tezos, Canton.
+                        Validator ops: Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot/Kusama.
+                        Wallet integration across L2s (Optimism, Base, Arbitrum), 100+ ERC-20/SPL/BEP tokens, Bitcoin,
+                        Cardano, Cosmos, NEAR, Aptos, Hedera, ZK chains (Aleo, zkSync).
                       </p>
                     </div>
                     <div>
