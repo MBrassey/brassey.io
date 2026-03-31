@@ -1126,14 +1126,13 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Claude Code &amp; OpenClaw</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      As operator and commander of elite AI agent fleets, I orchestrate specialized agents across every
-                      layer of the application stack &mdash; from infrastructure provisioning and smart contract
-                      development to frontend engineering, API design, and automated testing. I design custom OpenAPI 3.1
-                      specifications and build MCP servers from scratch &mdash; CC Ledger exposes 15 MCP tools for
-                      Canton blockchain operations, and Solentic provides 26 MCP tools with an A2A agent card for
-                      autonomous Solana staking. Each agent brings deep domain expertise; I provide the architectural
-                      vision, quality standards, and integration strategy that transforms raw AI capability into
-                      production-ready systems shipping at institutional scale.
+                      Beyond prompt engineering &mdash; I practice compound engineering, where every code review,
+                      bug fix, and deployment becomes a persistent rule that compounds across all future work. I build
+                      custom MCP servers from scratch (CC Ledger: 15 tools, Solentic: 26 tools + A2A agent card),
+                      author agent-facing documentation and runbooks, and design deterministic AI workflows where
+                      agents execute against well-defined specifications rather than open-ended prompts. The result
+                      is reproducible, auditable output at institutional scale &mdash; not AI-assisted development,
+                      but AI-orchestrated engineering.
                     </p>
                   </div>
 
@@ -1145,13 +1144,12 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of extreme DevOps and engineering &mdash; from founding a solar-powered hosting company
-                      and managing 900+ servers at IBM, to maintaining 200+ wallet infrastructure at Bittrex,
-                      to running $500M+ in validator infrastructure &mdash;
-                      provides the hard-won experience and guidance that separates an elite AI operator from someone just
-                      prompting. Combined with 5+ years of blockchain-focused development and relentless adoption of
-                      cutting-edge tooling, every AI-generated artifact is vetted against production-grade standards
-                      born from real-world failures and victories. Experience is the compass; AI is the engine.
+                      16 years of engineering &mdash; from founding a solar-powered hosting company and managing
+                      900+ servers at IBM, to maintaining 200+ wallet infrastructure at Bittrex, to running $500M+
+                      in validator infrastructure &mdash; provides the hard-won experience that separates an elite
+                      AI operator from someone just prompting. I encode operational knowledge into persistent agent
+                      rules, custom MCPs, and deterministic runbooks so every deployment compounds on the last.
+                      Experience is the compass; AI is the engine.
                     </p>
                   </div>
                 </motion.div>
