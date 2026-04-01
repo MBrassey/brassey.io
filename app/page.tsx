@@ -1089,7 +1089,7 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <div className="grid lg:grid-cols-2 gap-8">
+              <div className="grid lg:grid-cols-2 gap-8 items-start">
                 <motion.div variants={slideUp} className="space-y-6">
                   <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
                     <div className="flex items-center gap-3">
@@ -1099,14 +1099,10 @@ export default function Home() {
                       <h3 className="text-lg font-bold">AI-Orchestrated Engineering</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      As operator and commander of elite AI agent fleets, I orchestrate specialized agents across every
-                      layer of the application stack &mdash; from infrastructure provisioning and smart contract
-                      development to frontend engineering, API design, and automated testing. I practice compound
-                      engineering where every review and deployment compounds into persistent rules, build custom MCP
-                      servers and agent-facing runbooks, and design deterministic AI workflows where agents execute
-                      against well-defined specifications rather than open-ended prompts. I author custom OpenAPI specs,
-                      design zero-custody transaction flows, and build agent discovery protocols so autonomous systems
-                      can integrate without human intervention.
+                      As operator and commander of elite AI agent fleets, I orchestrate specialized agents across
+                      every layer of the stack. I practice compound engineering where every deployment compounds into
+                      persistent rules, build custom MCP servers and agent-facing runbooks, and design deterministic
+                      workflows where agents execute against well-defined specifications rather than open-ended prompts.
                     </p>
                   </div>
 
@@ -1118,20 +1114,17 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of engineering &mdash; from founding a hosting company, to managing 900+ servers
-                      at IBM, to maintaining 200+ wallet infrastructure, to running $500M+ in validator
-                      infrastructure &mdash; provides the hard-won experience that separates an elite AI operator
-                      from someone just prompting. I encode operational knowledge into persistent agent rules, custom
-                      MCPs, and deterministic runbooks so every deployment compounds on the last. Cloud-to-bare-metal
-                      migrations, custom monitoring pipelines, automated node provisioning, and security hardening
-                      at scale &mdash; all driven by experience, amplified by AI. Experience is the compass; AI is
-                      the engine.
+                      16 years of engineering &mdash; from managing 900+ servers at IBM to maintaining 200+ wallets
+                      at Bittrex to running $500M+ in validator infrastructure &mdash; provides the experience that
+                      separates an elite AI operator from someone just prompting. I encode operational knowledge into
+                      persistent agent rules and deterministic runbooks so every deployment compounds on the last.
+                      Experience is the compass; AI is the engine.
                     </p>
                   </div>
                 </motion.div>
 
                 <motion.div variants={slideUp}>
-                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col lg:sticky lg:top-20 lg:self-start">
+                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
