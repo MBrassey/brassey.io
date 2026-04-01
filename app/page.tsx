@@ -1104,9 +1104,9 @@ export default function Home() {
                       development to frontend engineering, API design, and automated testing. I practice compound
                       engineering where every review and deployment compounds into persistent rules, build custom MCP
                       servers and agent-facing runbooks, and design deterministic AI workflows where agents execute
-                      against well-defined specifications rather than open-ended prompts. This approach built CC Ledger
-                      (15 MCP tools on Canton MainNet) and Solentic (26 MCP tools with A2A agent discovery) &mdash;
-                      both agent-native platforms with custom OpenAPI 3.1 specs and zero-custody architecture.
+                      against well-defined specifications rather than open-ended prompts. I author custom OpenAPI specs,
+                      design zero-custody transaction flows, and build agent discovery protocols so autonomous systems
+                      can integrate without human intervention.
                     </p>
                   </div>
 
@@ -1118,14 +1118,14 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of engineering &mdash; from founding a solar-powered hosting company and managing
-                      900+ servers at IBM, to maintaining 200+ wallet infrastructure at Bittrex, to running $500M+
-                      in validator infrastructure &mdash; provides the hard-won experience that separates an elite
-                      AI operator from someone just prompting. I encode operational knowledge into persistent agent
-                      rules, custom MCPs, and deterministic runbooks so every deployment compounds on the last.
-                      I migrated resource-intensive nodes from cloud to bare-metal, developed AWS launch templates
-                      for 10+ blockchain nodes, and built custom Grafana metrics for real-time fleet monitoring.
-                      Experience is the compass; AI is the engine.
+                      16 years of engineering &mdash; from founding a hosting company, to managing 900+ servers
+                      at IBM, to maintaining 200+ wallet infrastructure, to running $500M+ in validator
+                      infrastructure &mdash; provides the hard-won experience that separates an elite AI operator
+                      from someone just prompting. I encode operational knowledge into persistent agent rules, custom
+                      MCPs, and deterministic runbooks so every deployment compounds on the last. Cloud-to-bare-metal
+                      migrations, custom monitoring pipelines, automated node provisioning, and security hardening
+                      at scale &mdash; all driven by experience, amplified by AI. Experience is the compass; AI is
+                      the engine.
                     </p>
                   </div>
                 </motion.div>
