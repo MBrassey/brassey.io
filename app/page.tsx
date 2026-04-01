@@ -795,7 +795,7 @@ export default function Home() {
 
           {/* Claude Code streaming diff background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-            <div className="absolute left-0 top-0 bottom-0 w-[70%] sm:w-[55%] overflow-hidden opacity-[0.12] sm:opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 20%, transparent 85%)", WebkitMaskImage: "linear-gradient(to right, black 20%, transparent 85%)" }}>
+            <div className="absolute left-0 top-0 bottom-0 w-[70%] sm:w-[55%] overflow-hidden opacity-[0.17] sm:opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 20%, transparent 85%)", WebkitMaskImage: "linear-gradient(to right, black 20%, transparent 85%)" }}>
               <CodeStream />
             </div>
           </div>
