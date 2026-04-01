@@ -790,12 +790,12 @@ export default function Home() {
       <main>
         {/* ==================== HERO ==================== */}
         <section id="hero" className="relative min-h-screen flex items-center justify-center pt-14">
-          <div className="absolute inset-0 grid-bg" style={{ maskImage: "linear-gradient(to right, transparent 20%, black 80%)", WebkitMaskImage: "linear-gradient(to right, transparent 20%, black 80%)" }} />
+          <div className="absolute inset-0 grid-bg" style={{ maskImage: "linear-gradient(to right, transparent 10%, black 60%)", WebkitMaskImage: "linear-gradient(to right, transparent 10%, black 60%)" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-[#000102] via-transparent to-[#000102]" />
 
           {/* Claude Code streaming diff background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-            <div className="hidden md:block absolute left-0 top-0 bottom-0 w-[55%] overflow-hidden opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 30%, transparent 95%)", WebkitMaskImage: "linear-gradient(to right, black 30%, transparent 95%)" }}>
+            <div className="absolute left-0 top-0 bottom-0 w-[70%] sm:w-[55%] overflow-hidden opacity-[0.12] sm:opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 20%, transparent 85%)", WebkitMaskImage: "linear-gradient(to right, black 20%, transparent 85%)" }}>
               <CodeStream />
             </div>
           </div>
