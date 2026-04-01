@@ -1212,13 +1212,15 @@ export default function Home() {
                       <div className="pt-2">
                         <span className="text-emerald-400">$</span>{" "}
                         <span className="text-[#4B7F9B]">claude</span>{" "}
-                        <span className="text-slate-300">build canton-ledger --full-stack --mcp</span>
+                        <span className="text-slate-300">implement ccledger attest-mutual endpoint per SPEC.md</span>
                       </div>
                       <div className="text-slate-500 pl-4 space-y-0.5">
-                        <div>Generating Daml contracts... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Spring Boot API scaffold... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>MCP tool integration... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Deployed &#8594; <span className="text-[#4B7F9B]">ccledger.theblueprint.xyz</span></div>
+                        <div>Reading SPEC.md &amp; existing Daml templates... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Adding AttestMutual choice to CcAction.daml... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Wiring POST /actions/attest-mutual in ActionController.java... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Registering MCP tool: attest_mutual with schema... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Flyway V14__attest_mutual.sql migration added... <span className="text-emerald-400">&#10003;</span></div>
+                        <div>Integration tests passing (7/7)... <span className="text-emerald-400">&#10003;</span></div>
                       </div>
 
                       <div className="pt-2">
