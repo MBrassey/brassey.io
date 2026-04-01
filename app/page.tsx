@@ -632,37 +632,10 @@ const staggerContainer = {
 }
 
 const slideUp = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
-  },
-}
-
-const slideInLeft = {
-  hidden: { opacity: 0, x: -40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
-  },
-}
-
-const slideInRight = {
-  hidden: { opacity: 0, x: 40 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
-  },
-}
-
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    scale: 1,
     transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
   },
 }
@@ -924,10 +897,10 @@ export default function Home() {
           <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-8 sm:pt-12">
             <div className="flex flex-col md:flex-row items-stretch md:items-center gap-6 md:gap-12">
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 className="relative w-full md:w-auto md:flex-shrink-0"
               >
                 <div className="w-full aspect-square rounded-2xl overflow-hidden border-2 border-[#4B7F9B]/20 shadow-[0_0_40px_rgba(75,127,155,0.1)] md:w-80 md:h-80">
@@ -950,10 +923,10 @@ export default function Home() {
               </motion.div>
 
               <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                 className="text-left space-y-4"
               >
                 <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
@@ -1117,7 +1090,7 @@ export default function Home() {
               </motion.div>
 
               <div className="grid lg:grid-cols-2 gap-8">
-                <motion.div variants={slideInLeft} className="space-y-6">
+                <motion.div variants={slideUp} className="space-y-6">
                   <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
@@ -1153,7 +1126,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideInRight}>
+                <motion.div variants={slideUp}>
                   <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden h-full flex flex-col">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
@@ -1446,7 +1419,7 @@ export default function Home() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {projects.map((project, i) => (
-                  <motion.div key={i} variants={scaleIn}>
+                  <motion.div key={i} variants={slideUp}>
                     <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block group">
                       <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full space-y-4">
                         <div className="flex items-start justify-between">
@@ -1500,7 +1473,7 @@ export default function Home() {
                 {certifications.map((cert, i) => (
                   <motion.div
                     key={i}
-                    variants={scaleIn}
+                    variants={slideUp}
                     className="cert-card p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur text-center space-y-3"
                   >
                     <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
