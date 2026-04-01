@@ -1104,13 +1104,9 @@ export default function Home() {
                       development to frontend engineering, API design, and automated testing. I practice compound
                       engineering where every review and deployment compounds into persistent rules, build custom MCP
                       servers and agent-facing runbooks, and design deterministic AI workflows where agents execute
-                      against well-defined specifications rather than open-ended prompts.
-                    </p>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      This approach built CC Ledger (15 REST endpoints, 15 MCP tools, Daml contracts on Canton MainNet)
-                      and Solentic (30 REST endpoints, 26 MCP tools, A2A agent card with 13 skills) &mdash; both
-                      designed from the ground up as agent-native platforms with custom OpenAPI 3.1 specs, zero-custody
-                      architecture, and SHA-256 source verification.
+                      against well-defined specifications rather than open-ended prompts. This approach built CC Ledger
+                      (15 MCP tools on Canton MainNet) and Solentic (26 MCP tools with A2A agent discovery) &mdash;
+                      both agent-native platforms with custom OpenAPI 3.1 specs and zero-custody architecture.
                     </p>
                   </div>
 
@@ -1127,18 +1123,15 @@ export default function Home() {
                       in validator infrastructure &mdash; provides the hard-won experience that separates an elite
                       AI operator from someone just prompting. I encode operational knowledge into persistent agent
                       rules, custom MCPs, and deterministic runbooks so every deployment compounds on the last.
-                    </p>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      I migrated resource-intensive nodes (Solana, archival Ethereum, Avalanche, Algorand) from cloud
-                      to bare-metal, developed AWS launch templates for 10+ blockchain nodes, built a custom ETH2
-                      indexer with Redis for validator-to-deposit mapping, and created custom Node Exporter and Grafana
-                      metrics for real-time fleet monitoring. Experience is the compass; AI is the engine.
+                      I migrated resource-intensive nodes from cloud to bare-metal, developed AWS launch templates
+                      for 10+ blockchain nodes, and built custom Grafana metrics for real-time fleet monitoring.
+                      Experience is the compass; AI is the engine.
                     </p>
                   </div>
                 </motion.div>
 
                 <motion.div variants={slideUp}>
-                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden h-full flex flex-col">
+                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col lg:sticky lg:top-20 lg:self-start">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
