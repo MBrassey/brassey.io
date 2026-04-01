@@ -1106,6 +1106,12 @@ export default function Home() {
                       servers and agent-facing runbooks, and design deterministic AI workflows where agents execute
                       against well-defined specifications rather than open-ended prompts.
                     </p>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      This approach built CC Ledger (15 REST endpoints, 15 MCP tools, Daml contracts on Canton MainNet)
+                      and Solentic (30 REST endpoints, 26 MCP tools, A2A agent card with 13 skills) &mdash; both
+                      designed from the ground up as agent-native platforms with custom OpenAPI 3.1 specs, zero-custody
+                      architecture, and SHA-256 source verification.
+                    </p>
                   </div>
 
                   <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
@@ -1121,7 +1127,12 @@ export default function Home() {
                       in validator infrastructure &mdash; provides the hard-won experience that separates an elite
                       AI operator from someone just prompting. I encode operational knowledge into persistent agent
                       rules, custom MCPs, and deterministic runbooks so every deployment compounds on the last.
-                      Experience is the compass; AI is the engine.
+                    </p>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      I migrated resource-intensive nodes (Solana, archival Ethereum, Avalanche, Algorand) from cloud
+                      to bare-metal, developed AWS launch templates for 10+ blockchain nodes, built a custom ETH2
+                      indexer with Redis for validator-to-deposit mapping, and created custom Node Exporter and Grafana
+                      metrics for real-time fleet monitoring. Experience is the compass; AI is the engine.
                     </p>
                   </div>
                 </motion.div>
