@@ -1123,16 +1123,15 @@ export default function Home() {
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Terminal className="h-5 w-5 text-[#4B7F9B]" />
                       </div>
-                      <h3 className="text-lg font-bold">Claude Code &amp; OpenClaw</h3>
+                      <h3 className="text-lg font-bold">AI-Orchestrated Engineering</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Beyond prompt engineering &mdash; I practice compound engineering, where every code review,
-                      bug fix, and deployment becomes a persistent rule that compounds across all future work. I build
-                      custom MCP servers that give infrastructure auditing and remediation agents direct access to
-                      Blueprint&apos;s validator fleet, author agent-facing runbooks and operational documentation,
-                      and design deterministic AI workflows where agents execute against well-defined specifications
-                      rather than open-ended prompts. The result is reproducible, auditable output at institutional
-                      scale &mdash; not AI-assisted development, but AI-orchestrated engineering.
+                      As operator and commander of elite AI agent fleets, I orchestrate specialized agents across every
+                      layer of the application stack &mdash; from infrastructure provisioning and smart contract
+                      development to frontend engineering, API design, and automated testing. I practice compound
+                      engineering where every review and deployment compounds into persistent rules, build custom MCP
+                      servers and agent-facing runbooks, and design deterministic AI workflows where agents execute
+                      against well-defined specifications rather than open-ended prompts.
                     </p>
                   </div>
 
