@@ -1365,24 +1365,24 @@ export default function Home() {
                   </div>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="text-[#4B7F9B] text-sm mb-1.5">Smart Contract Interaction</h4>
+                      <h4 className="text-[#4B7F9B] text-sm mb-1.5">Smart Contracts &amp; Web3</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        Solidity, Hardhat, Truffle, Ethers.js, Web3.js, Wagmi, Alchemy SDK, OnchainKit, WalletConnect,
-                        MetaMask SDK, IPFS/Filecoin, Chainlink VRF. AAVE, Balancer, Uniswap, SushiSwap, PancakeSwap.
+                        Solidity, Daml (Canton), Hardhat, Truffle, Ethers.js, Web3.js, Wagmi, Alchemy SDK, OnchainKit,
+                        WalletConnect, MetaMask SDK, IPFS/Filecoin, Chainlink VRF, gRPC. DeFi: AAVE, Uniswap, SushiSwap.
                       </p>
                     </div>
                     <div>
                       <h4 className="text-[#4B7F9B] text-sm mb-1.5">Modern Stack</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        Next.js, React, TypeScript, React Hook Form, TanStack Query, Vite, Server Components,
-                        Incremental Static Regeneration, C#.
+                        Next.js, React, TypeScript, Spring Boot, Java 21, Node.js, React Hook Form, TanStack Query,
+                        Vite, Server Components, OpenAPI 3.1, MCP servers, A2A agent cards, C#.
                       </p>
                     </div>
                     <div>
                       <h4 className="text-[#4B7F9B] text-sm mb-1.5">UI/UX &amp; Tooling</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        Tailwind CSS, ShadCN UI, Radix UI, responsive layouts, dark mode theming, v0.dev AI design,
-                        Vercel, Remix IDE.
+                        Tailwind CSS, ShadCN UI, Radix UI, Framer Motion, Recharts, responsive layouts, dark mode
+                        theming, Flyway migrations, PostgreSQL, v0.dev, Vercel, Remix IDE.
                       </p>
                     </div>
                   </div>
