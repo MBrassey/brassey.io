@@ -1471,12 +1471,16 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="cert-card p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur text-center space-y-3"
+                    className="cert-card p-5 rounded-lg border border-[#4B7F9B]/10 bg-[#1F1D20]/80 backdrop-blur text-center space-y-3 card-lift"
                   >
-                    <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
-                      <Award className="h-6 w-6 text-[#4B7F9B]" />
+                    <div className="relative w-14 h-14 mx-auto">
+                      <div className="absolute inset-0 rounded-full bg-[#4B7F9B]/5 border border-[#4B7F9B]/20" />
+                      <div className="absolute inset-[3px] rounded-full bg-[#4B7F9B]/5 border border-[#4B7F9B]/10 flex items-center justify-center">
+                        <Award className="h-6 w-6 text-[#4B7F9B]" />
+                      </div>
                     </div>
                     <h3 className="font-bold text-sm">{cert.name}</h3>
+                    <div className="w-8 h-px bg-[#4B7F9B]/20 mx-auto" />
                     <p className="text-xs text-slate-500">{cert.issuer}</p>
                     {cert.verifyUrl && (
                       <Link
