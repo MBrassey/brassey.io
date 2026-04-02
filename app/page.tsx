@@ -1526,7 +1526,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur"
+                    className="relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur holo-shimmer card-lift"
                   >
                     <div className="absolute -top-3 left-4 text-3xl text-[#4B7F9B]/30 font-serif">&ldquo;</div>
                     <p className="text-slate-300 italic text-sm leading-relaxed mb-6 pt-2">{rec.quote}</p>
