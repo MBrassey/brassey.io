@@ -1199,7 +1199,7 @@ export default function Home() {
 
                       <div className="pt-2">
                         <span className="text-emerald-400">$</span>{" "}
-                        <span className="inline-block w-[6px] h-[11px] bg-slate-400 align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
+                        <span className="inline-block w-[6px] h-[11px] bg-[#4B7F9B] align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
                       </div>
                     </div>
                   </div>
