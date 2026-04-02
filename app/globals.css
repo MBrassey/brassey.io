@@ -281,6 +281,11 @@
   animation: breathe 4s ease-in-out infinite;
 }
 
+@keyframes breathe-dot {
+  0%, 100% { box-shadow: 0 0 4px rgba(75, 127, 155, 0.2); background-color: rgba(75, 127, 155, 0.2); }
+  50% { box-shadow: 0 0 12px rgba(75, 127, 155, 0.6); background-color: rgba(75, 127, 155, 0.5); }
+}
+
 /* ========== Code Diff Coloring ========== */
 .font-mono.whitespace-pre {
   color: #6b7280;

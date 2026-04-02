@@ -1245,7 +1245,7 @@ export default function Home() {
                 {experience.map((role, i) => (
                   <motion.div key={i} variants={slideUp} className="relative pl-8 sm:pl-10 group">
                     <div className="absolute left-0 top-1 w-10 flex justify-center">
-                      <div className="w-3 h-3 rounded-full bg-[#4B7F9B]/30 border-2 border-[#4B7F9B] shadow-[0_0_12px_rgba(34,211,238,0.3)]" />
+                      <div className="w-3 h-3 rounded-full bg-[#4B7F9B]/30 border-2 border-[#4B7F9B]" style={{ animation: "breathe-dot 4s ease-in-out infinite" }} />
                     </div>
                     {i < experience.length - 1 && (
                       <div className="absolute left-0 top-5 w-10 bottom-0 flex justify-center">
@@ -1580,7 +1580,7 @@ export default function Home() {
               </motion.div>
 
               <motion.div variants={slideUp}>
-                <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur overflow-hidden">
+                <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur overflow-hidden breathe-border">
                   <div className="flex items-center justify-between p-4 border-b border-[#1F1D20]">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-[#4B7F9B]" />
