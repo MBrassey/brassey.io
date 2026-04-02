@@ -992,7 +992,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift"
+                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_20px_rgba(75,127,155,0.05)] hover:border-[#4B7F9B]/30"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -1472,29 +1472,30 @@ export default function Home() {
               </motion.div>
 
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {certifications.map((cert, i) => (
-                  <motion.div
-                    key={i}
-                    variants={slideUp}
-                    className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border"
-                  >
-                    <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
-                      <Award className="h-6 w-6 text-[#4B7F9B]" />
-                    </div>
-                    <h3 className="font-bold text-sm">{cert.name}</h3>
-                    <p className="text-xs text-slate-500">{cert.issuer}</p>
-                    {cert.verifyUrl && (
-                      <Link
-                        href={cert.verifyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[10px] text-slate-600 hover:text-[#4B7F9B] transition-colors inline-flex items-center gap-1"
-                      >
-                        Verify <ExternalLink className="h-2.5 w-2.5" />
-                      </Link>
-                    )}
+                {certifications.map((cert, i) => {
+                  const CardWrapper = cert.verifyUrl ? Link : "div"
+                  const wrapperProps = cert.verifyUrl
+                    ? { href: cert.verifyUrl, target: "_blank" as const, rel: "noopener noreferrer" }
+                    : {}
+                  return (
+                  <motion.div key={i} variants={slideUp}>
+                    <CardWrapper {...wrapperProps} className="block group">
+                      <div className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border cursor-pointer">
+                        <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
+                          <Award className="h-6 w-6 text-[#4B7F9B]" />
+                        </div>
+                        <h3 className="font-bold text-sm group-hover:text-[#4B7F9B] transition-colors">{cert.name}</h3>
+                        <p className="text-xs text-slate-500">{cert.issuer}</p>
+                        {cert.verifyUrl && (
+                          <span className="text-[10px] text-slate-600 group-hover:text-[#4B7F9B] transition-colors inline-flex items-center gap-1">
+                            Verify <ExternalLink className="h-2.5 w-2.5" />
+                          </span>
+                        )}
+                      </div>
+                    </CardWrapper>
                   </motion.div>
-                ))}
+                  )
+                })}
               </div>
             </motion.div>
           </div>
