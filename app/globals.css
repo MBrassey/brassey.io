@@ -271,6 +271,16 @@
   color: #4B7F9B;
 }
 
+/* ========== Breathing Border ========== */
+@keyframes breathe {
+  0%, 100% { border-color: #1F1D20; }
+  50% { border-color: rgba(75, 127, 155, 0.25); }
+}
+
+.breathe-border {
+  animation: breathe 4s ease-in-out infinite;
+}
+
 /* ========== Code Diff Coloring ========== */
 .font-mono.whitespace-pre {
   color: #6b7280;

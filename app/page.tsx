@@ -1089,9 +1089,9 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <div className="grid lg:grid-cols-2 gap-8 items-start">
-                <motion.div variants={slideUp} className="space-y-6">
-                  <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
+              <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+                <motion.div variants={slideUp} className="flex flex-col gap-6">
+                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Terminal className="h-5 w-5 text-[#4B7F9B]" />
@@ -1100,13 +1100,16 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       As operator and commander of elite AI agent fleets, I orchestrate specialized agents across
-                      every layer of the stack. I practice compound engineering where every deployment compounds into
-                      persistent rules, build custom MCP servers and agent-facing runbooks, and design deterministic
-                      workflows where agents execute against well-defined specifications rather than open-ended prompts.
+                      every layer of the stack &mdash; infrastructure provisioning, smart contract development,
+                      frontend engineering, API design, security auditing, and automated testing. I practice compound
+                      engineering where every code review, bug fix, and deployment compounds into persistent rules
+                      that apply to all future work. I build custom MCP servers and author agent-facing runbooks
+                      that encode operational knowledge, and design deterministic workflows where agents execute
+                      against well-defined specifications rather than open-ended prompts.
                     </p>
                   </div>
 
-                  <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
+                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Zap className="h-5 w-5 text-[#4B7F9B]" />
@@ -1115,16 +1118,18 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       16 years of engineering &mdash; from managing 900+ servers at IBM to maintaining 200+ wallets
-                      at Bittrex to running $500M+ in staked validator infrastructure &mdash; provides the experience that
-                      separates an elite AI operator from someone just prompting. I encode operational knowledge into
-                      persistent agent rules and deterministic runbooks so every deployment compounds on the last.
-                      Experience is the compass; AI is the engine.
+                      at Bittrex to running $500M+ in staked validator infrastructure &mdash; provides the experience
+                      that separates an elite AI operator from someone just prompting. Cloud-to-bare-metal migrations,
+                      custom Grafana monitoring pipelines, automated node provisioning with AWS launch templates,
+                      and Dockerized blockchain deployments from source &mdash; all encoded into persistent agent
+                      rules and deterministic runbooks so every deployment compounds on the last. Experience is the
+                      compass; AI is the engine.
                     </p>
                   </div>
                 </motion.div>
 
                 <motion.div variants={slideUp}>
-                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col">
+                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col h-full">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
@@ -1471,16 +1476,12 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="cert-card p-5 rounded-lg border border-[#4B7F9B]/10 bg-[#1F1D20]/80 backdrop-blur text-center space-y-3 card-lift"
+                    className="cert-card p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border"
                   >
-                    <div className="relative w-14 h-14 mx-auto">
-                      <div className="absolute inset-0 rounded-full bg-[#4B7F9B]/5 border border-[#4B7F9B]/20" />
-                      <div className="absolute inset-[3px] rounded-full bg-[#4B7F9B]/5 border border-[#4B7F9B]/10 flex items-center justify-center">
-                        <Award className="h-6 w-6 text-[#4B7F9B]" />
-                      </div>
+                    <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
+                      <Award className="h-6 w-6 text-[#4B7F9B]" />
                     </div>
                     <h3 className="font-bold text-sm">{cert.name}</h3>
-                    <div className="w-8 h-px bg-[#4B7F9B]/20 mx-auto" />
                     <p className="text-xs text-slate-500">{cert.issuer}</p>
                     {cert.verifyUrl && (
                       <Link
