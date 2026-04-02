@@ -827,7 +827,7 @@ export default function Home() {
               className="space-y-3"
             >
               <p className="text-lg sm:text-xl md:text-2xl text-[#4B7F9B]">
-                Engineering Manager, Staking &mdash; Blockchain Infrastructure Architect
+                Engineering Manager, Staking -Blockchain Infrastructure Architect
               </p>
               <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
                 Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
@@ -933,7 +933,7 @@ export default function Home() {
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
-                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot &mdash; 50+ nodes with
+                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot -50+ nodes with
                   $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
@@ -1084,7 +1084,7 @@ export default function Home() {
                 <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
                   16 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
                   AI from a tool into a force multiplier. As an elite AI operator and cutting-edge technology adopter,
-                  I combine deep infrastructure expertise with 1000x development velocity &mdash; the experience to know
+                  I combine deep infrastructure expertise with 1000x development velocity -the experience to know
                   what to build, and the AI mastery to ship it in days instead of months.
                 </p>
               </motion.div>
@@ -1100,7 +1100,7 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       As operator and commander of elite AI agent fleets, I orchestrate specialized agents across
-                      every layer of the stack &mdash; infrastructure provisioning, smart contract development,
+                      every layer of the stack -infrastructure provisioning, smart contract development,
                       frontend engineering, API design, security auditing, and automated testing. I practice compound
                       engineering where every code review, bug fix, and deployment compounds into persistent rules
                       that apply to all future work. I build custom MCP servers and author agent-facing runbooks
@@ -1117,11 +1117,11 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of engineering &mdash; from managing 900+ servers at IBM to maintaining 200+ wallets
-                      at Bittrex to running $500M+ in staked validator infrastructure &mdash; provides the experience
+                      16 years of engineering -from managing 900+ servers at IBM to maintaining 200+ wallets
+                      at Bittrex to running $500M+ in staked validator infrastructure -provides the experience
                       that separates an elite AI operator from someone just prompting. Cloud-to-bare-metal migrations,
                       custom Grafana monitoring pipelines, automated node provisioning with AWS launch templates,
-                      and Dockerized blockchain deployments from source &mdash; all encoded into persistent agent
+                      and Dockerized blockchain deployments from source -all encoded into persistent agent
                       rules and deterministic runbooks so every deployment compounds on the last. Experience is the
                       compass; AI is the engine.
                     </p>
@@ -1164,7 +1164,7 @@ export default function Home() {
                         <div>SHA-256 key hashing confirmed... <span className="text-emerald-400">&#10003;</span></div>
                         <div>HSTS, CSP, X-Frame headers... <span className="text-emerald-400">&#10003;</span></div>
                         <div>Daml contract permissions audited... <span className="text-emerald-400">&#10003;</span></div>
-                        <div className="text-emerald-400">All checks passed &mdash; 0 critical, 0 high, 0 medium</div>
+                        <div className="text-emerald-400">All checks passed -0 critical, 0 high, 0 medium</div>
                       </div>
 
                       <div className="pt-2">
@@ -1236,7 +1236,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
-                  16+ years of engineering &mdash; from founding a hosting company to managing $500M+ in blockchain staking
+                  16+ years of engineering -from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
               </motion.div>
