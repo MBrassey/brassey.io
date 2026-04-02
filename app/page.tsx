@@ -1092,7 +1092,7 @@ export default function Home() {
 
               <div className="grid lg:grid-cols-2 gap-8 items-stretch">
                 <motion.div variants={slideUp} className="flex flex-col gap-6">
-                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
+                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Terminal className="h-5 w-5 text-[#4B7F9B]" />
@@ -1110,7 +1110,7 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer">
+                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Zap className="h-5 w-5 text-[#4B7F9B]" />
@@ -1130,7 +1130,7 @@ export default function Home() {
                 </motion.div>
 
                 <motion.div variants={slideUp}>
-                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col h-full">
+                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col h-full hover:border-[#4B7F9B]/30 transition-colors duration-300">
                     <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
@@ -1254,7 +1254,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur">
+                    <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur hover:border-[#4B7F9B]/30 transition-colors duration-300">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
                         <div>
                           <h3 className="text-xl font-bold">{role.title}</h3>
