@@ -274,7 +274,7 @@
 /* ========== Breathing Border ========== */
 @keyframes breathe {
   0%, 100% { border-color: #1F1D20; }
-  50% { border-color: rgba(75, 127, 155, 0.25); }
+  50% { border-color: rgba(75, 127, 155, 0.45); }
 }
 
 .breathe-border {

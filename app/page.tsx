@@ -1476,7 +1476,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="cert-card p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border"
+                    className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border"
                   >
                     <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
                       <Award className="h-6 w-6 text-[#4B7F9B]" />
