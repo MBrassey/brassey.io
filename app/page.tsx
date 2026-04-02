@@ -903,7 +903,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 className="relative w-full md:w-auto md:flex-shrink-0"
               >
-                <div className="w-full aspect-square rounded-2xl overflow-hidden border-2 border-[#4B7F9B]/20 shadow-[0_0_40px_rgba(75,127,155,0.1)] md:w-80 md:h-80">
+                <div className="w-full aspect-square rounded-2xl overflow-hidden border border-[#1F1D20] breathe-border md:w-80 md:h-80">
                   <img
                     src="/mbrassey.jpg"
                     alt="Matt Brassey"
