@@ -298,7 +298,7 @@ const certifications = [
   {
     name: "Linux+ & LPIC Certified",
     issuer: "CompTIA / LPI",
-    verifyUrl: "http://verify.comptia.org/",
+    verifyUrl: "https://www.credly.com/badges/e397f724-7e4d-45a0-b648-a0a35c2ba48a",
   },
 ]
 
