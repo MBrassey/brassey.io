@@ -202,7 +202,7 @@ const projects: Project[] = [
 const experience = [
   {
     title: "Engineering Manager",
-    company: "Blueprint, inc (hivemind.capital venture)",
+    company: "Blueprint, inc",
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
