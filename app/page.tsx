@@ -992,7 +992,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(0,0,0,0.3),0_0_20px_rgba(75,127,155,0.05)] hover:border-[#4B7F9B]/30"
+                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -1479,8 +1479,8 @@ export default function Home() {
                     : {}
                   return (
                   <motion.div key={i} variants={slideUp}>
-                    <CardWrapper {...wrapperProps} className="block group">
-                      <div className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border cursor-pointer">
+                    <CardWrapper {...wrapperProps} className="block group h-full">
+                      <div className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border cursor-pointer h-full flex flex-col items-center justify-center">
                         <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
                           <Award className="h-6 w-6 text-[#4B7F9B]" />
                         </div>
