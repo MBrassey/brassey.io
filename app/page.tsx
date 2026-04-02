@@ -913,11 +913,12 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000102] via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 font-mono text-[10px] text-[#4B7F9B]/80">
-                    <div>
-                      <span className="text-emerald-400/70">$</span> whoami
-                      <span className="inline-block w-[5px] h-[7px] bg-[#4B7F9B] ml-0.5 align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
-                    </div>
+                    <div><span className="text-emerald-400/70">$</span> whoami</div>
                     <div className="text-[#4B7F9B]/60">matt_brassey : eng_manager_staking : blueprint</div>
+                    <div>
+                      <span className="text-emerald-400/70">$</span>{" "}
+                      <span className="inline-block w-[5px] h-[7px] bg-[#4B7F9B] align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
+                    </div>
                   </div>
                 </div>
               </motion.div>
