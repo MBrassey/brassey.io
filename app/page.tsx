@@ -208,7 +208,7 @@ const experience = [
     description:
       "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Operating profitable mainnet validator fleets across 6 distinct L1s with $500M+ AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), and Canton",
+      "Operating profitable mainnet validator fleets across 6 distinct L1s with $500M+ staked AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), and Canton",
       "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
@@ -795,7 +795,7 @@ export default function Home() {
 
           {/* Claude Code streaming diff background */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-[1]">
-            <div className="absolute left-0 top-0 bottom-0 w-[70%] sm:w-[55%] overflow-hidden opacity-[0.17] sm:opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 20%, transparent 85%)", WebkitMaskImage: "linear-gradient(to right, black 20%, transparent 85%)" }}>
+            <div className="absolute left-0 top-0 bottom-0 w-[70%] sm:w-[55%] overflow-hidden opacity-[0.25] sm:opacity-[0.22]" style={{ maskImage: "linear-gradient(to right, black 20%, transparent 85%)", WebkitMaskImage: "linear-gradient(to right, black 20%, transparent 85%)" }}>
               <CodeStream />
             </div>
           </div>
@@ -830,7 +830,7 @@ export default function Home() {
                 Engineering Manager, Staking &mdash; Blockchain Infrastructure Architect
               </p>
               <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
-                Commanding 50+ validators across 25+ protocols with $500M+ AUM. Building the decentralized future from
+                Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
                 bare-metal to smart contracts.
               </p>
             </motion.div>
@@ -934,7 +934,7 @@ export default function Home() {
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
                   fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot &mdash; 50+ nodes with
-                  $500M+ AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
+                  $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
                   AI-driven validator operations.
@@ -1115,7 +1115,7 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       16 years of engineering &mdash; from managing 900+ servers at IBM to maintaining 200+ wallets
-                      at Bittrex to running $500M+ in validator infrastructure &mdash; provides the experience that
+                      at Bittrex to running $500M+ in staked validator infrastructure &mdash; provides the experience that
                       separates an elite AI operator from someone just prompting. I encode operational knowledge into
                       persistent agent rules and deterministic runbooks so every deployment compounds on the last.
                       Experience is the compass; AI is the engine.
@@ -1231,7 +1231,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
-                  16+ years of engineering &mdash; from founding a hosting company to managing $500M+ in blockchain
+                  16+ years of engineering &mdash; from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
               </motion.div>
