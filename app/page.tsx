@@ -1642,12 +1642,12 @@ export default function Home() {
                     <Mail className="mr-2 h-5 w-5" /> Email Me
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10 w-full sm:w-auto" asChild>
+                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                   <Link href="https://www.linkedin.com/in/mbrassey/" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="mr-2 h-5 w-5" /> LinkedIn
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="border-[#4B7F9B]/30 text-[#4B7F9B] hover:bg-[#4B7F9B]/10 w-full sm:w-auto" asChild>
+                <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                   <Link href="https://github.com/mbrassey" target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-5 w-5" /> GitHub
                   </Link>
