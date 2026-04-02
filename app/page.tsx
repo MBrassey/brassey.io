@@ -1303,7 +1303,7 @@ export default function Home() {
               </motion.div>
 
               <div className="grid gap-6 md:grid-cols-3">
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6">
+                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-[#4B7F9B]/10"><Server className="h-5 w-5 text-[#4B7F9B]" /></div>
                     <h3 className="text-lg font-bold">Backend &amp; Infrastructure</h3>
@@ -1334,7 +1334,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6">
+                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-[#4B7F9B]/10"><Code2 className="h-5 w-5 text-[#4B7F9B]" /></div>
                     <h3 className="text-lg font-bold">Frontend &amp; Web3</h3>
@@ -1364,7 +1364,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6">
+                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-emerald-500/10"><Database className="h-5 w-5 text-emerald-400" /></div>
                     <h3 className="text-lg font-bold">DevOps &amp; Operations</h3>
