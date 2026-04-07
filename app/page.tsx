@@ -853,7 +853,7 @@ export default function Home() {
                 asChild
               >
                 <Link
-                  href="https://docs.google.com/document/d/1Dpr80YVKB8gVMqLhfATrwvSWXX9PPRkTcwx9W2EodbM"
+                  href="https://docs.google.com/document/d/1xYCsndvFjoaK9GJdLL7boj6F7U3c1lCFUtgf8wepmio"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
