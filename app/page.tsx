@@ -282,7 +282,7 @@ const experience = [
 const certifications = [
   {
     name: "Blockchain Architect",
-    issuer: "The Blockchain Council",
+    issuer: "Blockchain Council",
     verifyUrl: "https://www.credential.net/44a73119-b770-4a10-901c-7aa6508d5c65",
   },
   {
