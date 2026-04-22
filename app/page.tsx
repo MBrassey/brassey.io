@@ -68,7 +68,7 @@ const infrastructureNodes: InfraNode[] = [
     description:
       "High-performance bare-metal validator running Firedancer, with prior operational experience on Agave + Jito-Solana clients. AMD EPYC 9654 (96 cores, 192 threads), 768GB DDR5, dual 3.84TB NVMe, 10Gbps dedicated.",
     links: [
-      { label: "Blueprint Status", url: "https://validator.info/solana/2Wf9V9rPeVRUTfmWdPedCJuWVr6MFfyLuigEq42DuMDc" },
+      { label: "Blueprint Status", url: "https://validator.info/solana/leaderboard/voting?search=Blueprint" },
       { label: "SolanaBeach", url: "https://solanabeach.io/validator/528hi3StRe7uGjt99d35myh95JPc2MqBEHTPYcEhqMg5" },
     ],
     metric: "~6% APY",
