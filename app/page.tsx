@@ -66,7 +66,7 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/solana.svg",
     description:
-      "High-performance bare-metal validator running Firedancer client. AMD EPYC 9654 (96 cores, 192 threads), 768GB DDR5, dual 3.84TB NVMe, 10Gbps dedicated.",
+      "High-performance bare-metal validator running Firedancer, with prior operational experience on Agave + Jito-Solana clients. AMD EPYC 9654 (96 cores, 192 threads), 768GB DDR5, dual 3.84TB NVMe, 10Gbps dedicated.",
     links: [
       { label: "Blueprint Status", url: "https://solana.theblueprint.xyz" },
       { label: "SolanaBeach", url: "https://solanabeach.io/validator/528hi3StRe7uGjt99d35myh95JPc2MqBEHTPYcEhqMg5" },
@@ -177,8 +177,8 @@ const projects: Project[] = [
     title: "Base Dashboard",
     subtitle: "Web3 Explorer & Wallet Tools",
     description:
-      "Comprehensive Web3 dashboard for Base L2 blockchain with wallet connectivity via MetaMask, Coinbase, and WalletConnect. NFT gallery, OnchainKit identity & socials, token balances, and ENS resolution.",
-    tech: ["Next.js", "Wagmi", "Alchemy SDK", "OnchainKit", "TypeScript"],
+      "Base-native wallet dashboard with MetaMask, Coinbase Wallet, WalletConnect v2, Brave/Phantom injected, and Safe support. Basename + avatar resolution via direct L2 Resolver reads, send flow for native ETH and ERC-20s (wallet-signed, no CDP key), QR-based receive modal, NFT and token galleries with client-side spam heuristics, and Coinbase identity socials.",
+    tech: ["Next.js 16", "React 19", "wagmi", "viem", "Alchemy SDK", "OnchainKit", "TypeScript"],
     url: "https://base.brassey.io",
   },
   {
@@ -193,8 +193,8 @@ const projects: Project[] = [
     title: "Waviii",
     subtitle: "ERC-20 Token Ecosystem",
     description:
-      "Fully decentralized ERC-20 token with integrated wallet, exchange, and real-time price charts. Built with OpenZeppelin, RESTful APIs, and deployed across Heroku, GH-Pages, and IPFS via Fleek.",
-    tech: ["Solidity", "React", "Web3.js", "OpenZeppelin", "DeFi", "IPFS"],
+      "Fully decentralized ERC-20 token deployed to Ethereum Mainnet with integrated Web3 wallet, swap, and CoinGecko-backed price dashboard. Fixed 1/100 ETH peg enforced by a mint-on-swap contract, unified buy/sell card with approve→sell state machine, activity table pulling Transfer events directly from chain, EIP-1193 MetaMask integration with chain guard, and a single WalletProvider React context as the app's source of truth.",
+    tech: ["Solidity", "React", "Web3.js", "OpenZeppelin", "CoinGecko", "Chart.js", "Vercel"],
     url: "https://waviii.io",
   },
 ]
@@ -206,9 +206,9 @@ const experience = [
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
-      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and Babylon — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Operating profitable mainnet validator fleets across 6 distinct L1s with $500M+ staked AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), and Canton",
+      "Operating profitable mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
       "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
