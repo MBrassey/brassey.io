@@ -213,8 +213,8 @@ const experience = [
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
-      "Created custom ETH2 indexer using Redis for bidirectional mapping between ETH1 deposit addresses and ETH2 validator public keys",
-      "Built CC Ledger (15 REST endpoints, 15 MCP tools for Canton) and Solentic (30 REST endpoints, 26 MCP tools — the first agent-facing Solana staking platform)",
+      "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
+      "Built CC Ledger (15 REST endpoints, 15 MCP tools for Canton)",
     ],
   },
   {
