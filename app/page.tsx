@@ -1632,7 +1632,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Let&apos;s Connect</h2>
                 <p className="text-slate-400 text-lg">
-                  Interested in blockchain infrastructure, validator operations, or decentralized systems?
+                  Interested in blockchain infrastructure, validator operations, or distributed systems?
                   Let&apos;s talk.
                 </p>
               </motion.div>
