@@ -169,7 +169,7 @@ const projects: Project[] = [
     title: "CC Ledger",
     subtitle: "Canton Network Infrastructure API",
     description:
-      "Full-stack Canton blockchain platform with 15 REST endpoints, 15 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Custom OpenAPI 3.1 spec, self-service API key registration, CCL rewards token economy, and AI agent integration via MCP server. Built with Spring Boot, Java 21, PostgreSQL 16, Flyway migrations, and gRPC ledger connection to Canton MainNet. Compatible with Claude, LangChain, CrewAI, and any HTTP-capable agent — enabling programmatic attestation, transfer orchestration, and on-ledger settlement workflows. Hardened with bearer-token auth, request signing, idempotency keys, and full audit trails written back to Canton for tamper-evident history.",
+      "Full-stack Canton blockchain platform with 15 REST endpoints, 15 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Custom OpenAPI 3.1 spec, self-service API key registration, CCL rewards token economy, and AI agent integration via MCP server. Built with Spring Boot, Java 21, PostgreSQL 16, Flyway migrations, and gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
     tech: ["Canton", "Daml", "Spring Boot", "Java 21", "PostgreSQL", "gRPC", "MCP", "OpenAPI 3.1"],
     url: "https://ccledger.theblueprint.xyz",
   },
