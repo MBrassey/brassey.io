@@ -158,6 +158,14 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "agtop",
+    subtitle: "Terminal UI for AI Agent Monitoring",
+    description:
+      "Process monitor for AI coding agents — like top, but for Claude Code, OpenAI Codex, Aider, Block Goose, and Google Gemini. Reads /proc (sysinfo on macOS/Windows/*BSD) plus on-disk session transcripts to surface CPU, RSS, in-flight tools and subagents, cumulative token usage, estimated cost, context-window fill, and loaded skills. 20 built-in regex matchers, 7 status badges blending process state with session activity, native writable-FD enumeration via libSystem FFI on macOS and NtQuerySystemInformation on Windows. Distributed via Cargo, Homebrew, apt, winget, AUR, FreeBSD pkg, and npm.",
+    tech: ["Rust", "Ratatui", "sysinfo", "Cargo", "FFI", "TUI", "Cross-Platform"],
+    url: "https://github.com/MBrassey/agtop",
+  },
+  {
     title: "CC Ledger",
     subtitle: "Canton Network Infrastructure API",
     description:
@@ -1330,6 +1338,14 @@ export default function Home() {
                       <p className="text-slate-400 text-xs leading-relaxed">
                         On-chain data extraction, custom ETH2 indexer with Redis, MongoDB/MySQL/MsSQL, time-series
                         analytics, chain data snapshots, archival &amp; structured historical data.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-[#4B7F9B] text-sm mb-1.5">Systems &amp; CLI Tooling</h4>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        Rust, Ratatui TUI, Cargo, sysinfo, /proc parsing, native FFI (libSystem dylib on macOS,
+                        NtQuerySystemInformation on Windows), cross-platform packaging via Homebrew, AUR, apt,
+                        winget, FreeBSD pkg, and npm shims.
                       </p>
                     </div>
                   </div>
