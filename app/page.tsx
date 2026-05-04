@@ -1378,6 +1378,14 @@ export default function Home() {
                         theming, Flyway migrations, PostgreSQL, v0.dev, Vercel, Remix IDE.
                       </p>
                     </div>
+                    <div>
+                      <h4 className="text-[#4B7F9B] text-sm mb-1.5">AI Agent Integration</h4>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        MCP server design (stdio &amp; HTTP transports), A2A agent cards with declared skills,
+                        zero-custody unsigned transaction flows, tool-call schema design for Claude / LangChain /
+                        CrewAI / ElizaOS / OpenClaw, on-chain memo attribution, SHA-256 source verification.
+                      </p>
+                    </div>
                   </div>
                 </motion.div>
 
@@ -1406,6 +1414,15 @@ export default function Home() {
                       <p className="text-slate-400 text-xs leading-relaxed">
                         Custom Grafana dashboards, Prometheus metrics, custom Node Exporter metrics, alert management,
                         CI/CD pipelines, AWS (EC2, RDS, S3, SSM, CloudWatch, CLI), Git, Vim, VS Code.
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-emerald-400 text-sm mb-1.5">Release Engineering</h4>
+                      <p className="text-slate-400 text-xs leading-relaxed">
+                        GitHub Actions CI matrices, multi-arch prebuilt binaries (linux x86_64/aarch64, macOS
+                        Intel/Apple Silicon, Windows), package distribution via crates.io, Homebrew tap, AUR,
+                        signed apt repo (GPG dearmor), winget, FreeBSD pkg, npm shims with SHA256SUMS verification,
+                        semantic versioning, conventional commits.
                       </p>
                     </div>
                   </div>
