@@ -66,7 +66,7 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/solana.svg",
     description:
-      "High-performance bare-metal validator on the DoubleZero network, running a Jito BAM configuration with zero-downtime upgrades. Receiving stake delegations from JPool, Marinade, The Vault, and the Solana Foundation.",
+      "High-performance bare-metal validator on the DoubleZero network, running a Jito BAM configuration with zero-downtime upgrades. Receiving stake delegations from Jito, DoubleZero, JPool, Marinade, The Vault, and the Solana Foundation.",
     links: [
       { label: "Blueprint Status", url: "https://validator.info/solana/2Wf9V9rPeVRUTfmWdPedCJuWVr6MFfyLuigEq42DuMDc" },
       { label: "SolanaBeach", url: "https://solanabeach.io/validator/528hi3StRe7uGjt99d35myh95JPc2MqBEHTPYcEhqMg5" },
