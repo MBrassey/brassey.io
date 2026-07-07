@@ -61,12 +61,12 @@ interface InfraNode {
 
 const infrastructureNodes: InfraNode[] = [
   {
-    name: "Solana Firedancer Validator",
+    name: "Solana Jito Validator",
     network: "Solana",
     type: "Validator",
     logo: "/logos/solana.svg",
     description:
-      "High-performance bare-metal validator running Firedancer, with prior operational experience on Agave + Jito-Solana clients. AMD EPYC 9654 (96 cores, 192 threads), 768GB DDR5, dual 3.84TB NVMe, 10Gbps dedicated.",
+      "High-performance bare-metal validator on the DoubleZero network, switched to a Jito BAM configuration with zero-downtime upgrades. Receiving stake delegations from JPool, Marinade, The Vault, and the Solana Foundation.",
     links: [
       { label: "Blueprint Status", url: "https://validator.info/solana/2Wf9V9rPeVRUTfmWdPedCJuWVr6MFfyLuigEq42DuMDc" },
       { label: "SolanaBeach", url: "https://solanabeach.io/validator/528hi3StRe7uGjt99d35myh95JPc2MqBEHTPYcEhqMg5" },
@@ -74,17 +74,16 @@ const infrastructureNodes: InfraNode[] = [
     metric: "~6% APY",
   },
   {
-    name: "Ethereum Whale Validators",
+    name: "Ethereum Max Whale Validator",
     network: "Ethereum",
     type: "Validator",
     logo: "/logos/ethereum.svg",
     description:
-      "Two enterprise-grade beacon chain validators with MEV boost. Running Besu execution client and Teku consensus/validator client.",
+      "Enterprise-grade beacon chain validator consolidated to the 2048 ETH maximum effective balance (EIP-7251) with MEV boost.",
     links: [
-      { label: "Validator 1", url: "https://beaconcha.in/validator/0xa2397591c0af340e609253f2a18296e5a5a92895a5018871e907a693743f303a0e7d756caa889a471e04ea8ff438c0fe" },
-      { label: "Validator 2", url: "https://beaconcha.in/validator/0x9869101897319059e08373a1980da6d0eff082a40eab64ae144cb31baab6122f6de15ee91ed71bd4e2a620a8f4ca5046" },
+      { label: "Validator", url: "https://beaconcha.in/validator/0x8a132f062776bf0bc497efb5caf075fb674dd7e500a4afcd78ad04d916b0c4ea35490f96a405ecaf00cbc59b5f2126e8" },
     ],
-    count: 2,
+    metric: "2048 ETH",
   },
   {
     name: "Avalanche Validators",
@@ -216,7 +215,7 @@ const experience = [
     description:
       "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and Babylon — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Operating profitable mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Firedancer), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
+      "Operating profitable mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
       "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
