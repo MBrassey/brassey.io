@@ -66,7 +66,7 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/solana.svg",
     description:
-      "High-performance bare-metal validator on the DoubleZero network, switched to a Jito BAM configuration with zero-downtime upgrades. Receiving stake delegations from JPool, Marinade, The Vault, and the Solana Foundation.",
+      "High-performance bare-metal validator on the DoubleZero network, running a Jito BAM configuration with zero-downtime upgrades. Receiving stake delegations from JPool, Marinade, The Vault, and the Solana Foundation.",
     links: [
       { label: "Blueprint Status", url: "https://validator.info/solana/2Wf9V9rPeVRUTfmWdPedCJuWVr6MFfyLuigEq42DuMDc" },
       { label: "SolanaBeach", url: "https://solanabeach.io/validator/528hi3StRe7uGjt99d35myh95JPc2MqBEHTPYcEhqMg5" },
@@ -79,7 +79,7 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/ethereum.svg",
     description:
-      "Enterprise-grade beacon chain validator consolidated to the 2048 ETH maximum effective balance (EIP-7251) with MEV boost.",
+      "Enterprise-grade beacon chain validator at the 2048 ETH maximum effective balance (EIP-7251) with MEV boost.",
     links: [
       { label: "Validator", url: "https://beaconcha.in/validator/0x8a132f062776bf0bc497efb5caf075fb674dd7e500a4afcd78ad04d916b0c4ea35490f96a405ecaf00cbc59b5f2126e8" },
     ],
