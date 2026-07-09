@@ -140,8 +140,9 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/canton.svg",
     description:
-      "Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets.",
+      "Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets. Hosts the full-genesis Canton Coin indexing pipeline and scan endpoint powering CCScan (ccscan.xyz).",
     links: [
+      { label: "CCScan", url: "https://ccscan.xyz" },
       { label: "CantonScan", url: "https://www.cantonscan.com/party/blueprint-validator-1::1220daab58adcae026bd2ca7ad95014f678bda3ce2a6f91b744cf3ec3d87f09deeac" },
     ],
   },
@@ -156,6 +157,14 @@ interface Project {
 }
 
 const projects: Project[] = [
+  {
+    title: "CCScan",
+    subtitle: "Canton Network Explorer & Chain API",
+    description:
+      "Full-history Canton Network explorer and chain API — every Canton Coin transaction since genesis, queryable by anyone. Powered by a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, ~450 GB, seconds behind chain head) hosted on Blueprint's own Canton validator infrastructure, with an API orchestration layer blending keyset-paginated index reads and live Scan pass-through for balances, holdings, and ANS names. 20 public REST endpoints with deterministic seq cursors, trigram party search, daily chain stats, metered key tiers from anonymous to enterprise (120–30,000 req/min), Stripe embedded checkout, and a dependency-free vanilla-JS SPA with hand-rolled SVG charts.",
+    tech: ["Canton", "Python", "Flask", "PostgreSQL", "OpenAPI 3.1", "Stripe", "REST API", "Vanilla JS"],
+    url: "https://ccscan.xyz",
+  },
   {
     title: "agtop",
     subtitle: "Terminal UI for AI Agent Monitoring",
@@ -221,6 +230,7 @@ const experience = [
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
       "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
+      "Built CCScan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
       "Built CC Ledger (15 REST endpoints, 15 MCP tools for Canton)",
     ],
   },
@@ -1328,15 +1338,18 @@ export default function Home() {
                     <div>
                       <h4 className="text-[#4B7F9B] text-sm mb-1.5">API &amp; Microservices</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        Node.js, Express, OpenAPI specification, RESTful design, GraphQL, WebSockets, JWT authentication,
-                        Infura, Alchemy, QuickNode, RapidAPI.
+                        Node.js, Express, Python (Flask + waitress), OpenAPI specification, RESTful design, metered
+                        API-key tiers with Stripe billing, GraphQL, WebSockets, JWT authentication, Infura, Alchemy,
+                        QuickNode, RapidAPI.
                       </p>
                     </div>
                     <div>
                       <h4 className="text-[#4B7F9B] text-sm mb-1.5">Data Engineering</h4>
                       <p className="text-slate-400 text-xs leading-relaxed">
-                        On-chain data extraction, custom ETH2 indexer with Redis, MongoDB/MySQL/MsSQL, time-series
-                        analytics, chain data snapshots, archival &amp; structured historical data.
+                        On-chain data extraction, full-genesis Canton Coin indexer (324M+ row normalized per-party
+                        PostgreSQL, keyset pagination, pg_trgm search), custom ETH2 indexer with Redis,
+                        MongoDB/MySQL/MsSQL, time-series analytics, chain data snapshots, archival &amp; structured
+                        historical data.
                       </p>
                     </div>
                     <div>
