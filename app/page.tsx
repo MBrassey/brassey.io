@@ -226,9 +226,9 @@ const experience = [
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
-      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining profitable validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and Babylon — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and Babylon — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Operating profitable mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
+      "Operating high-performance mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
       "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
@@ -1342,7 +1342,7 @@ export default function Home() {
                 <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
-                  <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
+                  <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate high-performance validator
                   fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot — 50+ nodes with
                   $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
@@ -1399,7 +1399,7 @@ export default function Home() {
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Infrastructure Command</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
                   Real-time validator and node operations across multiple blockchain networks. Deploying, monitoring,
-                  upgrading &amp; maintaining profitable mainnet validators and data RPC nodes.
+                  upgrading &amp; maintaining high-performance mainnet validators and data RPC nodes.
                 </p>
               </motion.div>
 
