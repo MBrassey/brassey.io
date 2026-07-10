@@ -694,7 +694,7 @@ function cantonSubscribe(fn: () => void) {
   }
 }
 
-function CantonLive({ variant }: { variant: "hero" | "card" }) {
+function CantonLive() {
   const [display, setDisplay] = useState<number | null>(null)
   const [round, setRound] = useState<number>(0)
 
@@ -730,27 +730,6 @@ function CantonLive({ variant }: { variant: "hero" | "card" }) {
   if (display === null) return null
   const txs = display.toLocaleString("en-US")
   const rnd = round.toLocaleString("en-US")
-
-  if (variant === "hero") {
-    return (
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="flex flex-wrap items-center justify-start sm:justify-center gap-x-2.5 gap-y-1 font-mono text-[11px] sm:text-xs pt-8"
-      >
-        <span className="status-dot" style={{ width: 6, height: 6 }} />
-        <span className="text-emerald-400 text-[10px] tracking-[0.25em]">LIVE</span>
-        <span className="text-slate-500">canton mainnet</span>
-        <span className="text-[#4B7F9B] tabular-nums">{txs}</span>
-        <span className="text-slate-500">tx indexed</span>
-        <span className="text-slate-600 hidden sm:inline">·</span>
-        <span className="text-slate-500 hidden sm:inline">round</span>
-        <span className="text-[#4B7F9B] tabular-nums hidden sm:inline">{rnd}</span>
-        <span className="text-slate-600 hidden md:inline">· via ccscan.xyz</span>
-      </motion.div>
-    )
-  }
 
   return (
     <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px]">
@@ -1280,8 +1259,6 @@ export default function Home() {
               <AnimatedCounter end={16} suffix="+" label="Years Experience" />
               <AnimatedCounter end={500} suffix="M+" prefix="$" label="AUM" />
             </motion.div>
-
-            <CantonLive variant="hero" />
           </div>
 
           <motion.div
@@ -1446,7 +1423,7 @@ export default function Home() {
                     </h3>
                     <p className="text-sm text-slate-400 mb-4 leading-relaxed">{node.description}</p>
                     <div className="space-y-2 mt-auto">
-                      {node.network === "Canton" && <CantonLive variant="card" />}
+                      {node.network === "Canton" && <CantonLive />}
                       {node.metric && (
                         <div className="text-sm font-mono text-[#4B7F9B]">{node.metric}</div>
                       )}
@@ -1894,7 +1871,7 @@ export default function Home() {
                           <ArrowUpRight className="h-5 w-5 text-slate-600 group-hover:text-[#4B7F9B] transition-colors flex-shrink-0" />
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
-                        {project.title === "CCScan" && <CantonLive variant="card" />}
+                        {project.title === "CCScan" && <CantonLive />}
                         <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tech.map((t) => (
                             <Badge key={t} variant="outline" className="border-slate-700 text-slate-500 text-[10px] px-2 py-0">
