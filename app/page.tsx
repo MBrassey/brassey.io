@@ -13,7 +13,6 @@ import {
   ChevronRight,
   Clock,
   Code2,
-  Command as CommandIcon,
   Copy,
   Database,
   ExternalLink,
@@ -25,6 +24,7 @@ import {
   Mail,
   Menu,
   Network,
+  Search,
   Server,
   Shield,
   Terminal,
@@ -1089,10 +1089,11 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setCmdOpen(true)}
-              aria-label="Open command menu"
-              className="hidden lg:inline-flex items-center gap-1 rounded border border-[#1F1D20] px-2 py-1 font-mono text-[10px] text-slate-500 transition-colors hover:border-[#4B7F9B]/40 hover:text-[#4B7F9B]"
+              aria-label="Search and navigate (⌘K)"
+              className="hidden lg:inline-flex items-center gap-1.5 rounded border border-[#1F1D20] px-2 py-1 font-mono text-[10px] text-slate-500 transition-colors hover:border-[#4B7F9B]/40 hover:text-[#4B7F9B]"
             >
-              <CommandIcon className="h-3 w-3" />K
+              <Search className="h-3 w-3" />
+              <span>⌘K</span>
             </button>
             <button
               className="lg:hidden text-slate-400 hover:text-slate-200 transition-colors"
