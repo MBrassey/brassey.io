@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import "@/app/globals.css"
 import { JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -69,20 +69,11 @@ export const metadata: Metadata = {
     siteName: "Matt Brassey",
     title: siteTitle,
     description: siteDescription,
-    images: [
-      {
-        url: "/mbrassey.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Matt Brassey — Blockchain Infrastructure Architect & Engineering Manager",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
-    images: ["/mbrassey.jpg"],
     creator: "@mbrassey",
   },
   robots: {
@@ -100,8 +91,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon",
     shortcut: "/icon",
-    apple: "/icon",
   },
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#000102",
+  colorScheme: "dark",
 }
 
 const personJsonLd = {
@@ -157,10 +154,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        />
+        <link rel="preconnect" href="https://wakatime.com" />
+        <link rel="preconnect" href="https://ccscan.xyz" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}

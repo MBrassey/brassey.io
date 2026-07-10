@@ -2,15 +2,19 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { motion, useInView, AnimatePresence } from "framer-motion"
+import { motion, useInView, AnimatePresence, MotionConfig, useScroll, useSpring } from "framer-motion"
+import { Command as CmdK } from "cmdk"
 import {
   Activity,
   ArrowRight,
   ArrowUpRight,
   Award,
+  Check,
   ChevronRight,
   Clock,
   Code2,
+  Command as CommandIcon,
+  Copy,
   Database,
   ExternalLink,
   FileText,
@@ -177,7 +181,7 @@ const projects: Project[] = [
     title: "CC Ledger",
     subtitle: "Canton Network Infrastructure API",
     description:
-      "Full-stack Canton blockchain platform with 15 REST endpoints, 15 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
+      "Full-stack Canton blockchain platform with 14 REST endpoints, 14 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
     tech: ["Canton", "Daml", "Spring Boot", "Java 21", "PostgreSQL", "gRPC", "MCP", "OpenAPI 3.1"],
     url: "https://ccledger.theblueprint.xyz",
   },
@@ -218,7 +222,7 @@ const projects: Project[] = [
 const experience = [
   {
     title: "Engineering Manager",
-    company: "Blueprint, inc",
+    company: "Blueprint, Inc",
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
@@ -231,12 +235,12 @@ const experience = [
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
       "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
       "Built CCScan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
-      "Built CC Ledger (15 REST endpoints, 15 MCP tools for Canton)",
+      "Built CC Ledger (14 REST endpoints, 14 MCP tools for Canton)",
     ],
   },
   {
     title: "Senior Wallet Operations Engineer",
-    company: "Bittrex, inc",
+    company: "Bittrex, Inc",
     location: "Remote | Seattle, WA",
     period: "2021 — 2023",
     description:
@@ -366,6 +370,7 @@ function ParticleNetwork() {
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
     let animId = 0
     let w = 0
@@ -459,113 +464,96 @@ function AnimatedCounter({
 }
 
 const codeLines = [
+  { type: "txt", text: "● I'll fix rewards accounting on the Solana fleet — Jito MEV tips aren't included in the APY gauge." },
+  { type: "blank", text: "" },
   { type: "cmd", text: "● Read(src/validators/solana.ts)" },
-  { type: "out", text: "  ⎿  Read 47 lines (1ms)" },
+  { type: "out", text: "  ⎿  Read 47 lines (ctrl+o to expand)" },
+  { type: "blank", text: "" },
+  { type: "think", text: "✻ Thinking…" },
+  { type: "blank", text: "" },
+  { type: "txt", text: "● The exporter only counts base inflation rewards. Pulling Jito tips per epoch and folding them into the gauge." },
   { type: "blank", text: "" },
   { type: "cmd", text: "● Update(src/validators/solana.ts)" },
-  { type: "out", text: "  ⎿  Added 14 lines, removed 3 lines" },
-  { type: "ctx", text: "      12  import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';" },
-  { type: "del", text: "      13 -import { getValidatorInfo } from '../utils';" },
-  { type: "add", text: "      13 +import { ValidatorMetrics } from '../metrics/prometheus';" },
-  { type: "add", text: "      14 +import { JitoClient } from '@jito-foundation/sdk';" },
-  { type: "ctx", text: "      15" },
-  { type: "ctx", text: "      16  export async function getRewards(voteAccount: string) {" },
-  { type: "ctx", text: "      17    const conn = new Connection(process.env.SOLANA_RPC!);" },
-  { type: "del", text: "      18 -  const rewards = await conn.getInflationReward([voteAccount]);" },
-  { type: "del", text: "      19 -  return { amount: rewards[0]?.amount ?? 0 };" },
-  { type: "add", text: "      18 +  const epoch = await conn.getEpochInfo();" },
-  { type: "add", text: "      19 +  const [inflation, jito] = await Promise.all([" },
-  { type: "add", text: "      20 +    conn.getInflationReward([voteAccount], epoch.epoch - 1)," },
-  { type: "add", text: "      21 +    JitoClient.getMevReward(voteAccount, epoch.epoch - 1)," },
-  { type: "add", text: "      22 +  ]);" },
-  { type: "add", text: "      23 +  const base = (inflation[0]?.amount ?? 0) / LAMPORTS_PER_SOL;" },
-  { type: "add", text: "      24 +  return {" },
-  { type: "add", text: "      25 +    epoch: epoch.epoch," },
-  { type: "add", text: "      26 +    baseReward: base," },
-  { type: "add", text: "      27 +    jitoMev: jito.lamports / LAMPORTS_PER_SOL," },
-  { type: "add", text: "      28 +    totalApy: ValidatorMetrics.calculateAPY(base + jito)," },
-  { type: "add", text: "      29 +  };" },
-  { type: "ctx", text: "      30  }" },
+  { type: "out", text: "  ⎿  Updated src/validators/solana.ts with 14 additions and 3 removals" },
+  { type: "ctx", text: "       12    import { Connection, LAMPORTS_PER_SOL } from '@solana/web3.js';" },
+  { type: "del", text: "       13 -  import { getValidatorInfo } from '../utils';" },
+  { type: "add", text: "       13 +  import { ValidatorMetrics } from '../metrics/prometheus';" },
+  { type: "add", text: "       14 +  import { JitoClient } from '@jito-foundation/sdk';" },
+  { type: "ctx", text: "       15" },
+  { type: "ctx", text: "       16    export async function getRewards(voteAccount: string) {" },
+  { type: "ctx", text: "       17      const conn = new Connection(process.env.SOLANA_RPC!);" },
+  { type: "del", text: "       18 -    const rewards = await conn.getInflationReward([voteAccount]);" },
+  { type: "del", text: "       19 -    return { amount: rewards[0]?.amount ?? 0 };" },
+  { type: "add", text: "       18 +    const epoch = await conn.getEpochInfo();" },
+  { type: "add", text: "       19 +    const [inflation, jito] = await Promise.all([" },
+  { type: "add", text: "       20 +      conn.getInflationReward([voteAccount], epoch.epoch - 1)," },
+  { type: "add", text: "       21 +      JitoClient.getMevReward(voteAccount, epoch.epoch - 1)," },
+  { type: "add", text: "       22 +    ]);" },
+  { type: "add", text: "       23 +    const base = (inflation[0]?.amount ?? 0) / LAMPORTS_PER_SOL;" },
+  { type: "add", text: "       24 +    return {" },
+  { type: "add", text: "       25 +      epoch: epoch.epoch," },
+  { type: "add", text: "       26 +      baseReward: base," },
+  { type: "add", text: "       27 +      jitoMev: jito.lamports / LAMPORTS_PER_SOL," },
+  { type: "add", text: "       28 +      totalApy: ValidatorMetrics.calculateAPY(base + jito.lamports)," },
+  { type: "add", text: "       29 +    };" },
+  { type: "ctx", text: "       30    }" },
   { type: "blank", text: "" },
-  { type: "cmd", text: "● Bash(npm run build 2>&1 | tail -5)" },
-  { type: "out", text: "  ⎿  ✓ Compiled successfully" },
-  { type: "out", text: "     ○  (Static)  prerendered as static content" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Read(src/infra/deploy-avax.ts)" },
-  { type: "out", text: "  ⎿  Read 38 lines (1ms)" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Update(src/infra/deploy-avax.ts)" },
-  { type: "out", text: "  ⎿  Added 18 lines, removed 4 lines" },
-  { type: "del", text: "       1 -const nodeId = process.argv[2];" },
-  { type: "del", text: "       2 -console.log('deploying ' + nodeId);" },
-  { type: "add", text: "       1 +import { AvalancheSDK } from '@avalabs/sdk';" },
-  { type: "add", text: "       2 +import { loadConfig } from '../config';" },
-  { type: "add", text: "       3 +" },
-  { type: "add", text: "       4 +const config = loadConfig('avalanche');" },
-  { type: "add", text: "       5 +const sdk = new AvalancheSDK({ rpc: config.rpcUrl });" },
-  { type: "ctx", text: "       6" },
-  { type: "del", text: "       4 -async function deploy() {" },
-  { type: "del", text: "       5 -  // placeholder" },
-  { type: "add", text: "       7 +async function addValidator(nodeID: string) {" },
-  { type: "add", text: "       8 +  const tx = await sdk.pchain.buildAddValidatorTx({" },
-  { type: "add", text: "       9 +    nodeID," },
-  { type: "add", text: "      10 +    stakeAmount: config.minStake," },
-  { type: "add", text: "      11 +    delegationFeeRate: 200_000," },
-  { type: "add", text: "      12 +    rewardAddresses: [config.treasury]," },
-  { type: "add", text: "      13 +  });" },
-  { type: "add", text: "      14 +  const signed = await tx.sign(config.signerKey);" },
-  { type: "add", text: "      15 +  const txId = await sdk.pchain.issueTx(signed);" },
-  { type: "add", text: "      16 +  console.log('Validator added:', txId);" },
-  { type: "ctx", text: "      17  }" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Bash(docker compose up -d avalanche-node)" },
-  { type: "out", text: "  ⎿  Container avax-validator-1 Started" },
-  { type: "out", text: "     Container avax-validator-1 Healthy" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Update(src/indexer/eth2-redis.ts)" },
-  { type: "out", text: "  ⎿  Added 12 lines, removed 3 lines" },
-  { type: "ctx", text: "       7  import Redis from 'ioredis';" },
-  { type: "del", text: "       8 -import { BeaconClient } from './beacon';" },
-  { type: "add", text: "       8 +import { createBeaconClient } from './beacon';" },
-  { type: "ctx", text: "       9" },
-  { type: "del", text: "      10 -const redis = new Redis();" },
-  { type: "add", text: "      10 +const redis = new Redis(process.env.REDIS_URL!);" },
-  { type: "add", text: "      11 +const beacon = createBeaconClient(process.env.BEACON_RPC!);" },
-  { type: "ctx", text: "      12" },
-  { type: "ctx", text: "      13  export async function indexDeposit(eth1Addr: string) {" },
-  { type: "del", text: "      14 -  const pk = await beacon.getPubkey(eth1Addr);" },
-  { type: "add", text: "      14 +  const validators = await beacon.getStateValidators({" },
-  { type: "add", text: "      15 +    filters: { status: 'active' }," },
-  { type: "add", text: "      16 +  });" },
-  { type: "add", text: "      17 +  const matched = validators.filter(" },
-  { type: "add", text: "      18 +    v => v.validator.depositAddress === eth1Addr" },
-  { type: "add", text: "      19 +  );" },
-  { type: "add", text: "      20 +  for (const v of matched) {" },
-  { type: "add", text: "      21 +    await redis.hset('eth1:eth2', eth1Addr, v.validator.pubkey);" },
-  { type: "add", text: "      22 +    await redis.hset('eth2:eth1', v.validator.pubkey, eth1Addr);" },
-  { type: "add", text: "      23 +  }" },
-  { type: "ctx", text: "      24  }" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Update(src/metrics/node-exporter.ts)" },
-  { type: "out", text: "  ⎿  Added 11 lines, removed 2 lines" },
-  { type: "del", text: "       1 -import { collectDefaultMetrics } from 'prom-client';" },
-  { type: "add", text: "       1 +import { Registry, Gauge, collectDefaultMetrics } from 'prom-client';" },
-  { type: "ctx", text: "       2" },
-  { type: "del", text: "       3 -collectDefaultMetrics();" },
-  { type: "add", text: "       3 +const registry = new Registry();" },
-  { type: "add", text: "       4 +collectDefaultMetrics({ register: registry });" },
-  { type: "add", text: "       5 +" },
-  { type: "add", text: "       6 +export const blockHeight = new Gauge({" },
-  { type: "add", text: "       7 +  name: 'validator_block_height'," },
-  { type: "add", text: "       8 +  help: 'Current block height'," },
-  { type: "add", text: "       9 +  labelNames: ['chain', 'node_id']," },
-  { type: "add", text: "      10 +  registers: [registry]," },
-  { type: "add", text: "      11 +});" },
-  { type: "blank", text: "" },
-  { type: "cmd", text: "● Bash(npm run build && npm run test)" },
+  { type: "cmd", text: "● Bash(npm run build 2>&1 | tail -3)" },
   { type: "out", text: "  ⎿  ✓ Compiled successfully" },
   { type: "out", text: "     Tests: 24 passed, 0 failed" },
-  { type: "out", text: "     ✓ All checks passed" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Update Todos" },
+  { type: "out", text: "  ⎿  ☒ Fold Jito MEV tips into the APY gauge" },
+  { type: "todo", text: "     ☒ Rebuild and test the exporter" },
+  { type: "todo", text: "     ☐ Roll Avalanche fleet to v1.13.2" },
+  { type: "todo", text: "     ☐ Check cc-indexer cursor lag" },
+  { type: "blank", text: "" },
+  { type: "txt", text: "● Rolling the Avalanche fleet next — va-1 first, health-gated before the rest follow." },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Bash(ssh avax-va-1 'avalanchego --version')" },
+  { type: "out", text: "  ⎿  avalanche/1.13.1 [network=mainnet]" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Update(infra/avalanche/compose.yaml)" },
+  { type: "out", text: "  ⎿  Updated infra/avalanche/compose.yaml with 1 addition and 1 removal" },
+  { type: "del", text: "        7 -    image: avaplatform/avalanchego:v1.13.1" },
+  { type: "add", text: "        7 +    image: avaplatform/avalanchego:v1.13.2" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Bash(docker compose up -d avax-node && curl -s :9650/ext/health | jq .healthy)" },
+  { type: "out", text: "  ⎿  Container avax-va-1  Started" },
+  { type: "out", text: "     true" },
+  { type: "blank", text: "" },
+  { type: "think", text: "✻ Thinking…" },
+  { type: "blank", text: "" },
+  { type: "txt", text: "● va-1 is healthy on v1.13.2. Now checking the Canton indexer's cursor before advancing the fleet." },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Bash(curl -s https://ccscan.xyz/api/overview | jq '{head_seq, latest_round}')" },
+  { type: "out", text: "  ⎿  {" },
+  { type: "out", text: "       \"head_seq\": 321752023," },
+  { type: "out", text: "       \"latest_round\": 103884" },
+  { type: "out", text: "     }" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Read(cc-indexer/app.py)" },
+  { type: "out", text: "  ⎿  Read 412 lines (ctrl+o to expand)" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Update(cc-indexer/app.py)" },
+  { type: "out", text: "  ⎿  Updated cc-indexer/app.py with 6 additions and 2 removals" },
+  { type: "ctx", text: "       82    def insert_batch(cur, rows):" },
+  { type: "del", text: "       83 -      for r in rows:" },
+  { type: "del", text: "       84 -          cur.execute(\"INSERT INTO cc_party_tx VALUES (%s,%s,%s)\", r)" },
+  { type: "add", text: "       83 +      psycopg2.extras.execute_values(" },
+  { type: "add", text: "       84 +          cur," },
+  { type: "add", text: "       85 +          \"INSERT INTO cc_party_tx (party_id, seq, roles) VALUES %s\"," },
+  { type: "add", text: "       86 +          rows," },
+  { type: "add", text: "       87 +          page_size=1000," },
+  { type: "add", text: "       88 +      )" },
+  { type: "blank", text: "" },
+  { type: "cmd", text: "● Bash(docker compose logs --tail=2 cc-indexer)" },
+  { type: "out", text: "  ⎿  cc-indexer  | ingested page=1000 head=321752023 lag=2s" },
+  { type: "out", text: "     cc-indexer  | ingested page=1000 head=321752841 lag=1s" },
+  { type: "blank", text: "" },
+  { type: "txt", text: "● Fleet is green — 50 nodes reporting, indexer at chain head. Epoch review complete." },
+  { type: "blank", text: "" },
+  { type: "blank", text: "" },
 ]
 
 function CodeStream() {
@@ -573,6 +561,12 @@ function CodeStream() {
   const [lines, setLines] = useState<typeof codeLines>([])
 
   useEffect(() => {
+    // Reduced motion: render a static transcript, no timers
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setLines(codeLines.slice(0, 44))
+      return
+    }
+
     let timeout: ReturnType<typeof setTimeout>
     let idx = 0
 
@@ -595,14 +589,20 @@ function CodeStream() {
       })
 
       let delay: number
-      if (line.type === "cmd") {
-        delay = Math.random() * 2000 + 1500
+      if (line.type === "txt") {
+        delay = Math.random() * 900 + 1400
+      } else if (line.type === "think") {
+        delay = Math.random() * 900 + 1500
+      } else if (line.type === "cmd") {
+        delay = Math.random() * 500 + 600
       } else if (line.type === "out") {
-        delay = Math.random() * 400 + 200
+        delay = Math.random() * 250 + 180
+      } else if (line.type === "todo") {
+        delay = Math.random() * 80 + 90
       } else if (line.type === "blank") {
-        delay = Math.random() * 300 + 100
+        delay = Math.random() * 150 + 100
       } else {
-        delay = Math.random() * 80 + 30
+        delay = Math.random() * 45 + 30
       }
 
       timeout = setTimeout(step, delay)
@@ -615,11 +615,25 @@ function CodeStream() {
   return (
     <div ref={containerRef} className="font-mono text-[11px] leading-[1.8] whitespace-pre px-6 pt-8 h-full overflow-hidden">
       {lines.map((line, i) => {
+        if (line.type === "txt") {
+          return <div key={i} className="text-slate-300/80 mt-1 whitespace-pre-wrap">{line.text}</div>
+        }
         if (line.type === "cmd") {
-          return <div key={i} className="text-[#4B7F9B]/80 mt-2 font-bold">{line.text}</div>
+          return <div key={i} className="text-slate-100/90 mt-1 font-semibold">{line.text}</div>
         }
         if (line.type === "out") {
           return <div key={i} className="text-slate-500/60">{line.text}</div>
+        }
+        if (line.type === "think") {
+          return <div key={i} className="text-slate-500/70 italic">{line.text}</div>
+        }
+        if (line.type === "todo") {
+          const done = line.text.includes("☒")
+          return (
+            <div key={i} className={done ? "text-emerald-400/45 line-through" : "text-slate-400/60"}>
+              {line.text}
+            </div>
+          )
         }
         if (line.type === "add") {
           return <div key={i} className="bg-emerald-500/10 text-emerald-400/70 pl-1">{line.text}</div>
@@ -635,6 +649,336 @@ function CodeStream() {
     </div>
   )
 }
+
+// =========================================================
+// LIVE CANTON TELEMETRY (ccscan.xyz public API, anonymous tier)
+// =========================================================
+
+type CantonOverview = { head: number; round: number; at: number }
+let cantonCurrent: CantonOverview | null = null
+let cantonRate = 0
+const cantonListeners = new Set<() => void>()
+let cantonStarted = false
+
+async function cantonPoll() {
+  if (typeof document !== "undefined" && document.visibilityState === "hidden") return
+  try {
+    const res = await fetch("https://ccscan.xyz/api/overview")
+    if (!res.ok) return
+    const j = await res.json()
+    if (typeof j.head_seq !== "number") return
+    const now = Date.now()
+    if (cantonCurrent && j.head_seq > cantonCurrent.head) {
+      const dt = (now - cantonCurrent.at) / 1000
+      if (dt > 1) cantonRate = Math.min((j.head_seq - cantonCurrent.head) / dt, 500)
+    }
+    if (!cantonCurrent || j.head_seq >= cantonCurrent.head) {
+      cantonCurrent = { head: j.head_seq, round: j.latest_round ?? 0, at: now }
+      cantonListeners.forEach((l) => l())
+    }
+  } catch {
+    // Silent: telemetry is progressive enhancement only
+  }
+}
+
+function cantonSubscribe(fn: () => void) {
+  cantonListeners.add(fn)
+  if (!cantonStarted) {
+    cantonStarted = true
+    cantonPoll()
+    window.setTimeout(cantonPoll, 4000)
+    window.setInterval(cantonPoll, 12000)
+  }
+  return () => {
+    cantonListeners.delete(fn)
+  }
+}
+
+function CantonLive({ variant }: { variant: "hero" | "card" }) {
+  const [display, setDisplay] = useState<number | null>(null)
+  const [round, setRound] = useState<number>(0)
+
+  useEffect(() => {
+    const sync = () => {
+      if (cantonCurrent) {
+        setDisplay(cantonCurrent.head)
+        setRound(cantonCurrent.round)
+      }
+    }
+    const unsub = cantonSubscribe(sync)
+    sync()
+
+    let raf = 0
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const tick = () => {
+        if (cantonCurrent) {
+          const projected = Math.floor(
+            cantonCurrent.head + cantonRate * ((Date.now() - cantonCurrent.at) / 1000),
+          )
+          setDisplay((d) => (d === projected ? d : projected))
+        }
+        raf = requestAnimationFrame(tick)
+      }
+      raf = requestAnimationFrame(tick)
+    }
+    return () => {
+      unsub()
+      cancelAnimationFrame(raf)
+    }
+  }, [])
+
+  if (display === null) return null
+  const txs = display.toLocaleString("en-US")
+  const rnd = round.toLocaleString("en-US")
+
+  if (variant === "hero") {
+    return (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="flex flex-wrap items-center justify-start sm:justify-center gap-x-2.5 gap-y-1 font-mono text-[11px] sm:text-xs pt-8"
+      >
+        <span className="status-dot" style={{ width: 6, height: 6 }} />
+        <span className="text-emerald-400 text-[10px] tracking-[0.25em]">LIVE</span>
+        <span className="text-slate-500">canton mainnet</span>
+        <span className="text-[#4B7F9B] tabular-nums">{txs}</span>
+        <span className="text-slate-500">tx indexed</span>
+        <span className="text-slate-600 hidden sm:inline">·</span>
+        <span className="text-slate-500 hidden sm:inline">round</span>
+        <span className="text-[#4B7F9B] tabular-nums hidden sm:inline">{rnd}</span>
+        <span className="text-slate-600 hidden md:inline">· via ccscan.xyz</span>
+      </motion.div>
+    )
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px]">
+      <span className="status-dot" style={{ width: 6, height: 6 }} />
+      <span className="text-emerald-400 text-[10px] tracking-wider">LIVE</span>
+      <span className="text-[#4B7F9B] tabular-nums">{txs}</span>
+      <span className="text-slate-500">tx indexed · round</span>
+      <span className="text-[#4B7F9B] tabular-nums">{rnd}</span>
+    </div>
+  )
+}
+
+// =========================================================
+// SCROLL PROGRESS
+// =========================================================
+
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress, { stiffness: 150, damping: 30, mass: 0.4 })
+  return (
+    <motion.div
+      aria-hidden
+      style={{ scaleX }}
+      className="fixed top-0 left-0 right-0 h-[2px] z-[45] origin-left bg-gradient-to-r from-[#4B7F9B]/30 via-[#4B7F9B] to-[#6ba3bf]"
+    />
+  )
+}
+
+// =========================================================
+// COMMAND PALETTE (⌘K)
+// =========================================================
+
+function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
+  const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        onOpenChange(!open)
+      }
+    }
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [open, onOpenChange])
+
+  useEffect(() => {
+    if (!open) {
+      setCopied(false)
+      return
+    }
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
+  const goTo = (id: string) => {
+    onOpenChange(false)
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+  }
+  const openUrl = (url: string) => {
+    onOpenChange(false)
+    window.open(url, "_blank", "noopener,noreferrer")
+  }
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("matt@brassey.io")
+      setCopied(true)
+      window.setTimeout(() => onOpenChange(false), 900)
+    } catch {
+      onOpenChange(false)
+    }
+  }
+
+  const itemClass =
+    "flex items-center gap-3 mx-2 px-3 py-2.5 rounded text-sm text-slate-400 cursor-pointer data-[selected=true]:bg-[#4B7F9B]/10 data-[selected=true]:text-[#4B7F9B]"
+
+  return (
+    <CmdK.Dialog
+      open={open}
+      onOpenChange={onOpenChange}
+      label="Command menu"
+      overlayClassName="fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm"
+      contentClassName="fixed z-[81] top-[14%] left-1/2 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-[#1F1D20] bg-[#0a0b0d]/95 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
+    >
+      <div className="flex items-center gap-3 border-b border-[#1F1D20] px-4">
+        <span className="font-mono text-[#4B7F9B] text-sm">&gt;</span>
+        <CmdK.Input
+          placeholder="type a command or search…"
+          className="h-12 flex-1 bg-transparent font-mono text-sm text-slate-200 placeholder:text-slate-600 outline-none border-0 focus:ring-0"
+        />
+        <kbd className="rounded border border-[#1F1D20] px-1.5 py-0.5 font-mono text-[10px] text-slate-600">esc</kbd>
+      </div>
+      <CmdK.List className="max-h-[min(56vh,400px)] overflow-y-auto overscroll-contain py-2">
+        <CmdK.Empty className="px-4 py-8 text-center font-mono text-xs text-slate-600">
+          no matches found
+        </CmdK.Empty>
+        <CmdK.Group heading="Navigate">
+          {navItems.map((item, i) => (
+            <CmdK.Item key={item.id} onSelect={() => goTo(item.id)} className={itemClass}>
+              <ChevronRight className="h-3.5 w-3.5 opacity-50" />
+              <span className="flex-1">{item.label}</span>
+              <span className="font-mono text-[10px] text-slate-600">0{i + 1}</span>
+            </CmdK.Item>
+          ))}
+        </CmdK.Group>
+        <CmdK.Group heading="Projects">
+          {projects.map((p) => (
+            <CmdK.Item key={p.title} onSelect={() => openUrl(p.url)} className={itemClass}>
+              <Code2 className="h-3.5 w-3.5 opacity-50" />
+              <span className="flex-1">{p.title}</span>
+              <ArrowUpRight className="h-3 w-3 opacity-40" />
+            </CmdK.Item>
+          ))}
+        </CmdK.Group>
+        <CmdK.Group heading="Connect">
+          <CmdK.Item onSelect={() => openUrl("mailto:matt@brassey.io")} className={itemClass}>
+            <Mail className="h-3.5 w-3.5 opacity-50" />
+            <span className="flex-1">Email me</span>
+          </CmdK.Item>
+          <CmdK.Item onSelect={copyEmail} className={itemClass}>
+            {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5 opacity-50" />}
+            <span className="flex-1">{copied ? "copied to clipboard" : "Copy email address"}</span>
+            <span className="font-mono text-[10px] text-slate-600">matt@brassey.io</span>
+          </CmdK.Item>
+          <CmdK.Item onSelect={() => openUrl("https://github.com/mbrassey")} className={itemClass}>
+            <Github className="h-3.5 w-3.5 opacity-50" />
+            <span className="flex-1">GitHub</span>
+            <ArrowUpRight className="h-3 w-3 opacity-40" />
+          </CmdK.Item>
+          <CmdK.Item onSelect={() => openUrl("https://www.linkedin.com/in/mbrassey/")} className={itemClass}>
+            <Linkedin className="h-3.5 w-3.5 opacity-50" />
+            <span className="flex-1">LinkedIn</span>
+            <ArrowUpRight className="h-3 w-3 opacity-40" />
+          </CmdK.Item>
+          <CmdK.Item
+            onSelect={() => openUrl("https://docs.google.com/document/d/1xYCsndvFjoaK9GJdLL7boj6F7U3c1lCFUtgf8wepmio")}
+            className={itemClass}
+          >
+            <FileText className="h-3.5 w-3.5 opacity-50" />
+            <span className="flex-1">View resume</span>
+            <ArrowUpRight className="h-3 w-3 opacity-40" />
+          </CmdK.Item>
+        </CmdK.Group>
+      </CmdK.List>
+    </CmdK.Dialog>
+  )
+}
+
+// =========================================================
+// WAKATIME (lazy-mounted on approach)
+// =========================================================
+
+function WakaTimeChart() {
+  const ref = useRef<HTMLDivElement>(null)
+  const [load, setLoad] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const ob = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoad(true)
+          ob.disconnect()
+        }
+      },
+      { rootMargin: "600px" },
+    )
+    ob.observe(el)
+    return () => ob.disconnect()
+  }, [])
+
+  return (
+    <div ref={ref} className="relative w-full" style={{ maxWidth: "100%" }}>
+      <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[769px]">
+        {load ? (
+          <object
+            data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
+            type="image/svg+xml"
+            title="Monthly coding activity chart"
+            className="absolute w-full h-full"
+            style={{ backgroundColor: "transparent", maxWidth: "1048px", margin: "0 auto", left: 0, right: 0 }}
+          >
+            Coding activity chart
+          </object>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center font-mono text-xs text-slate-600">
+            loading activity…
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+// =========================================================
+// FOOTER TECH MARKS (inline — no icon CDN)
+// =========================================================
+
+const footerTech: { label: string; path: string }[] = [
+  {
+    label: "Ethereum",
+    path: "M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z",
+  },
+  {
+    label: "JavaScript",
+    path: "M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z",
+  },
+  {
+    label: "React",
+    path: "M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z",
+  },
+  {
+    label: "Node.js",
+    path: "M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z",
+  },
+  {
+    label: "Docker",
+    path: "M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z",
+  },
+  {
+    label: "Git",
+    path: "M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.48 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187",
+  },
+]
 
 // =========================================================
 // ANIMATION VARIANTS
@@ -664,6 +1008,7 @@ const slideUp = {
 export default function Home() {
   const [activeSection, setActiveSection] = useState("hero")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [cmdOpen, setCmdOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -682,14 +1027,38 @@ export default function Home() {
     return () => observer.disconnect()
   }, [])
 
+  // Escape closes the mobile menu; lock body scroll while it is open
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMenuOpen(false)
+    }
+    document.addEventListener("keydown", onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      document.body.style.overflow = prev
+    }
+  }, [isMenuOpen])
+
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen bg-[#000102] text-slate-200 scan-lines overflow-x-hidden">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded focus:border focus:border-[#4B7F9B]/40 focus:bg-[#0a0b0d] focus:px-3 focus:py-2 focus:font-mono focus:text-xs focus:text-[#4B7F9B]"
+      >
+        skip to content
+      </a>
+      <ScrollProgress />
+      <CommandMenu open={cmdOpen} onOpenChange={setCmdOpen} />
       <ParticleNetwork />
 
       {/* ==================== ORBITAL NAV ==================== */}
       <nav className="orbital-nav" aria-label="Section navigation">
         {navItems.map((item) => (
-          <Link key={item.id} href={`#${item.id}`} title={item.label}>
+          <Link key={item.id} href={`#${item.id}`} title={item.label} aria-label={item.label}>
             <div className={`orbital-dot ${activeSection === item.id ? "active" : ""}`} />
           </Link>
         ))}
@@ -703,7 +1072,7 @@ export default function Home() {
             <span className="text-slate-500">.io</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.id}
@@ -717,12 +1086,22 @@ export default function Home() {
             ))}
           </nav>
 
-          <button
-            className="md:hidden text-slate-400 hover:text-slate-200 transition-colors"
-            onClick={() => setIsMenuOpen(true)}
-          >
-            <Menu className="h-5 w-5" />
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setCmdOpen(true)}
+              aria-label="Open command menu"
+              className="hidden lg:inline-flex items-center gap-1 rounded border border-[#1F1D20] px-2 py-1 font-mono text-[10px] text-slate-500 transition-colors hover:border-[#4B7F9B]/40 hover:text-[#4B7F9B]"
+            >
+              <CommandIcon className="h-3 w-3" />K
+            </button>
+            <button
+              className="lg:hidden text-slate-400 hover:text-slate-200 transition-colors"
+              aria-label="Open navigation menu"
+              onClick={() => setIsMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -734,7 +1113,10 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-50 bg-[#000102]/98 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-50 bg-[#000102]/98 backdrop-blur-xl lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
           >
             <div className="flex flex-col h-full">
               {/* Mobile menu header */}
@@ -745,6 +1127,7 @@ export default function Home() {
                 </span>
                 <button
                   className="text-slate-400 hover:text-slate-200 transition-colors"
+                  aria-label="Close navigation menu"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <X className="h-5 w-5" />
@@ -779,6 +1162,7 @@ export default function Home() {
                     href="https://github.com/mbrassey"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub profile"
                     className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
                   >
                     <Github className="h-5 w-5" />
@@ -787,11 +1171,16 @@ export default function Home() {
                     href="https://www.linkedin.com/in/mbrassey/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
                     className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
                   >
                     <Linkedin className="h-5 w-5" />
                   </Link>
-                  <Link href="mailto:matt@brassey.io" className="text-slate-500 hover:text-[#4B7F9B] transition-colors">
+                  <Link
+                    href="mailto:matt@brassey.io"
+                    aria-label="Email matt@brassey.io"
+                    className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
+                  >
                     <Mail className="h-5 w-5" />
                   </Link>
                 </div>
@@ -804,7 +1193,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <main>
+      <main id="main">
         {/* ==================== HERO ==================== */}
         <section id="hero" className="relative min-h-screen flex items-center justify-center pt-14">
           <div className="absolute inset-0 grid-bg" style={{ maskImage: "linear-gradient(to right, transparent 10%, black 60%)", WebkitMaskImage: "linear-gradient(to right, transparent 10%, black 60%)" }} />
@@ -844,7 +1233,7 @@ export default function Home() {
               className="space-y-3"
             >
               <p className="text-lg sm:text-xl md:text-2xl text-[#4B7F9B]">
-                Engineering Manager, Staking -Blockchain Infrastructure Architect
+                Engineering Manager, Staking — Blockchain Infrastructure Architect
               </p>
               <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
                 Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
@@ -890,13 +1279,15 @@ export default function Home() {
               <AnimatedCounter end={16} suffix="+" label="Years Experience" />
               <AnimatedCounter end={500} suffix="M+" prefix="$" label="AUM" />
             </motion.div>
+
+            <CantonLive variant="hero" />
           </div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.5 }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden sm:block"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -951,7 +1342,7 @@ export default function Home() {
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate profitable validator
-                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot -50+ nodes with
+                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, and Polkadot — 50+ nodes with
                   $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
@@ -962,6 +1353,7 @@ export default function Home() {
                     href="https://github.com/mbrassey"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub profile"
                     className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
                   >
                     <Github className="h-5 w-5" />
@@ -970,11 +1362,16 @@ export default function Home() {
                     href="https://www.linkedin.com/in/mbrassey/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
                     className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
                   >
                     <Linkedin className="h-5 w-5" />
                   </Link>
-                  <Link href="mailto:matt@brassey.io" className="text-slate-500 hover:text-[#4B7F9B] transition-colors">
+                  <Link
+                    href="mailto:matt@brassey.io"
+                    aria-label="Email matt@brassey.io"
+                    className="text-slate-500 hover:text-[#4B7F9B] transition-colors"
+                  >
                     <Mail className="h-5 w-5" />
                   </Link>
                 </div>
@@ -996,7 +1393,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Network className="h-3 w-3" />
-                  <span>infrastructure</span>
+                  <span>// infrastructure</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Infrastructure Command</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1010,7 +1407,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300"
+                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -1047,7 +1444,8 @@ export default function Home() {
                       {node.name}
                     </h3>
                     <p className="text-sm text-slate-400 mb-4 leading-relaxed">{node.description}</p>
-                    <div className="space-y-2">
+                    <div className="space-y-2 mt-auto">
+                      {node.network === "Canton" && <CantonLive variant="card" />}
                       {node.metric && (
                         <div className="text-sm font-mono text-[#4B7F9B]">{node.metric}</div>
                       )}
@@ -1094,7 +1492,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Terminal className="h-3 w-3" />
-                  <span>ai-development</span>
+                  <span>// ai-development</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   The <span className="gradient-text">1000x</span> Developer
@@ -1102,7 +1500,7 @@ export default function Home() {
                 <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
                   16 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
                   AI from a tool into a force multiplier. As an elite AI operator and cutting-edge technology adopter,
-                  I combine deep infrastructure expertise with 1000x development velocity -the experience to know
+                  I combine deep infrastructure expertise with 1000x development velocity — the experience to know
                   what to build, and the AI mastery to ship it in days instead of months.
                 </p>
               </motion.div>
@@ -1118,7 +1516,7 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       As operator and commander of elite AI agent fleets, I orchestrate specialized agents across
-                      every layer of the stack -infrastructure provisioning, smart contract development,
+                      every layer of the stack — infrastructure provisioning, smart contract development,
                       frontend engineering, API design, security auditing, and automated testing. I practice compound
                       engineering where every code review, bug fix, and deployment compounds into persistent rules
                       that apply to all future work. I build custom MCP servers and author agent-facing runbooks
@@ -1135,11 +1533,11 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of engineering -from managing 900+ servers at IBM to maintaining 200+ wallets
-                      at Bittrex to running $500M+ in staked validator infrastructure -provides the experience
+                      16 years of engineering — from managing 900+ servers at IBM to maintaining 200+ wallets
+                      at Bittrex to running $500M+ in staked validator infrastructure — provides the experience
                       that separates an elite AI operator from someone just prompting. Cloud-to-bare-metal migrations,
                       custom Grafana monitoring pipelines, automated node provisioning with AWS launch templates,
-                      and Dockerized blockchain deployments from source -all encoded into persistent agent
+                      and Dockerized blockchain deployments from source — all encoded into persistent agent
                       rules and deterministic runbooks so every deployment compounds on the last. Experience is the
                       compass; AI is the engine.
                     </p>
@@ -1167,56 +1565,71 @@ export default function Home() {
                         </div>
                       </div>
                     </div>
-                    <div className="p-4 sm:p-5 space-y-3 text-[11px] sm:text-[13px] flex-1 overflow-x-auto">
+                    <div className="p-4 sm:p-5 space-y-1 text-[11px] sm:text-[12px] leading-relaxed flex-1 overflow-x-auto">
                       <div>
-                        <span className="text-emerald-400">$</span>{" "}
-                        <span className="text-[#4B7F9B]">claude</span>{" "}
-                        <span className="text-slate-300">audit ccledger --security --pentest --full</span>
+                        <span className="text-slate-600">&gt;</span>{" "}
+                        <span className="text-slate-300">/security-review ccledger</span>
                       </div>
-                      <div className="text-slate-500 pl-4 space-y-0.5">
-                        <div>Scanning 15 REST endpoints... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>API key auth chain validated... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>SQL injection vectors: <span className="text-emerald-400">0 found</span></div>
-                        <div>gRPC ledger connection hardened... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Rate limiting verified (100 RPM)... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>SHA-256 key hashing confirmed... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>HSTS, CSP, X-Frame headers... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Daml contract permissions audited... <span className="text-emerald-400">&#10003;</span></div>
-                        <div className="text-emerald-400">All checks passed -0 critical, 0 high, 0 medium</div>
+                      <div className="pt-1.5 text-slate-300/90">
+                        ● I&apos;ll audit the API surface, auth chain, contracts, and rate limiting.
                       </div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Bash</span>
+                        <span className="text-slate-400">(curl -s …/openapi.json | jq &apos;.paths | length&apos;)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">⎿ 14</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Explore</span>
+                        <span className="text-slate-400">(Audit Spring Security auth chain)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">⎿ Done (23 tool uses · 41.2k tokens)</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Explore</span>
+                        <span className="text-slate-400">(Audit Daml contract permissions)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">⎿ Done (17 tool uses · 28.9k tokens)</div>
+                      <div className="pt-1.5 text-slate-300/90">
+                        ● Audit clean — <span className="text-emerald-400">0 critical, 0 high, 0 medium</span>.
+                      </div>
+                      <div className="text-slate-500 pl-4">SQL injection: none — parameterized throughout</div>
+                      <div className="text-slate-500 pl-4">API keys: SHA-256 hashed at rest · rate limits enforced</div>
+                      <div className="text-slate-500 pl-4">Headers: HSTS, CSP, X-Frame-Options verified</div>
 
-                      <div className="pt-2">
-                        <span className="text-emerald-400">$</span>{" "}
-                        <span className="text-[#4B7F9B]">openclaw</span>{" "}
-                        <span className="text-slate-300">audit status --verbose</span>
+                      <div className="pt-4">
+                        <span className="text-slate-600">&gt;</span>{" "}
+                        <span className="text-slate-300">implement attest-mutual per SPEC.md</span>
                       </div>
-                      <div className="text-slate-500 pl-4 space-y-0.5">
-                        <div className="text-slate-400">&#9679; 7 Explore agents launched</div>
-                        <div>&#9500;&#9472;&#9472; Canton/Daml specialist <span className="text-emerald-400">&#9679;</span> contracts+integration</div>
-                        <div>&#9500;&#9472;&#9472; Spring Security specialist <span className="text-emerald-400">&#9679;</span> auth chain</div>
-                        <div>&#9500;&#9472;&#9472; Database specialist <span className="text-emerald-400">&#9679;</span> schema+migrations</div>
-                        <div>&#9500;&#9472;&#9472; Billing/economics specialist <span className="text-emerald-400">&#9679;</span> money flows</div>
-                        <div>&#9500;&#9472;&#9472; OpenAPI+MCP spec validator <span className="text-emerald-400">&#9679;</span> validating</div>
-                        <div>&#9500;&#9472;&#9472; Agent discovery+docs auditor <span className="text-emerald-400">&#9679;</span> auditing</div>
-                        <div>&#9492;&#9472;&#9472; DevOps+deployment specialist <span className="text-emerald-400">&#9679;</span> infra</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Read</span>
+                        <span className="text-slate-400">(SPEC.md)</span>
                       </div>
+                      <div className="text-slate-500 pl-4">⎿ Read 214 lines (ctrl+o to expand)</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Update</span>
+                        <span className="text-slate-400">(daml/CcAction.daml)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">⎿ Updated CcAction.daml with 31 additions</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Update</span>
+                        <span className="text-slate-400">(api/ActionController.java)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">⎿ Updated ActionController.java with 58 additions and 4 removals</div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Bash</span>
+                        <span className="text-slate-400">(./gradlew test --tests &apos;*AttestMutual*&apos;)</span>
+                      </div>
+                      <div className="text-slate-500 pl-4">
+                        ⎿ <span className="text-emerald-400">7 tests completed, 7 passed</span>
+                      </div>
+                      <div className="pt-1.5">
+                        <span className="text-slate-100 font-semibold">● Update Todos</span>
+                      </div>
+                      <div className="text-emerald-400/50 line-through pl-4">⎿ ☒ AttestMutual choice + MCP tool</div>
+                      <div className="text-emerald-400/50 line-through pl-8">☒ Flyway V14__attest_mutual.sql</div>
+                      <div className="text-emerald-400/50 line-through pl-8">☒ Integration tests (7/7)</div>
 
-                      <div className="pt-2">
-                        <span className="text-emerald-400">$</span>{" "}
-                        <span className="text-[#4B7F9B]">claude</span>{" "}
-                        <span className="text-slate-300">implement ccledger attest-mutual endpoint per SPEC.md</span>
-                      </div>
-                      <div className="text-slate-500 pl-4 space-y-0.5">
-                        <div>Reading SPEC.md &amp; existing Daml templates... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Adding AttestMutual choice to CcAction.daml... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Wiring POST /actions/attest-mutual in ActionController.java... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Registering MCP tool: attest_mutual with schema... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Flyway V14__attest_mutual.sql migration added... <span className="text-emerald-400">&#10003;</span></div>
-                        <div>Integration tests passing (7/7)... <span className="text-emerald-400">&#10003;</span></div>
-                      </div>
-
-                      <div className="pt-2">
-                        <span className="text-emerald-400">$</span>{" "}
+                      <div className="pt-3">
+                        <span className="text-slate-600">&gt;</span>{" "}
                         <span className="inline-block w-[6px] h-[11px] bg-[#4B7F9B] align-middle" style={{ animation: "blink-cursor 1s step-end infinite" }} />
                       </div>
                     </div>
@@ -1250,11 +1663,11 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <GitBranch className="h-3 w-3" />
-                  <span>experience</span>
+                  <span>// experience</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
-                  16+ years of engineering -from founding a hosting company to managing $500M+ in blockchain staking
+                  16+ years of engineering — from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
               </motion.div>
@@ -1312,7 +1725,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Layers className="h-3 w-3" />
-                  <span>expertise</span>
+                  <span>// expertise</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Technical Expertise</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1457,7 +1870,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Code2 className="h-3 w-3" />
-                  <span>projects</span>
+                  <span>// projects</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1480,6 +1893,7 @@ export default function Home() {
                           <ArrowUpRight className="h-5 w-5 text-slate-600 group-hover:text-[#4B7F9B] transition-colors flex-shrink-0" />
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
+                        {project.title === "CCScan" && <CantonLive variant="card" />}
                         <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tech.map((t) => (
                             <Badge key={t} variant="outline" className="border-slate-700 text-slate-500 text-[10px] px-2 py-0">
@@ -1509,7 +1923,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Award className="h-3 w-3" />
-                  <span>certifications</span>
+                  <span>// certifications</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Certifications</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1560,7 +1974,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Users className="h-3 w-3" />
-                  <span>recommendations</span>
+                  <span>// recommendations</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Colleague Feedback</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1618,7 +2032,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Activity className="h-3 w-3" />
-                  <span>activity</span>
+                  <span>// activity</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Coding Activity</h2>
                 <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
@@ -1642,18 +2056,7 @@ export default function Home() {
                       <Github className="h-3 w-3" /> GitHub <ArrowUpRight className="h-3 w-3" />
                     </Link>
                   </div>
-                  <div className="relative w-full" style={{ maxWidth: "100%" }}>
-                    <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[769px]">
-                      <object
-                        data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
-                        type="image/svg+xml"
-                        className="absolute w-full h-full"
-                        style={{ backgroundColor: "transparent", maxWidth: "1048px", margin: "0 auto", left: 0, right: 0 }}
-                      >
-                        Coding activity chart
-                      </object>
-                    </div>
-                  </div>
+                  <WakaTimeChart />
                 </div>
               </motion.div>
             </motion.div>
@@ -1673,7 +2076,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="space-y-4 mb-12">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Mail className="h-3 w-3" />
-                  <span>contact</span>
+                  <span>// contact</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Let&apos;s Connect</h2>
                 <p className="text-slate-400 text-lg">
@@ -1710,16 +2113,23 @@ export default function Home() {
           <p className="text-sm text-slate-600">
             &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
-          <ul className="dev-icons">
-            <li className="list-inline-item"><i className="fab fa-ethereum"></i></li>
-            <li className="list-inline-item"><i className="fab fa-js-square"></i></li>
-            <li className="list-inline-item"><i className="fab fa-react"></i></li>
-            <li className="list-inline-item"><i className="fab fa-node-js"></i></li>
-            <li className="list-inline-item"><i className="fab fa-docker"></i></li>
-            <li className="list-inline-item"><i className="fab fa-git"></i></li>
+          <ul className="flex items-center gap-5" aria-label="Built with">
+            {footerTech.map((t) => (
+              <li key={t.label} title={t.label}>
+                <svg
+                  role="img"
+                  aria-label={t.label}
+                  viewBox="0 0 24 24"
+                  className="h-5 w-5 fill-slate-600 hover:fill-[#4B7F9B] transition-colors"
+                >
+                  <path d={t.path} />
+                </svg>
+              </li>
+            ))}
           </ul>
         </div>
       </footer>
     </div>
+    </MotionConfig>
   )
 }
