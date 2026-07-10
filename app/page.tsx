@@ -144,9 +144,9 @@ const infrastructureNodes: InfraNode[] = [
     type: "Validator",
     logo: "/logos/canton.svg",
     description:
-      "Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets. Hosts the full-genesis Canton Coin indexing pipeline and scan endpoint powering CCScan (ccscan.xyz).",
+      "Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets. Hosts the full-genesis Canton Coin indexing pipeline and scan endpoint powering ccscan (ccscan.xyz).",
     links: [
-      { label: "CCScan", url: "https://ccscan.xyz" },
+      { label: "ccscan", url: "https://ccscan.xyz" },
       { label: "CantonScan", url: "https://www.cantonscan.com/party/blueprint-validator-1::1220daab58adcae026bd2ca7ad95014f678bda3ce2a6f91b744cf3ec3d87f09deeac" },
     ],
   },
@@ -162,7 +162,7 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "CCScan",
+    title: "ccscan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
       "Full-history Canton Network explorer and chain API — every Canton Coin transaction since genesis, served from a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, seconds behind chain head) on Blueprint validator infrastructure. 20 public REST endpoints with deterministic keyset cursors, trigram party search, live Scan pass-through for balances and ANS names, metered anonymous-to-enterprise key tiers, and Stripe billing.",
@@ -234,7 +234,7 @@ const experience = [
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
       "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
-      "Built CCScan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
+      "Built ccscan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
       "Built CC Ledger (14 REST endpoints, 14 MCP tools for Canton)",
     ],
   },
@@ -1932,7 +1932,7 @@ export default function Home() {
                           <ArrowUpRight className="h-5 w-5 text-slate-600 group-hover:text-[#4B7F9B] transition-colors flex-shrink-0" />
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
-                        {project.title === "CCScan" && <CantonLive />}
+                        {project.title === "ccscan" && <CantonLive />}
                         <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tech.map((t) => (
                             <Badge key={t} variant="outline" className="border-slate-700 text-slate-500 text-[10px] px-2 py-0">
