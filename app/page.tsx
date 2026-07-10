@@ -161,7 +161,7 @@ const projects: Project[] = [
     title: "CCScan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
-      "Full-history Canton Network explorer and chain API — every Canton Coin transaction since genesis, queryable by anyone. Powered by a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, ~450 GB, seconds behind chain head) hosted on Blueprint's own Canton validator infrastructure, with an API orchestration layer blending keyset-paginated index reads and live Scan pass-through for balances, holdings, and ANS names. 20 public REST endpoints with deterministic seq cursors, trigram party search, daily chain stats, metered key tiers from anonymous to enterprise (120–30,000 req/min), Stripe embedded checkout, and a dependency-free vanilla-JS SPA with hand-rolled SVG charts.",
+      "Full-history Canton Network explorer and chain API — every Canton Coin transaction since genesis, served from a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, seconds behind chain head) on Blueprint validator infrastructure. 20 public REST endpoints with deterministic keyset cursors, trigram party search, live Scan pass-through for balances and ANS names, metered anonymous-to-enterprise key tiers, and Stripe billing.",
     tech: ["Canton", "Python", "Flask", "PostgreSQL", "OpenAPI 3.1", "Stripe", "REST API", "Vanilla JS"],
     url: "https://ccscan.xyz",
   },
@@ -169,7 +169,7 @@ const projects: Project[] = [
     title: "agtop",
     subtitle: "Terminal UI for AI Agent Monitoring",
     description:
-      "Process monitor for AI coding agents — like top, but for Claude Code, OpenAI Codex, Aider, Block Goose, and Google Gemini. Reads /proc (sysinfo on macOS/Windows/*BSD) plus on-disk session transcripts to surface CPU, RSS, in-flight tools and subagents, cumulative token usage, estimated cost, context-window fill, and loaded skills. 20 built-in regex matchers, 7 status badges blending process state with session activity, native writable-FD enumeration via libSystem FFI on macOS and NtQuerySystemInformation on Windows. Distributed via Cargo, Homebrew, apt, winget, AUR, FreeBSD pkg, and npm.",
+      "Process monitor for AI coding agents — like top, but for Claude Code, OpenAI Codex, Aider, Block Goose, and Google Gemini. Reads /proc plus on-disk session transcripts to surface CPU, RSS, in-flight tools and subagents, token usage, estimated cost, and context-window fill. Native FFI on macOS and Windows, with distribution via Cargo, Homebrew, apt, winget, AUR, FreeBSD pkg, and npm.",
     tech: ["Rust", "Ratatui", "sysinfo", "Cargo", "FFI", "TUI", "Cross-Platform"],
     url: "https://github.com/MBrassey/agtop",
   },
@@ -177,7 +177,7 @@ const projects: Project[] = [
     title: "CC Ledger",
     subtitle: "Canton Network Infrastructure API",
     description:
-      "Full-stack Canton blockchain platform with 15 REST endpoints, 15 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Custom OpenAPI 3.1 spec, self-service API key registration, CCL rewards token economy, and AI agent integration via MCP server. Built with Spring Boot, Java 21, PostgreSQL 16, Flyway migrations, and gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
+      "Full-stack Canton blockchain platform with 15 REST endpoints, 15 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
     tech: ["Canton", "Daml", "Spring Boot", "Java 21", "PostgreSQL", "gRPC", "MCP", "OpenAPI 3.1"],
     url: "https://ccledger.theblueprint.xyz",
   },
@@ -201,7 +201,7 @@ const projects: Project[] = [
     title: "TossUp",
     subtitle: "Decentralized Betting Platform",
     description:
-      "Fully decentralized betting platform using Chainlink VRF for verifiable randomness, Ethereum smart contracts, and IPFS for decentralized storage with a React frontend.",
+      "Fully decentralized betting platform using Chainlink VRF for provably fair, verifiable on-chain randomness. Solidity smart contracts on Ethereum handle wagers and payouts end-to-end, while the React + Web3.js frontend is pinned to IPFS and served through Fleek for fully decentralized hosting, with Truffle driving contract compilation, testing, and deployment.",
     tech: ["Solidity", "Chainlink VRF", "IPFS", "React", "Web3.js", "Truffle"],
     url: "https://mbrassey-toss-up.on.fleek.co",
   },
@@ -1467,9 +1467,9 @@ export default function Home() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {projects.map((project, i) => (
-                  <motion.div key={i} variants={slideUp}>
-                    <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block group">
-                      <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full space-y-4">
+                  <motion.div key={i} variants={slideUp} className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}>
+                    <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block group h-full">
+                      <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full flex flex-col gap-4">
                         <div className="flex items-start justify-between">
                           <div>
                             <h3 className="text-xl font-bold group-hover:text-[#4B7F9B] transition-colors">
@@ -1480,7 +1480,7 @@ export default function Home() {
                           <ArrowUpRight className="h-5 w-5 text-slate-600 group-hover:text-[#4B7F9B] transition-colors flex-shrink-0" />
                         </div>
                         <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tech.map((t) => (
                             <Badge key={t} variant="outline" className="border-slate-700 text-slate-500 text-[10px] px-2 py-0">
                               {t}
