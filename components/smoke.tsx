@@ -66,7 +66,7 @@ export default function Smoke({ className = "" }: { className?: string }) {
         r: 4 + Math.random() * 9,
         age: seedAnywhere ? Math.random() * maxAge : 0,
         maxAge,
-        alpha: 0.4 + Math.random() * 0.6,
+        alpha: 0.16 + Math.random() * 0.24,
         seed: Math.random() * Math.PI * 2,
       }
     }
@@ -118,13 +118,16 @@ export default function Smoke({ className = "" }: { className?: string }) {
         const t = p.age / p.maxAge
         const fade = t < 0.18 ? t / 0.18 : 1 - (t - 0.18) / 0.82
         const heading = Math.atan2(p.vy, p.vx)
-        const stretch = 2.2 + Math.sin(p.seed + t * 6) * 0.6
+        const stretch = 4.55 + Math.sin(p.seed + t * 6) * 1.4
 
         ctx.globalAlpha = fade * p.alpha
         ctx.save()
         ctx.translate(p.x, p.y)
         ctx.rotate(heading)
-        ctx.drawImage(sprite, -p.r * stretch, -p.r, p.r * 2 * stretch, p.r * 2)
+        // long thin streak plus a trailing echo so strands taper like threads
+        ctx.drawImage(sprite, -p.r * stretch, -p.r * 0.8, p.r * 2 * stretch, p.r * 1.6)
+        ctx.globalAlpha = fade * p.alpha * 0.5
+        ctx.drawImage(sprite, -p.r * stretch * 1.9, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
         ctx.restore()
       }
 

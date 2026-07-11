@@ -1366,7 +1366,7 @@ export default function Home() {
                     width={320}
                     height={320}
                   />
-                  <Smoke className="absolute inset-0 h-full w-full opacity-60" />
+                  <Smoke className="absolute inset-0 h-full w-full opacity-40" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000102] via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 font-mono text-[10px] text-[#4B7F9B]/80">
                     <div><span className="text-emerald-400/70">$</span> whoami</div>
