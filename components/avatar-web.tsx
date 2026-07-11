@@ -17,7 +17,7 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
     let w = 0
     let h = 0
     const nodes: Node[] = []
-    const LINK = 80
+    const LINK = 135
 
     const init = () => {
       const rect = canvas.getBoundingClientRect()
@@ -28,14 +28,14 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
       canvas.height = Math.max(1, Math.round(h * dpr))
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       nodes.length = 0
-      const count = Math.max(14, Math.min(30, Math.floor(w / 11)))
+      const count = Math.max(14, Math.min(26, Math.floor(w / 13)))
       for (let i = 0; i < count; i++) {
         nodes.push({
           x: Math.random() * w,
           y: Math.random() * h,
           vx: (Math.random() - 0.5) * 0.012,
           vy: (Math.random() - 0.5) * 0.012,
-          r: Math.random() * 1.4 + 0.6,
+          r: Math.random() * 1.8 + 1,
         })
       }
     }
@@ -62,7 +62,7 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
 
         ctx.beginPath()
         ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2)
-        ctx.fillStyle = "rgba(75, 127, 155, 0.5)"
+        ctx.fillStyle = "rgba(75, 127, 155, 0.65)"
         ctx.fill()
 
         for (let j = i + 1; j < nodes.length; j++) {
@@ -74,8 +74,8 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
             ctx.beginPath()
             ctx.moveTo(a.x, a.y)
             ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(75, 127, 155, ${(1 - d / LINK) * 0.22})`
-            ctx.lineWidth = 0.5
+            ctx.strokeStyle = `rgba(75, 127, 155, ${(1 - d / LINK) * 0.85})`
+            ctx.lineWidth = 1.25
             ctx.stroke()
           }
         }
@@ -119,17 +119,13 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
     }
   }, [])
 
-  // The radial mask hides the web over the face so it reads as sitting
-  // behind the head, not on top of the photo
+  // The subject cutout layered above occludes the web, so strands vanish
+  // behind the head and body and re-emerge — no CSS mask needed
   return (
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className={`pointer-events-none mix-blend-screen ${className}`}
-      style={{
-        maskImage: "radial-gradient(ellipse 46% 52% at 50% 40%, transparent 48%, black 80%)",
-        WebkitMaskImage: "radial-gradient(ellipse 46% 52% at 50% 40%, transparent 48%, black 80%)",
-      }}
+      className={`pointer-events-none ${className}`}
     />
   )
 }
