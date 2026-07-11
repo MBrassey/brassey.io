@@ -24,17 +24,30 @@ export default function Smoke({ className = "" }: { className?: string }) {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Small soft blob; wisps are drawn as chains of these stretched along
-    // their heading, so strands read as tendrils rather than dots
-    const sprite = document.createElement("canvas")
-    sprite.width = sprite.height = 64
-    const sctx = sprite.getContext("2d")!
-    const grad = sctx.createRadialGradient(32, 32, 2, 32, 32, 32)
-    grad.addColorStop(0, "rgba(216, 226, 234, 0.32)")
-    grad.addColorStop(0.4, "rgba(198, 210, 220, 0.12)")
-    grad.addColorStop(1, "rgba(198, 210, 220, 0)")
-    sctx.fillStyle = grad
-    sctx.fillRect(0, 0, 64, 64)
+    // Soft blobs; wisps are drawn stretched along their heading so strands
+    // read as tendrils rather than dots. Warm sprite is the young flame
+    // core, cool sprite is the smoke it decays into.
+    const makeSprite = (stops: [number, string][]) => {
+      const s = document.createElement("canvas")
+      s.width = s.height = 64
+      const c = s.getContext("2d")!
+      const g = c.createRadialGradient(32, 32, 2, 32, 32, 32)
+      for (const [o, col] of stops) g.addColorStop(o, col)
+      c.fillStyle = g
+      c.fillRect(0, 0, 64, 64)
+      return s
+    }
+    const smokeSprite = makeSprite([
+      [0, "rgba(216, 226, 234, 0.32)"],
+      [0.4, "rgba(198, 210, 220, 0.12)"],
+      [1, "rgba(198, 210, 220, 0)"],
+    ])
+    const fireSprite = makeSprite([
+      [0, "rgba(255, 190, 110, 0.5)"],
+      [0.35, "rgba(240, 120, 45, 0.2)"],
+      [0.7, "rgba(180, 60, 20, 0.06)"],
+      [1, "rgba(180, 60, 20, 0)"],
+    ])
 
     let wisps: Wisp[] = []
     let w = 0
@@ -60,7 +73,7 @@ export default function Smoke({ className = "" }: { className?: string }) {
       const maxAge = 5000 + Math.random() * 6000
       return {
         x: seedAnywhere ? Math.random() * w : ex,
-        y: seedAnywhere ? Math.random() * h : h + 10 + Math.random() * h * 0.2,
+        y: seedAnywhere ? Math.random() * h : h * (0.7 + Math.random() * 0.4),
         vx: 0,
         vy: 0,
         r: 4 + Math.random() * 9,
@@ -104,11 +117,12 @@ export default function Smoke({ className = "" }: { className?: string }) {
         if (p.age >= p.maxAge || p.y < -30) p = wisps[i] = spawn(now, false)
         p.age += dt
 
-        // steer along the field with upward buoyancy, eased so strands bend
+        // steer along the field with upward buoyancy, eased so strands bend;
+        // speed barely scales with size so grown wisps stay lazy
         const a = fieldAngle(p.x, p.y, now, p.seed)
-        const speed = 0.014 + p.r * 0.0012
+        const speed = 0.0075 + Math.min(p.r, 14) * 0.0003
         const tvx = Math.cos(a) * speed
-        const tvy = Math.sin(a) * speed * 0.6 - 0.02 // rise
+        const tvy = Math.sin(a) * speed * 0.6 - 0.008 // rise
         p.vx += (tvx - p.vx) * 0.04
         p.vy += (tvy - p.vy) * 0.04
         p.x += p.vx * dt
@@ -116,18 +130,26 @@ export default function Smoke({ className = "" }: { className?: string }) {
         p.r += 0.0012 * dt
 
         const t = p.age / p.maxAge
-        const fade = t < 0.18 ? t / 0.18 : 1 - (t - 0.18) / 0.82
+        const fade = t < 0.08 ? t / 0.08 : 1 - (t - 0.08) / 0.92
         const heading = Math.atan2(p.vy, p.vx)
         const stretch = 4.55 + Math.sin(p.seed + t * 6) * 1.4
+        // young wisps burn warm near the base, then cool into grey smoke
+        const heat = Math.pow(1 - t, 1.6)
+        const flicker = 0.7 + 0.3 * Math.sin(now * 0.011 + p.seed * 7)
 
-        ctx.globalAlpha = fade * p.alpha
         ctx.save()
         ctx.translate(p.x, p.y)
         ctx.rotate(heading)
         // long thin streak plus a trailing echo so strands taper like threads
-        ctx.drawImage(sprite, -p.r * stretch, -p.r * 0.8, p.r * 2 * stretch, p.r * 1.6)
-        ctx.globalAlpha = fade * p.alpha * 0.5
-        ctx.drawImage(sprite, -p.r * stretch * 1.9, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
+        ctx.globalAlpha = fade * p.alpha * (1 - heat * 0.45)
+        ctx.drawImage(smokeSprite, -p.r * stretch, -p.r * 0.8, p.r * 2 * stretch, p.r * 1.6)
+        ctx.globalAlpha = fade * p.alpha * 0.5 * (1 - heat * 0.45)
+        ctx.drawImage(smokeSprite, -p.r * stretch * 1.9, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
+        if (heat > 0.03) {
+          // tighter flickering ember core riding the head of the strand
+          ctx.globalAlpha = Math.min(1, fade * p.alpha * heat * flicker * 2.8)
+          ctx.drawImage(fireSprite, -p.r * 1.9, -p.r * 0.8, p.r * 3.8, p.r * 1.6)
+        }
         ctx.restore()
       }
 
