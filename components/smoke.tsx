@@ -42,11 +42,11 @@ export default function Smoke({ className = "" }: { className?: string }) {
       [0.4, "rgba(198, 210, 220, 0.12)"],
       [1, "rgba(198, 210, 220, 0)"],
     ])
-    const fireSprite = makeSprite([
-      [0, "rgba(255, 190, 110, 0.5)"],
-      [0.35, "rgba(240, 120, 45, 0.2)"],
-      [0.7, "rgba(180, 60, 20, 0.06)"],
-      [1, "rgba(180, 60, 20, 0)"],
+    const glowSprite = makeSprite([
+      [0, "rgba(150, 200, 235, 0.4)"],
+      [0.35, "rgba(96, 152, 190, 0.16)"],
+      [0.7, "rgba(60, 110, 150, 0.05)"],
+      [1, "rgba(60, 110, 150, 0)"],
     ])
 
     let wisps: Wisp[] = []
@@ -130,25 +130,26 @@ export default function Smoke({ className = "" }: { className?: string }) {
         p.r += 0.0012 * dt
 
         const t = p.age / p.maxAge
-        const fade = t < 0.08 ? t / 0.08 : 1 - (t - 0.08) / 0.92
+        const fade = t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85
         const heading = Math.atan2(p.vy, p.vx)
-        const stretch = 4.55 + Math.sin(p.seed + t * 6) * 1.4
-        // young wisps burn warm near the base, then cool into grey smoke
+        const stretch = 2 + Math.sin(p.seed + t * 4) * 0.5
+        // young wisps glow near the base, then cool into grey smoke;
+        // breathe is a slow swell, deliberately far below flicker speed
         const heat = Math.pow(1 - t, 1.6)
-        const flicker = 0.7 + 0.3 * Math.sin(now * 0.011 + p.seed * 7)
+        const breathe = 0.85 + 0.15 * Math.sin(now * 0.0009 + p.seed * 7)
 
         ctx.save()
         ctx.translate(p.x, p.y)
         ctx.rotate(heading)
-        // long thin streak plus a trailing echo so strands taper like threads
+        // short soft streak plus a close trailing echo so strands taper
         ctx.globalAlpha = fade * p.alpha * (1 - heat * 0.45)
         ctx.drawImage(smokeSprite, -p.r * stretch, -p.r * 0.8, p.r * 2 * stretch, p.r * 1.6)
         ctx.globalAlpha = fade * p.alpha * 0.5 * (1 - heat * 0.45)
-        ctx.drawImage(smokeSprite, -p.r * stretch * 1.9, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
+        ctx.drawImage(smokeSprite, -p.r * stretch * 1.4, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
         if (heat > 0.03) {
-          // tighter flickering ember core riding the head of the strand
-          ctx.globalAlpha = Math.min(1, fade * p.alpha * heat * flicker * 2.8)
-          ctx.drawImage(fireSprite, -p.r * 1.9, -p.r * 0.8, p.r * 3.8, p.r * 1.6)
+          // soft cool-blue glow riding the head of the strand
+          ctx.globalAlpha = Math.min(1, fade * p.alpha * heat * breathe * 2.2)
+          ctx.drawImage(glowSprite, -p.r * 1.9, -p.r * 0.8, p.r * 3.8, p.r * 1.6)
         }
         ctx.restore()
       }
