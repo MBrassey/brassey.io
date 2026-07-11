@@ -24,9 +24,9 @@ export default function Smoke({ className = "" }: { className?: string }) {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Soft blobs; wisps are drawn stretched along their heading so strands
-    // read as tendrils rather than dots. Warm sprite is the young flame
-    // core, cool sprite is the smoke it decays into.
+    // Soft round blobs only — no stretching or rotation, so drifting puffs
+    // can never read as streaks. Glow sprite is the faint blue base light,
+    // smoke sprite is the grey haze it cools into.
     const makeSprite = (stops: [number, string][]) => {
       const s = document.createElement("canvas")
       s.width = s.height = 64
@@ -76,7 +76,7 @@ export default function Smoke({ className = "" }: { className?: string }) {
         y: seedAnywhere ? Math.random() * h : h * (0.7 + Math.random() * 0.4),
         vx: 0,
         vy: 0,
-        r: 4 + Math.random() * 9,
+        r: 14 + Math.random() * 26,
         age: seedAnywhere ? Math.random() * maxAge : 0,
         maxAge,
         alpha: 0.16 + Math.random() * 0.24,
@@ -97,7 +97,7 @@ export default function Smoke({ className = "" }: { className?: string }) {
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
 
-    const COUNT = 130
+    const COUNT = 60
     let rafId = 0
     let running = false
     let last = 0
@@ -131,27 +131,18 @@ export default function Smoke({ className = "" }: { className?: string }) {
 
         const t = p.age / p.maxAge
         const fade = t < 0.15 ? t / 0.15 : 1 - (t - 0.15) / 0.85
-        const heading = Math.atan2(p.vy, p.vx)
-        const stretch = 2 + Math.sin(p.seed + t * 4) * 0.5
         // young wisps glow near the base, then cool into grey smoke;
         // breathe is a slow swell, deliberately far below flicker speed
         const heat = Math.pow(1 - t, 1.6)
         const breathe = 0.85 + 0.15 * Math.sin(now * 0.0009 + p.seed * 7)
 
-        ctx.save()
-        ctx.translate(p.x, p.y)
-        ctx.rotate(heading)
-        // short soft streak plus a close trailing echo so strands taper
         ctx.globalAlpha = fade * p.alpha * (1 - heat * 0.45)
-        ctx.drawImage(smokeSprite, -p.r * stretch, -p.r * 0.8, p.r * 2 * stretch, p.r * 1.6)
-        ctx.globalAlpha = fade * p.alpha * 0.5 * (1 - heat * 0.45)
-        ctx.drawImage(smokeSprite, -p.r * stretch * 1.4, -p.r * 0.55, p.r * 2 * stretch, p.r * 1.1)
+        ctx.drawImage(smokeSprite, p.x - p.r, p.y - p.r, p.r * 2, p.r * 2)
         if (heat > 0.03) {
-          // soft cool-blue glow riding the head of the strand
-          ctx.globalAlpha = Math.min(1, fade * p.alpha * heat * breathe * 2.2)
-          ctx.drawImage(glowSprite, -p.r * 1.9, -p.r * 0.8, p.r * 3.8, p.r * 1.6)
+          // soft cool-blue halo around the young puff
+          ctx.globalAlpha = Math.min(1, fade * p.alpha * heat * breathe * 1.6)
+          ctx.drawImage(glowSprite, p.x - p.r * 1.25, p.y - p.r * 1.25, p.r * 2.5, p.r * 2.5)
         }
-        ctx.restore()
       }
 
       ctx.globalAlpha = 1
