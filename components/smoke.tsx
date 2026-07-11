@@ -8,15 +8,10 @@ type Wisp = {
   vx: number
   vy: number
   r: number
-  growth: number
-  rot: number
-  vr: number
-  sway: number
-  swaySpeed: number
-  swayPhase: number
   age: number
   maxAge: number
   alpha: number
+  seed: number
 }
 
 export default function Smoke({ className = "" }: { className?: string }) {
@@ -29,39 +24,50 @@ export default function Smoke({ className = "" }: { className?: string }) {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Pre-render one soft blob; every wisp is this sprite scaled/rotated
+    // Small soft blob; wisps are drawn as chains of these stretched along
+    // their heading, so strands read as tendrils rather than dots
     const sprite = document.createElement("canvas")
-    sprite.width = sprite.height = 256
+    sprite.width = sprite.height = 64
     const sctx = sprite.getContext("2d")!
-    const grad = sctx.createRadialGradient(128, 128, 8, 128, 128, 128)
-    grad.addColorStop(0, "rgba(214, 224, 232, 0.30)")
-    grad.addColorStop(0.35, "rgba(196, 208, 218, 0.14)")
-    grad.addColorStop(0.7, "rgba(180, 194, 206, 0.05)")
-    grad.addColorStop(1, "rgba(180, 194, 206, 0)")
+    const grad = sctx.createRadialGradient(32, 32, 2, 32, 32, 32)
+    grad.addColorStop(0, "rgba(216, 226, 234, 0.32)")
+    grad.addColorStop(0.4, "rgba(198, 210, 220, 0.12)")
+    grad.addColorStop(1, "rgba(198, 210, 220, 0)")
     sctx.fillStyle = grad
-    sctx.fillRect(0, 0, 256, 256)
+    sctx.fillRect(0, 0, 64, 64)
 
     let wisps: Wisp[] = []
     let w = 0
     let h = 0
 
-    const spawn = (seedAnywhere: boolean): Wisp => {
-      const maxAge = 9000 + Math.random() * 8000
+    // Swirling flow field from layered sines — cheap curl-ish noise that
+    // evolves over time so strands twist and never repeat
+    const fieldAngle = (x: number, y: number, t: number, seed: number) => {
+      return (
+        Math.sin(x * 0.012 + t * 0.00022 + seed) * 1.6 +
+        Math.cos(y * 0.014 - t * 0.00015 + seed * 1.7) * 1.4 +
+        Math.sin((x + y) * 0.006 + t * 0.0001) * 1.2
+      )
+    }
+
+    const spawn = (t: number, seedAnywhere: boolean): Wisp => {
+      // three slowly wandering emitters, like embers below the frame
+      const lane = Math.floor(Math.random() * 3)
+      const ex =
+        w * (0.2 + lane * 0.3) +
+        Math.sin(t * 0.00006 + lane * 2.1) * w * 0.14 +
+        (Math.random() - 0.5) * w * 0.1
+      const maxAge = 5000 + Math.random() * 6000
       return {
-        x: Math.random() * w,
-        y: seedAnywhere ? Math.random() * h : h * (0.55 + Math.random() * 0.65),
-        vx: (Math.random() - 0.5) * 0.006,
-        vy: -(0.004 + Math.random() * 0.009),
-        r: 30 + Math.random() * 70,
-        growth: 0.0016 + Math.random() * 0.0028,
-        rot: Math.random() * Math.PI * 2,
-        vr: (Math.random() - 0.5) * 0.00012,
-        sway: 6 + Math.random() * 14,
-        swaySpeed: 0.00008 + Math.random() * 0.00014,
-        swayPhase: Math.random() * Math.PI * 2,
+        x: seedAnywhere ? Math.random() * w : ex,
+        y: seedAnywhere ? Math.random() * h : h + 10 + Math.random() * h * 0.2,
+        vx: 0,
+        vy: 0,
+        r: 4 + Math.random() * 9,
         age: seedAnywhere ? Math.random() * maxAge : 0,
         maxAge,
-        alpha: 0.35 + Math.random() * 0.45,
+        alpha: 0.4 + Math.random() * 0.6,
+        seed: Math.random() * Math.PI * 2,
       }
     }
 
@@ -78,9 +84,7 @@ export default function Smoke({ className = "" }: { className?: string }) {
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
 
-    const COUNT = 16
-    wisps = Array.from({ length: COUNT }, () => spawn(true))
-
+    const COUNT = 130
     let rafId = 0
     let running = false
     let last = 0
@@ -90,30 +94,37 @@ export default function Smoke({ className = "" }: { className?: string }) {
       const dt = Math.min(now - last || 16, 64)
       last = now
 
+      if (wisps.length === 0) wisps = Array.from({ length: COUNT }, () => spawn(now, true))
+
       ctx.clearRect(0, 0, w, h)
       ctx.globalCompositeOperation = "lighter"
 
       for (let i = 0; i < wisps.length; i++) {
         let p = wisps[i]
+        if (p.age >= p.maxAge || p.y < -30) p = wisps[i] = spawn(now, false)
         p.age += dt
-        if (p.age >= p.maxAge || p.y + p.r < -20) {
-          p = wisps[i] = spawn(false)
-        }
+
+        // steer along the field with upward buoyancy, eased so strands bend
+        const a = fieldAngle(p.x, p.y, now, p.seed)
+        const speed = 0.014 + p.r * 0.0012
+        const tvx = Math.cos(a) * speed
+        const tvy = Math.sin(a) * speed * 0.6 - 0.02 // rise
+        p.vx += (tvx - p.vx) * 0.04
+        p.vy += (tvy - p.vy) * 0.04
         p.x += p.vx * dt
         p.y += p.vy * dt
-        p.r += p.growth * dt
-        p.rot += p.vr * dt
+        p.r += 0.0012 * dt
 
-        // fade in for the first quarter of life, out over the rest
         const t = p.age / p.maxAge
-        const fade = t < 0.25 ? t / 0.25 : 1 - (t - 0.25) / 0.75
-        const drift = Math.sin(now * p.swaySpeed + p.swayPhase) * p.sway
+        const fade = t < 0.18 ? t / 0.18 : 1 - (t - 0.18) / 0.82
+        const heading = Math.atan2(p.vy, p.vx)
+        const stretch = 2.2 + Math.sin(p.seed + t * 6) * 0.6
 
         ctx.globalAlpha = fade * p.alpha
         ctx.save()
-        ctx.translate(p.x + drift, p.y)
-        ctx.rotate(p.rot)
-        ctx.drawImage(sprite, -p.r, -p.r, p.r * 2, p.r * 2)
+        ctx.translate(p.x, p.y)
+        ctx.rotate(heading)
+        ctx.drawImage(sprite, -p.r * stretch, -p.r, p.r * 2 * stretch, p.r * 2)
         ctx.restore()
       }
 
