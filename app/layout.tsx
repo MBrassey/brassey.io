@@ -1,8 +1,10 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import "@/app/globals.css"
+import "lenis/dist/lenis.css"
 import { JetBrains_Mono } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
+import SmoothScroll from "@/components/smooth-scroll"
 
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 
@@ -168,6 +170,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          <SmoothScroll />
           {children}
         </ThemeProvider>
       </body>

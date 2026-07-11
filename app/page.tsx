@@ -35,6 +35,7 @@ import {
 import CountUp from "react-countup"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import Smoke from "@/components/smoke"
 
 // =========================================================
 // DATA
@@ -783,14 +784,19 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
     }
     const prev = document.body.style.overflow
     document.body.style.overflow = "hidden"
+    window.lenis?.stop()
     return () => {
       document.body.style.overflow = prev
+      window.lenis?.start()
     }
   }, [open])
 
   const goTo = (id: string) => {
     onOpenChange(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    const target = document.getElementById(id)
+    if (!target) return
+    if (window.lenis) window.lenis.scrollTo(target, { offset: -64, force: true })
+    else target.scrollIntoView({ behavior: "smooth" })
   }
   const openUrl = (url: string) => {
     onOpenChange(false)
@@ -825,7 +831,7 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
         />
         <kbd className="rounded border border-[#1F1D20] px-1.5 py-0.5 font-mono text-[10px] text-slate-600">esc</kbd>
       </div>
-      <CmdK.List className="max-h-[min(56vh,400px)] overflow-y-auto overscroll-contain py-2">
+      <CmdK.List data-lenis-prevent className="max-h-[min(56vh,400px)] overflow-y-auto overscroll-contain py-2">
         <CmdK.Empty className="px-4 py-8 text-center font-mono text-xs text-slate-600">
           no matches found
         </CmdK.Empty>
@@ -1076,9 +1082,11 @@ export default function Home() {
     document.addEventListener("keydown", onKey)
     const prev = document.body.style.overflow
     document.body.style.overflow = "hidden"
+    window.lenis?.stop()
     return () => {
       document.removeEventListener("keydown", onKey)
       document.body.style.overflow = prev
+      window.lenis?.start()
     }
   }, [isMenuOpen])
 
@@ -1350,7 +1358,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 className="relative w-full md:w-auto md:flex-shrink-0"
               >
-                <div className="w-full aspect-square rounded-2xl overflow-hidden border border-[#1F1D20] breathe-border md:w-80 md:h-80">
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-[#1F1D20] breathe-border md:w-80 md:h-80">
                   <img
                     src="/mbrassey.jpg"
                     alt="Matt Brassey"
@@ -1358,6 +1366,7 @@ export default function Home() {
                     width={320}
                     height={320}
                   />
+                  <Smoke className="absolute inset-0 h-full w-full opacity-60" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#000102] via-transparent to-transparent opacity-60" />
                   <div className="absolute bottom-0 left-0 right-0 p-3 font-mono text-[10px] text-[#4B7F9B]/80">
                     <div><span className="text-emerald-400/70">$</span> whoami</div>
