@@ -28,7 +28,7 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
       canvas.height = Math.max(1, Math.round(h * dpr))
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       nodes.length = 0
-      const count = Math.max(14, Math.min(26, Math.floor(w / 13)))
+      const count = Math.max(7, Math.min(11, Math.floor(w / 30)))
       for (let i = 0; i < count; i++) {
         nodes.push({
           x: Math.random() * w,
@@ -53,8 +53,7 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
       last = now
 
       ctx.clearRect(0, 0, w, h)
-      for (let i = 0; i < nodes.length; i++) {
-        const a = nodes[i]
+      for (const a of nodes) {
         a.x += a.vx * dt
         a.y += a.vy * dt
         if (a.x < 0 || a.x > w) a.vx *= -1
@@ -64,21 +63,26 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
         ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2)
         ctx.fillStyle = "rgba(75, 127, 155, 0.65)"
         ctx.fill()
+      }
 
+      // keep the web minimal: only the few closest pairs get a strand
+      const pairs: { a: Node; b: Node; d: number }[] = []
+      for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
-          const b = nodes[j]
-          const dx = a.x - b.x
-          const dy = a.y - b.y
+          const dx = nodes[i].x - nodes[j].x
+          const dy = nodes[i].y - nodes[j].y
           const d = Math.sqrt(dx * dx + dy * dy)
-          if (d < LINK) {
-            ctx.beginPath()
-            ctx.moveTo(a.x, a.y)
-            ctx.lineTo(b.x, b.y)
-            ctx.strokeStyle = `rgba(75, 127, 155, ${(1 - d / LINK) * 0.85})`
-            ctx.lineWidth = 1.25
-            ctx.stroke()
-          }
+          if (d < LINK) pairs.push({ a: nodes[i], b: nodes[j], d })
         }
+      }
+      pairs.sort((p, q) => p.d - q.d)
+      for (const { a, b, d } of pairs.slice(0, 4)) {
+        ctx.beginPath()
+        ctx.moveTo(a.x, a.y)
+        ctx.lineTo(b.x, b.y)
+        ctx.strokeStyle = `rgba(75, 127, 155, ${(1 - d / LINK) * 0.85})`
+        ctx.lineWidth = 1.25
+        ctx.stroke()
       }
       rafId = requestAnimationFrame(frame)
     }
