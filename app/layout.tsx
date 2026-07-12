@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     "MEV-boost",
     "Jito MEV",
     "Solentic",
-    "CC Ledger",
+    "ccledger",
     "ccscan",
     "Canton Network explorer",
     "Canton Coin indexer",

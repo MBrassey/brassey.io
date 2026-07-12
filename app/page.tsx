@@ -179,7 +179,7 @@ const projects: Project[] = [
     url: "https://github.com/MBrassey/agtop",
   },
   {
-    title: "CC Ledger",
+    title: "ccledger",
     subtitle: "Canton Network Infrastructure API",
     description:
       "Full-stack Canton blockchain platform with 14 REST endpoints, 14 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
@@ -236,7 +236,7 @@ const experience = [
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
       "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
       "Built ccscan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
-      "Built CC Ledger (14 REST endpoints, 14 MCP tools for Canton)",
+      "Built ccledger (14 REST endpoints, 14 MCP tools for Canton)",
     ],
   },
   {
