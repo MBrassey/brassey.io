@@ -658,16 +658,35 @@ function CodeStream() {
 type CantonOverview = { head: number; round: number; at: number }
 let cantonCurrent: CantonOverview | null = null
 let cantonRate = 0
-// Highest value ever shown, so the projection can never tick backwards
+// False until two polls have produced a real head delta; until then cantonRate
+// is only a seeded estimate.
+let cantonMeasured = false
+// The counter trails the confirmed head and eases toward it, so every value it
+// shows is one the chain actually reached. cantonDisplayed is the smooth float;
+// cantonShown is the integer on screen, held monotonic.
+let cantonDisplayed = 0
 let cantonShown = 0
 const cantonListeners = new Set<() => void>()
 let cantonStarted = false
 
-// Proxied through /api/canton so the ccscan API key stays server-side. ccscan
-// sends `cache-control: public, max-age=15`; polling faster than that would be
-// answered from cache and never reach the API, so poll past the TTL and opt out
-// of the browser cache entirely.
-const CANTON_POLL_MS = 20000
+// Proxied through /api/canton so the ccscan API key stays server-side, with
+// `no-store` on both hops: ccscan sends `cache-control: public, max-age=15`, so
+// a cached poll would replay a stale head instead of reaching the API.
+const CANTON_POLL_MS = 12000
+// A second poll lands well before the first interval so the measured rate takes
+// over from the seeded estimate within seconds of load.
+const CANTON_FIRST_REFRESH_MS = 5000
+
+// Seed an initial rate from tx_24h, damped toward the observed steady state (the
+// 24h mean overstates it — bursts pull the average up). Only used to decide how
+// far behind the head to start; the measured rate takes over within seconds.
+const CANTON_SEED_DAMPING = 0.6
+// Start the counter this far behind the confirmed head — slightly more than one
+// poll interval — so there is always real, already-confirmed ground to cover and
+// the number is visibly climbing from the first frame.
+const CANTON_LAG_S = 14
+// Easing time constant for closing the gap to the confirmed head.
+const CANTON_TAU_S = 8
 
 async function cantonPoll() {
   if (typeof document !== "undefined" && document.visibilityState === "hidden") return
@@ -679,7 +698,20 @@ async function cantonPoll() {
     const now = Date.now()
     if (cantonCurrent && j.head_seq > cantonCurrent.head) {
       const dt = (now - cantonCurrent.at) / 1000
-      if (dt > 1) cantonRate = Math.min((j.head_seq - cantonCurrent.head) / dt, 500)
+      if (dt > 1) {
+        const measured = Math.min((j.head_seq - cantonCurrent.head) / dt, 500)
+        // Smooth the measured rate so a burst doesn't spike the projection
+        cantonRate = cantonMeasured ? cantonRate * 0.4 + measured * 0.6 : measured
+        cantonMeasured = true
+      }
+    } else if (!cantonMeasured && typeof j.tx_24h === "number" && j.tx_24h > 0) {
+      cantonRate = (j.tx_24h / 86400) * CANTON_SEED_DAMPING
+    }
+    if (!cantonCurrent) {
+      // Start one lag-window behind the confirmed head so the counter has real
+      // ground to cover and begins climbing immediately, instead of sitting on
+      // the head until a second poll arrives.
+      cantonDisplayed = j.head_seq - cantonRate * CANTON_LAG_S
     }
     if (!cantonCurrent || j.head_seq >= cantonCurrent.head) {
       cantonCurrent = { head: j.head_seq, round: j.latest_round ?? 0, at: now }
@@ -695,6 +727,7 @@ function cantonSubscribe(fn: () => void) {
   if (!cantonStarted) {
     cantonStarted = true
     cantonPoll()
+    window.setTimeout(cantonPoll, CANTON_FIRST_REFRESH_MS)
     window.setInterval(cantonPoll, CANTON_POLL_MS)
   }
   return () => {
@@ -707,9 +740,13 @@ function CantonLive() {
   const [round, setRound] = useState<number>(0)
 
   useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+
     const sync = () => {
       if (cantonCurrent) {
-        cantonShown = Math.max(cantonShown, cantonCurrent.head)
+        // With no animation loop to ease the value, show the confirmed head itself
+        const value = reduced ? cantonCurrent.head : Math.floor(cantonDisplayed)
+        cantonShown = Math.max(cantonShown, value)
         setDisplay(cantonShown)
         setRound(cantonCurrent.round)
       }
@@ -718,13 +755,18 @@ function CantonLive() {
     sync()
 
     let raf = 0
-    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      const tick = () => {
+    if (!reduced) {
+      let last = performance.now()
+      const tick = (now: number) => {
+        const dt = Math.min((now - last) / 1000, 1)
+        last = now
         if (cantonCurrent) {
-          const projected = Math.floor(
-            cantonCurrent.head + cantonRate * ((Date.now() - cantonCurrent.at) / 1000),
-          )
-          cantonShown = Math.max(cantonShown, projected)
+          // Ease toward the confirmed head without ever passing it, so the
+          // number on screen is always one the chain has actually reached.
+          const target = cantonCurrent.head
+          cantonDisplayed += (target - cantonDisplayed) * (1 - Math.exp(-dt / CANTON_TAU_S))
+          cantonDisplayed = Math.min(cantonDisplayed, target)
+          cantonShown = Math.max(cantonShown, Math.floor(cantonDisplayed))
           setDisplay((d) => (d === cantonShown ? d : cantonShown))
         }
         raf = requestAnimationFrame(tick)
