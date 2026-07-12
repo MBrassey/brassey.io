@@ -658,13 +658,21 @@ function CodeStream() {
 type CantonOverview = { head: number; round: number; at: number }
 let cantonCurrent: CantonOverview | null = null
 let cantonRate = 0
+// Highest value ever shown, so the projection can never tick backwards
+let cantonShown = 0
 const cantonListeners = new Set<() => void>()
 let cantonStarted = false
+
+// Proxied through /api/canton so the ccscan API key stays server-side. ccscan
+// sends `cache-control: public, max-age=15`; polling faster than that would be
+// answered from cache and never reach the API, so poll past the TTL and opt out
+// of the browser cache entirely.
+const CANTON_POLL_MS = 20000
 
 async function cantonPoll() {
   if (typeof document !== "undefined" && document.visibilityState === "hidden") return
   try {
-    const res = await fetch("https://ccscan.xyz/api/overview")
+    const res = await fetch("/api/canton", { cache: "no-store" })
     if (!res.ok) return
     const j = await res.json()
     if (typeof j.head_seq !== "number") return
@@ -687,8 +695,7 @@ function cantonSubscribe(fn: () => void) {
   if (!cantonStarted) {
     cantonStarted = true
     cantonPoll()
-    window.setTimeout(cantonPoll, 4000)
-    window.setInterval(cantonPoll, 12000)
+    window.setInterval(cantonPoll, CANTON_POLL_MS)
   }
   return () => {
     cantonListeners.delete(fn)
@@ -702,7 +709,8 @@ function CantonLive() {
   useEffect(() => {
     const sync = () => {
       if (cantonCurrent) {
-        setDisplay(cantonCurrent.head)
+        cantonShown = Math.max(cantonShown, cantonCurrent.head)
+        setDisplay(cantonShown)
         setRound(cantonCurrent.round)
       }
     }
@@ -716,7 +724,8 @@ function CantonLive() {
           const projected = Math.floor(
             cantonCurrent.head + cantonRate * ((Date.now() - cantonCurrent.at) / 1000),
           )
-          setDisplay((d) => (d === projected ? d : projected))
+          cantonShown = Math.max(cantonShown, projected)
+          setDisplay((d) => (d === cantonShown ? d : cantonShown))
         }
         raf = requestAnimationFrame(tick)
       }
