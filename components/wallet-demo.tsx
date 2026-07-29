@@ -129,21 +129,15 @@ function UsdcMark({ className = "" }: { className?: string }) {
     </svg>
   )
 }
+// PAX Gold: the official Paxos brand mark, served locally.
 function PaxgMark({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="M12 3.2 20.8 12 12 20.8 3.2 12 12 3.2Z" strokeWidth="1.8" strokeLinejoin="round" />
-      <path d="M12 7.4 16.6 12 12 16.6 7.4 12 12 7.4Z" strokeWidth="1.4" strokeLinejoin="round" opacity="0.6" />
-    </svg>
-  )
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src="/tokens/paxg.png" alt="" aria-hidden="true" className={`${className} object-contain`} />
 }
+// jitoSOL: the official Jito liquid-staking coin, served locally.
 function JitoMark({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="M12 3.6s6 6.3 6 10.4a6 6 0 1 1-12 0c0-4.1 6-10.4 6-10.4Z" strokeWidth="1.8" strokeLinejoin="round" />
-      <path d="M9 14.2a3 3 0 0 0 3 3" strokeWidth="1.5" strokeLinecap="round" opacity="0.7" />
-    </svg>
-  )
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src="/tokens/jitosol.png" alt="" aria-hidden="true" className={`${className} object-contain`} />
 }
 
 const MARKS: Record<TokenKey, (p: { className?: string }) => React.JSX.Element> = {
