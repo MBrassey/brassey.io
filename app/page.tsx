@@ -177,14 +177,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Solana DeFi Wallet",
-    subtitle: "Non-Custodial Wallet — Self-Custody Key Management",
-    description:
-      "Browser-native, self-custody Solana wallet where the private key never leaves the user's device and the server can never spend or decrypt it. Passkey-bound key storage (WebAuthn PRF wrapping an AES-GCM-encrypted ed25519 seed), BIP39 recovery, a passkey-encrypted portable vault with a server-enforced non-custodial invariant, authenticated key rotation with takeover protection, and envelope-encryption discipline throughout. Live wireframe demo with real market data.",
-    tech: ["Solana", "WebAuthn PRF", "AES-GCM", "HKDF", "BIP39", "ed25519", "IndexedDB", "Jupiter"],
-    url: "#wallet",
-  },
-  {
     title: "ccscan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
