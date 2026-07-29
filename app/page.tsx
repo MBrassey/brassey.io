@@ -95,6 +95,7 @@ const infrastructureNodes: InfraNode[] = [
       "Enterprise-grade beacon chain validator at the 2048 ETH maximum effective balance (EIP-7251) with MEV boost.",
     links: [
       { label: "Validator", url: "https://beaconcha.in/validator/0x8a132f062776bf0bc497efb5caf075fb674dd7e500a4afcd78ad04d916b0c4ea35490f96a405ecaf00cbc59b5f2126e8" },
+      { label: "Lido CSM", url: "https://beaconcha.in/validator/8a132f062776bf0bc497efb5caf075fb674dd7e500a4afcd78ad04d916b0c4ea35490f96a405ecaf00cbc59b5f2126e8#deposits" },
     ],
     metric: "2048 ETH",
   },
@@ -235,10 +236,11 @@ const experience = [
     location: "Remote | NYC, NY",
     period: "2023 — Present",
     description:
-      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and Babylon — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Cardano, Cosmos, Polkadot, Kusama, NEAR, Polygon, Stacks, Sui, XDC, Tezos, Algorand, Audius, Canton, Story, and Babylon — plus Rocket Pool and Lido CSM — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
       "Operating high-performance mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
-      "Built deploy, upgrade, identity migration, and resync primitives for AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
+      "Architected the fleet's plug-in automation layer — 19 protocols deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
+      "Exposed the same deploy, upgrade, identity migration, and resync primitives to AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
@@ -663,7 +665,238 @@ function CodeStream() {
 // CONSUMER AI PLATFORM (solo architect capstone)
 // =========================================================
 
-const aiPlatformFlow = ["docker workers", "serverless GPU", "dispatch layer", "agent kernel", "SSE / WebRTC", "client"]
+const platformStages = [
+  { key: "worker", label: "docker workers" },
+  { key: "gpu", label: "serverless GPU" },
+  { key: "dispatch", label: "dispatch layer" },
+  { key: "kernel", label: "agent kernel" },
+  { key: "rtc", label: "SSE / WebRTC" },
+  { key: "client", label: "client" },
+]
+
+interface PlatformTraceLine {
+  t: string
+  stage: string
+  text: string
+  ok?: boolean
+}
+
+const platformScenarios: { id: string; label: string; lines: PlatformTraceLine[] }[] = [
+  {
+    id: "chat",
+    label: "chat turn",
+    lines: [
+      { t: "00.000", stage: "client", text: "POST /chat — SSE stream opened" },
+      { t: "00.014", stage: "kernel", text: "deliberation pass — intent + context assembly" },
+      { t: "00.032", stage: "kernel", text: "route: chat → 70B endpoint · per-task model routing" },
+      { t: "00.061", stage: "dispatch", text: "enqueue — queue 0 · bounded retries armed" },
+      { t: "00.118", stage: "gpu", text: "worker warm — weights cached on network volume" },
+      { t: "00.640", stage: "gpu", text: "first token 0.6s · 41 tok/s sustained" },
+      { t: "02.310", stage: "rtc", text: "tokens streaming on per-user SSE bus" },
+      { t: "04.880", stage: "kernel", text: "memory extract — 2 facts · envelope-encrypted write" },
+      { t: "04.910", stage: "kernel", text: "guards — classifiers pass · egress isolated" },
+      { t: "05.020", stage: "client", text: "turn complete — 214 tokens streamed", ok: true },
+    ],
+  },
+  {
+    id: "img2img",
+    label: "img2img",
+    lines: [
+      { t: "00.000", stage: "client", text: "upload accepted — img2img request" },
+      { t: "00.018", stage: "kernel", text: "scene understanding → prompt synthesis" },
+      { t: "00.041", stage: "dispatch", text: "route: diffusion endpoint · execution ceiling 90s" },
+      { t: "00.322", stage: "gpu", text: "cold start 3.8s — weights cached on network volume" },
+      { t: "04.150", stage: "gpu", text: "multi-ControlNet pass — edge · depth · pose" },
+      { t: "09.870", stage: "gpu", text: "IP-Adapter face embedding applied" },
+      { t: "14.200", stage: "gpu", text: "super-resolution upscale" },
+      { t: "15.410", stage: "rtc", text: "result pushed over SSE" },
+      { t: "15.520", stage: "client", text: "face-consistent output delivered", ok: true },
+    ],
+  },
+  {
+    id: "img2vid",
+    label: "img2vid",
+    lines: [
+      { t: "00.000", stage: "client", text: "img2vid job submitted" },
+      { t: "00.020", stage: "dispatch", text: "enqueue — stall detection armed" },
+      { t: "00.850", stage: "gpu", text: "video diffusion — frame batch 1/7" },
+      { t: "12.300", stage: "dispatch", text: "stall detected — worker unresponsive" },
+      { t: "12.310", stage: "dispatch", text: "retry 1/3 — exponential backoff · re-dispatched" },
+      { t: "13.750", stage: "gpu", text: "resumed on fresh worker — no double-billing" },
+      { t: "38.400", stage: "gpu", text: "frames encoded → clip" },
+      { t: "38.900", stage: "rtc", text: "delivery over SSE · receipt stored" },
+      { t: "39.020", stage: "client", text: "clip ready — credits settled", ok: true },
+    ],
+  },
+  {
+    id: "webrtc",
+    label: "webrtc call",
+    lines: [
+      { t: "00.000", stage: "client", text: "call request — signaling on SSE bus" },
+      { t: "00.024", stage: "rtc", text: "TURN credentials minted — short-lived HMAC" },
+      { t: "00.058", stage: "rtc", text: "relay-first ICE — candidates gathered" },
+      { t: "00.310", stage: "rtc", text: "peers connected — DTLS-SRTP up" },
+      { t: "00.480", stage: "client", text: "canvas capture — live media-track transform" },
+      { t: "00.610", stage: "client", text: "p2p call live — heartbeats armed", ok: true },
+    ],
+  },
+  {
+    id: "cron",
+    label: "self-scheduled",
+    lines: [
+      { t: "00.000", stage: "kernel", text: "cron fire — proactive check-in due" },
+      { t: "00.012", stage: "kernel", text: "CAS claim acquired — duplicate runs fenced" },
+      { t: "00.038", stage: "kernel", text: "reflection pass over memory store" },
+      { t: "00.420", stage: "dispatch", text: "route: draft → 70B endpoint" },
+      { t: "02.110", stage: "gpu", text: "draft generated — classifiers pass" },
+      { t: "02.240", stage: "rtc", text: "delivered on user's SSE channel" },
+      { t: "02.255", stage: "kernel", text: "idempotency key recorded", ok: true },
+    ],
+  },
+  {
+    id: "train",
+    label: "qlora train",
+    lines: [
+      { t: "00:00", stage: "worker", text: "GPU pod spun per-run — 80 GB card" },
+      { t: "00:41", stage: "gpu", text: "QLoRA 4-bit — 70B base sharded in" },
+      { t: "14:20", stage: "gpu", text: "epoch 1/3 — loss 1.84 → 1.12" },
+      { t: "41:03", stage: "gpu", text: "epoch 3/3 — checkpoint → network volume" },
+      { t: "52:07", stage: "worker", text: "pod torn down — $0 while idle" },
+      { t: "52:08", stage: "kernel", text: "blind-A/B rollout queued", ok: true },
+    ],
+  },
+]
+
+function PlatformTrace() {
+  const [scenarioIdx, setScenarioIdx] = useState(0)
+  const [visible, setVisible] = useState(0)
+  const [auto, setAuto] = useState(true)
+
+  const scenario = platformScenarios[scenarioIdx]
+  const lines = scenario.lines
+  const shown = lines.slice(0, visible)
+  const activeStage = shown.length > 0 ? shown[shown.length - 1].stage : null
+  const visitedStages = new Set(shown.map((l) => l.stage))
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(lines.length)
+      return
+    }
+
+    setVisible(0)
+    let i = 0
+    let t: ReturnType<typeof setTimeout>
+
+    const step = () => {
+      i++
+      setVisible(i)
+      if (i < lines.length) {
+        t = setTimeout(step, 420 + Math.random() * 300)
+      } else if (auto) {
+        t = setTimeout(() => setScenarioIdx((s) => (s + 1) % platformScenarios.length), 3200)
+      }
+    }
+
+    t = setTimeout(step, 500)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scenarioIdx, auto])
+
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-center sm:justify-center gap-x-2 gap-y-2 font-mono text-[11px]">
+        {platformStages.map((stage, i) => {
+          const active = stage.key === activeStage
+          const visited = visitedStages.has(stage.key)
+          return (
+            <span key={stage.key} className="flex items-center gap-2">
+              <span
+                className={`px-2.5 py-1 rounded border transition-colors duration-300 ${
+                  active
+                    ? "border-[#4B7F9B]/60 bg-[#4B7F9B]/15 text-[#4B7F9B]"
+                    : visited
+                      ? "border-[#4B7F9B]/25 bg-[#1F1D20]/60 text-slate-400"
+                      : "border-[#1F1D20] bg-[#1F1D20]/60 text-slate-500"
+                }`}
+              >
+                {stage.label}
+              </span>
+              {i < platformStages.length - 1 && <span className="text-[#4B7F9B]/50">→</span>}
+            </span>
+          )
+        })}
+      </div>
+
+      <div className="flex flex-wrap sm:justify-center gap-1.5">
+        {platformScenarios.map((s, i) => (
+          <button
+            key={s.id}
+            type="button"
+            onClick={() => {
+              setAuto(false)
+              setScenarioIdx(i)
+            }}
+            aria-pressed={i === scenarioIdx}
+            aria-label={`Replay the ${s.label} trace`}
+            className={`font-mono text-[11px] px-2.5 py-1 rounded border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
+              i === scenarioIdx
+                ? "border-[#4B7F9B]/50 bg-[#4B7F9B]/10 text-[#4B7F9B]"
+                : "border-[#1F1D20] text-slate-500 hover:text-slate-300 hover:border-slate-700"
+            }`}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="max-w-3xl mx-auto rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden hover:border-[#4B7F9B]/30 transition-colors duration-300">
+        <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
+              <Terminal className="h-2.5 w-2.5 text-slate-400" />
+            </div>
+            <span className="text-slate-400 text-[10px] sm:text-[11px] font-mono truncate">
+              matt@platform:~/request-traces
+            </span>
+          </div>
+          <span className="font-mono text-[10px] text-slate-600">
+            trace {scenarioIdx + 1}/{platformScenarios.length} · {scenario.label}
+          </span>
+        </div>
+        <div className="p-4 sm:p-5 min-h-[280px] font-mono text-[11px] sm:text-[12px] leading-relaxed">
+          {shown.map((line, i) => (
+            <motion.div
+              key={`${scenario.id}-${i}`}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+              className="flex items-baseline gap-3 py-0.5"
+            >
+              <span className="w-12 shrink-0 text-right text-slate-600 text-[10px]">{line.t}</span>
+              <span className="w-16 shrink-0 text-[#4B7F9B]/70 text-[10px] uppercase tracking-wider">
+                {line.stage}
+              </span>
+              <span className={`min-w-0 ${line.ok ? "text-slate-300" : "text-slate-400"}`}>
+                {line.ok && <span className="text-emerald-400">✓ </span>}
+                {line.text}
+              </span>
+            </motion.div>
+          ))}
+          {visible >= lines.length && (
+            <div className="pt-2 pl-[60px]">
+              <span className="text-slate-600">$</span>{" "}
+              <span
+                className="inline-block w-[6px] h-[11px] bg-[#4B7F9B] align-middle"
+                style={{ animation: "blink-cursor 1s step-end infinite" }}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 const aiPlatformDomains = [
   {
@@ -2178,18 +2411,8 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <motion.div
-                variants={slideUp}
-                className="flex flex-wrap items-center sm:justify-center gap-x-2 gap-y-2 mb-10 sm:mb-12 font-mono text-[11px]"
-              >
-                {aiPlatformFlow.map((stage, i) => (
-                  <span key={stage} className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded border border-[#1F1D20] bg-[#1F1D20]/60 text-slate-400">
-                      {stage}
-                    </span>
-                    {i < aiPlatformFlow.length - 1 && <span className="text-[#4B7F9B]/50">→</span>}
-                  </span>
-                ))}
+              <motion.div variants={slideUp} className="mb-10 sm:mb-12">
+                <PlatformTrace />
               </motion.div>
 
               <div className="grid gap-4 lg:grid-cols-6">
