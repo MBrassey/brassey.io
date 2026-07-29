@@ -2511,78 +2511,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ==================== CONSUMER AI PLATFORM ==================== */}
-        <section id="platform" className="relative py-16 md:py-24">
-          <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-            >
-              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
-                  <Cpu className="h-3 w-3" />
-                  <span>// consumer-ai-platform</span>
-                </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                  Real-Time <span className="gradient-text">Consumer AI Platform</span>
-                </h2>
-                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Solo architect and full-stack/ML engineer on an end-to-end system spanning GPU inference
-                  infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC — from
-                  containerized model workers through the production web app.
-                </p>
-              </motion.div>
-
-              <motion.div variants={slideUp} className="mb-10 sm:mb-12">
-                <PlatformTrace />
-              </motion.div>
-
-              <div className="grid gap-4 lg:grid-cols-6">
-                {aiPlatformDomains.map((domain) => {
-                  const Icon = domain.icon
-                  return (
-                    <motion.div
-                      key={domain.title}
-                      variants={slideUp}
-                      className={`p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
-                        domain.span === 3 ? "lg:col-span-3" : "lg:col-span-2"
-                      }`}
-                    >
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
-                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
-                        </div>
-                        <h3 className="text-lg font-bold">{domain.title}</h3>
-                      </div>
-                      <ul className="space-y-2.5 mb-5">
-                        {domain.bullets.map((b, j) => (
-                          <li key={j} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
-                            <ChevronRight className="h-4 w-4 text-[#4B7F9B]/50 flex-shrink-0 mt-0.5" />
-                            <span>{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
-                        {domain.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )
-                })}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
         {/* ==================== SOLANA WALLET ==================== */}
         <section id="wallet" className="relative py-16 md:py-24">
           <div className="section-divider" />
@@ -2658,6 +2586,78 @@ export default function Home() {
                   custodian.
                 </p>
               </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ==================== CONSUMER AI PLATFORM ==================== */}
+        <section id="platform" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <Cpu className="h-3 w-3" />
+                  <span>// consumer-ai-platform</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  Real-Time <span className="gradient-text">Consumer AI Platform</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
+                  Solo architect and full-stack/ML engineer on an end-to-end system spanning GPU inference
+                  infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC — from
+                  containerized model workers through the production web app.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="mb-10 sm:mb-12">
+                <PlatformTrace />
+              </motion.div>
+
+              <div className="grid gap-4 lg:grid-cols-6">
+                {aiPlatformDomains.map((domain) => {
+                  const Icon = domain.icon
+                  return (
+                    <motion.div
+                      key={domain.title}
+                      variants={slideUp}
+                      className={`p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
+                        domain.span === 3 ? "lg:col-span-3" : "lg:col-span-2"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
+                        </div>
+                        <h3 className="text-lg font-bold">{domain.title}</h3>
+                      </div>
+                      <ul className="space-y-2.5 mb-5">
+                        {domain.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
+                            <ChevronRight className="h-4 w-4 text-[#4B7F9B]/50 flex-shrink-0 mt-0.5" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {domain.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
             </motion.div>
           </div>
         </section>
