@@ -2565,7 +2565,7 @@ export default function Home() {
 
               <motion.div variants={slideUp} className="mt-8">
                 <Link
-                  href="/wallet"
+                  href="/wallet#security"
                   className="inline-flex items-center gap-2 text-sm text-[#4B7F9B] hover:text-[#6ba3bf] transition-colors"
                 >
                   Security architecture &amp; full write-up <ArrowUpRight className="h-4 w-4" />

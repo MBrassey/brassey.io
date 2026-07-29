@@ -99,7 +99,7 @@ export default function WalletPage() {
           <WalletDemo />
         </section>
 
-        <section aria-label="Security architecture" className="space-y-6">
+        <section id="security" aria-label="Security architecture" className="space-y-6 scroll-mt-20">
           <div className="text-left space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Security architecture</h2>
             <p className="text-slate-400 max-w-3xl text-sm sm:text-base">
