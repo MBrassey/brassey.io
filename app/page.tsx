@@ -1389,6 +1389,89 @@ function FleetAutomation() {
 }
 
 // =========================================================
+// WING PANES (profile summary underlay)
+// =========================================================
+
+// A spread right wing behind the profile summary: one light clear-glass pane
+// per rendered text line, each measured off the live layout so its feather tip
+// always clears the line it backs, with an organically tapering overhang —
+// longest at the top, re-measured on every resize.
+function WingPanes() {
+  const selfRef = useRef<HTMLDivElement>(null)
+  const [panes, setPanes] = useState<{ top: number; height: number; width: number }[]>([])
+
+  useEffect(() => {
+    const host = selfRef.current?.parentElement
+    if (!host) return
+    const p = host.querySelector("p")
+    if (!p) return
+
+    const measure = () => {
+      const range = document.createRange()
+      range.selectNodeContents(p)
+      const rects = Array.from(range.getClientRects()).filter((r) => r.width > 0)
+      range.detach()
+      const hostRect = host.getBoundingClientRect()
+      // Fragments (styled spans) split lines into several rects — merge by row.
+      const lines: { top: number; bottom: number; right: number }[] = []
+      for (const r of rects.sort((a, b) => a.top - b.top)) {
+        const last = lines[lines.length - 1]
+        if (last && r.top < last.bottom - 2) {
+          last.right = Math.max(last.right, r.right)
+          last.bottom = Math.max(last.bottom, r.bottom)
+          last.top = Math.min(last.top, r.top)
+        } else {
+          lines.push({ top: r.top, bottom: r.bottom, right: r.right })
+        }
+      }
+      const n = lines.length
+      if (!n) {
+        setPanes([])
+        return
+      }
+      // Overhang budget: stop short of the orbital dots on desktop, the
+      // viewport edge on mobile.
+      const clearance = window.innerWidth >= 768 ? 72 : 16
+      const avail = Math.max(20, Math.min(110, window.innerWidth - clearance - hostRect.right))
+      setPanes(
+        lines.map((l, i) => {
+          const taper = n > 1 ? 1 - i / (n - 1) : 1
+          const jitter = ((i * 37) % 13) - 6
+          const ext = Math.max(14, 14 + (avail - 14) * taper + jitter)
+          return {
+            top: l.top - hostRect.top - 3,
+            height: l.bottom - l.top + 6,
+            width: l.right - hostRect.left + 12 + ext,
+          }
+        }),
+      )
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(p)
+    window.addEventListener("resize", measure)
+    document.fonts?.ready.then(measure).catch(() => {})
+    return () => {
+      ro.disconnect()
+      window.removeEventListener("resize", measure)
+    }
+  }, [])
+
+  return (
+    <div ref={selfRef} aria-hidden="true" className="pointer-events-none absolute inset-0">
+      {panes.map((pane, i) => (
+        <div
+          key={i}
+          className="absolute -left-3 rounded-r-md border border-white/[0.05] bg-gradient-to-r from-white/[0.025] via-white/[0.012] to-white/[0.004] backdrop-blur-[2px]"
+          style={{ top: pane.top, height: pane.height, width: pane.width }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// =========================================================
 // LIVE CANTON TELEMETRY (ccscan.xyz public API, anonymous tier)
 // =========================================================
 
@@ -2158,17 +2241,7 @@ export default function Home() {
                 className="text-left space-y-4"
               >
                 <div className="relative">
-                  {/* Spread right wing: light clear panes tapering organically
-                      behind each line, feather tips sweeping toward the right. */}
-                  <div aria-hidden="true" className="pointer-events-none absolute -inset-x-3 -inset-y-2 flex flex-col gap-[3px]">
-                    {[100, 92, 85, 73, 64, 52, 41, 29].map((w, i) => (
-                      <div
-                        key={i}
-                        className="flex-1 rounded-r-md border border-white/[0.05] bg-gradient-to-r from-white/[0.025] via-white/[0.012] to-white/[0.004] backdrop-blur-[2px]"
-                        style={{ width: `${w}%` }}
-                      />
-                    ))}
-                  </div>
+                  <WingPanes />
                   <p className="relative text-slate-300 text-base sm:text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
