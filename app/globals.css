@@ -464,3 +464,16 @@ p {
   filter: saturate(0.35) brightness(0.95);
   opacity: 0.9;
 }
+
+/* Ambient footer icon glow: the "hovered" look, breathing. */
+@keyframes footerIconPulse {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(75, 127, 155, 0.5)); }
+  50% { transform: scale(1.14); filter: drop-shadow(0 0 10px rgba(75, 127, 155, 0.95)); }
+}
+.footer-icon-lit {
+  color: #4B7F9B;
+  animation: footerIconPulse 1.7s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .footer-icon-lit { animation: none; }
+}

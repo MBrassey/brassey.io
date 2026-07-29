@@ -1388,6 +1388,51 @@ function FleetAutomation() {
 }
 
 // =========================================================
+// FOOTER TECH ROW (ambient icon glow)
+// =========================================================
+
+// Two or three marks light up and pulse as if hovered, then hand the glow to a
+// new random set — a quiet heartbeat across the protocol row.
+function FooterTechRow() {
+  const [lit, setLit] = useState<number[]>([])
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const pick = () => {
+      const count = 2 + Math.floor(Math.random() * 2)
+      const idx = new Set<number>()
+      while (idx.size < count) idx.add(Math.floor(Math.random() * footerTech.length))
+      setLit([...idx])
+    }
+    pick()
+    const id = setInterval(pick, 1800)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <ul
+      className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 max-w-3xl"
+      aria-label="Protocols and technologies"
+    >
+      {footerTech.map((t, i) => (
+        <li key={t.label} title={t.label}>
+          <svg
+            role="img"
+            aria-label={t.label}
+            viewBox={t.viewBox ?? "0 0 24 24"}
+            className={`h-5 w-5 text-slate-600 transition-[color,filter] duration-700 hover:text-[#4B7F9B] hover:drop-shadow-[0_0_7px_rgba(75,127,155,0.85)] ${
+              lit.includes(i) ? "footer-icon-lit" : ""
+            }`}
+          >
+            <path fill="currentColor" d={t.path} />
+          </svg>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+// =========================================================
 // WING PANES (profile summary underlay)
 // =========================================================
 
@@ -3214,23 +3259,7 @@ export default function Home() {
           <p className="text-sm text-slate-600">
             &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> <span className="text-[#4B7F9B]">brassey</span>.io
           </p>
-          <ul
-            className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 max-w-3xl"
-            aria-label="Protocols and technologies"
-          >
-            {footerTech.map((t) => (
-              <li key={t.label} title={t.label}>
-                <svg
-                  role="img"
-                  aria-label={t.label}
-                  viewBox={t.viewBox ?? "0 0 24 24"}
-                  className="h-5 w-5 text-slate-600 transition-[color,filter] duration-300 hover:text-[#4B7F9B] hover:drop-shadow-[0_0_7px_rgba(75,127,155,0.85)]"
-                >
-                  <path fill="currentColor" d={t.path} />
-                </svg>
-              </li>
-            ))}
-          </ul>
+          <FooterTechRow />
         </div>
       </footer>
     </div>
