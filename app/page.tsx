@@ -7,26 +7,32 @@ import { Command as CmdK } from "cmdk"
 import {
   Activity,
   ArrowRight,
+  ArrowUpCircle,
   ArrowUpRight,
   Award,
+  Brain,
   Check,
   ChevronRight,
   Clock,
   Code2,
   Copy,
+  Cpu,
   Database,
   ExternalLink,
   FileText,
   GitBranch,
   Github,
+  KeyRound,
   Layers,
   Linkedin,
   Mail,
   Menu,
   Network,
+  Rocket,
   Search,
   Server,
   Shield,
+  Sparkles,
   Terminal,
   Users,
   X,
@@ -43,7 +49,9 @@ import AvatarWeb from "@/components/avatar-web"
 
 const navItems = [
   { id: "infrastructure", label: "Infrastructure" },
+  { id: "automation", label: "Automation" },
   { id: "ai", label: "AI Dev" },
+  { id: "platform", label: "AI Platform" },
   { id: "experience", label: "Experience" },
   { id: "expertise", label: "Expertise" },
   { id: "projects", label: "Projects" },
@@ -652,6 +660,385 @@ function CodeStream() {
 }
 
 // =========================================================
+// CONSUMER AI PLATFORM (solo architect capstone)
+// =========================================================
+
+const aiPlatformFlow = ["docker workers", "serverless GPU", "dispatch layer", "agent kernel", "SSE / WebRTC", "client"]
+
+const aiPlatformDomains = [
+  {
+    icon: Brain,
+    title: "Autonomous LLM Agent",
+    span: 3,
+    bullets: [
+      "Stateful, long-lived agent with a multi-facet cognition loop — deliberation before response, structured memory extraction, reflection, and proactive self-scheduling — unified by a single prompt kernel with per-task model routing across a fleet of inference endpoints.",
+      "Typed, persistent, envelope-encrypted memory store with streaming token responses. Self-initiated behavior runs on cron jobs guarded by idempotency, rate limiting, and compare-and-set claims, so autonomous actions never duplicate or race.",
+      "Every model-generated output hardened with layered prompt-injection defense and fail-closed content classifiers — deterministic screens plus LLM — with strict egress isolation between users.",
+    ],
+    tags: ["prompt kernel", "model routing", "CAS claims", "fail-closed"],
+  },
+  {
+    icon: Cpu,
+    title: "GPU Infrastructure & MLOps",
+    span: 3,
+    bullets: [
+      "Serverless GPU inference platform (RunPod): min-0 pay-per-use autoscaling, network-volume weight caching for fast cold starts, per-endpoint execution ceilings, and a dispatch layer with bounded retries, exponential backoff, stall detection, and orphaned-job reconciliation with automatic refund.",
+      "Containerized model workers built and published by CI to a private registry — SHA-pinned, canary-then-fleet rollout with documented rollback.",
+      "Custom training on ephemeral GPU pods spun per-run and torn down after: 4-bit QLoRA fine-tuning of a 70B LLM from a synthetically generated corpus, LoRA adapters for the diffusion stack, network-volume checkpointing, and blind-A/B rollout.",
+      "VRAM discipline on shared 80 GB cards: sequential load/release, subprocess isolation for conflicting CUDA stacks, allocator tuning, and race-safe self-healing model-asset fetch on shared volumes.",
+    ],
+    tags: ["QLoRA 70B", "min-0 autoscale", "canary rollout", "80 GB VRAM"],
+  },
+  {
+    icon: Sparkles,
+    title: "Generative-Media Pipelines",
+    span: 2,
+    bullets: [
+      "img2img diffusion with multi-ControlNet structure guidance (edge · depth · pose) and IP-Adapter face embeddings for face-consistent output; scene understanding → prompt synthesis, plus super-resolution upscaling.",
+      "Image-to-video diffusion and real-time GLSL/Canvas video stylization applied client-side.",
+    ],
+    tags: ["ControlNet ×3", "IP-Adapter", "img2vid", "GLSL"],
+  },
+  {
+    icon: Network,
+    title: "Real-Time Communications",
+    span: 2,
+    bullets: [
+      "Peer-to-peer WebRTC calling with TURN relay behind short-lived HMAC credentials and relay-first ICE; signaling over a per-user SSE pub/sub bus with connection caps, heartbeats, and lifecycle cleanup.",
+      "Live media-track transforms via canvas capture.",
+    ],
+    tags: ["WebRTC", "TURN + HMAC", "SSE bus"],
+  },
+  {
+    icon: Shield,
+    title: "Security, Data & Reliability",
+    span: 2,
+    bullets: [
+      "Envelope encryption (AES-GCM) for data at rest, end-to-end-encrypted messaging (X25519), and auth with BIP39 recovery backed by a non-custodial key vault.",
+      "Postgres schema and migrations, idempotent atomic SQL state machines (RETURNING-based CAS), and Redis-backed payment verification.",
+      "Zero-downtime deploy pipeline with graceful degradation, formal verification (Kani) in CI, and headless WebRTC end-to-end test harnesses.",
+    ],
+    tags: ["AES-GCM", "X25519", "BIP39", "Kani CI"],
+  },
+]
+
+// =========================================================
+// FLEET AUTOMATION (interactive control plane)
+// =========================================================
+
+interface FleetChain {
+  name: string
+  slug: string
+  client: string
+  snap: string
+  live: string
+  version: string
+}
+
+const fleetChains: FleetChain[] = [
+  { name: "Avalanche", slug: "avalanche", client: "avalanchego", snap: "412 GB", live: "31m", version: "v1.13.2" },
+  { name: "Cardano", slug: "cardano", client: "cardano-node", snap: "184 GB", live: "44m", version: "10.1.4" },
+  { name: "Cosmos", slug: "cosmos", client: "gaiad", snap: "97 GB", live: "26m", version: "v21.0.1" },
+  { name: "Polkadot", slug: "polkadot", client: "polkadot", snap: "228 GB", live: "38m", version: "v1.16.2" },
+  { name: "Kusama", slug: "kusama", client: "polkadot", snap: "146 GB", live: "29m", version: "v1.16.2" },
+  { name: "NEAR", slug: "near", client: "neard", snap: "512 GB", live: "52m", version: "2.3.1" },
+  { name: "Polygon", slug: "polygon", client: "bor + heimdall", snap: "1.1 TB", live: "58m", version: "v1.5.3" },
+  { name: "Lido CSM", slug: "lido-csm", client: "teku + besu", snap: "312 GB", live: "47m", version: "25.6.0" },
+  { name: "Rocket Pool", slug: "rocketpool", client: "smartnode", snap: "298 GB", live: "45m", version: "v1.16.0" },
+  { name: "Stacks", slug: "stacks", client: "stacks-node", snap: "76 GB", live: "22m", version: "3.1.0" },
+  { name: "Sui", slug: "sui", client: "sui-node", snap: "163 GB", live: "33m", version: "1.51.4" },
+  { name: "XDC", slug: "xdc", client: "XDC", snap: "88 GB", live: "24m", version: "v2.3.0" },
+  { name: "Tezos", slug: "tezos", client: "octez-node", snap: "64 GB", live: "19m", version: "v21.2" },
+  { name: "Algorand", slug: "algorand", client: "algod", snap: "42 GB", live: "14m", version: "4.0.2" },
+  { name: "Babylon", slug: "babylon", client: "babylond", snap: "58 GB", live: "21m", version: "v1.1.0" },
+  { name: "Canton", slug: "canton", client: "canton", snap: "121 GB", live: "27m", version: "3.3.2" },
+  { name: "Audius", slug: "audius", client: "audius-node", snap: "34 GB", live: "12m", version: "0.7.11" },
+  { name: "Story", slug: "story", client: "story + geth", snap: "51 GB", live: "18m", version: "v1.3.0" },
+  { name: "Cosmos-based chains", slug: "cosmos-sdk", client: "any Cosmos SDK chain", snap: "chain-sized", live: "≤30m", version: "v0.50.x" },
+]
+
+const fleetPrimitives = [
+  {
+    id: "deploy",
+    label: "Deploy",
+    icon: Rocket,
+    blurb:
+      "One command stands up the full node — compute, IAM, networking, monitoring, alerts. Snapshot-accelerated sync goes live in under an hour, not days.",
+  },
+  {
+    id: "upgrade",
+    label: "Upgrade",
+    icon: ArrowUpCircle,
+    blurb:
+      "Version-pinned rollouts behind a health gate that auto-rolls-back on failure. No downtime, no slashing risk.",
+  },
+  {
+    id: "identity",
+    label: "Identity",
+    icon: KeyRound,
+    blurb:
+      "The node's one irreplaceable signing key — KMS-encrypted, auto-restored on redeploy, and migratable host-to-host with the old node quarantined so two nodes never sign at once.",
+  },
+] as const
+
+type FleetPrimitiveId = (typeof fleetPrimitives)[number]["id"]
+
+const fleetPrimitiveOrder: FleetPrimitiveId[] = ["deploy", "upgrade", "identity"]
+
+interface FleetLine {
+  kind: "note" | "cmd" | "step" | "done"
+  text: string
+  meta?: string
+}
+
+function fleetTranscript(chain: FleetChain, primitive: FleetPrimitiveId): FleetLine[] {
+  const { slug, client, snap, live, version } = chain
+  if (primitive === "deploy") {
+    return [
+      { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
+      { kind: "cmd", text: `fleet deploy ${slug} --region us-east-1` },
+      { kind: "step", text: "terraform apply — compute · IAM · networking", meta: "42s" },
+      { kind: "step", text: "firewall — p2p open · RPC bound internal" },
+      { kind: "step", text: "monitoring — node-exporter · Grafana · alerts" },
+      { kind: "step", text: `snapshot restore — ${snap} verified` },
+      { kind: "step", text: "sync to head — snapshot-accelerated" },
+      { kind: "done", text: `${slug}-04 live in ${live} — signing enabled` },
+    ]
+  }
+  if (primitive === "upgrade") {
+    return [
+      { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
+      { kind: "cmd", text: `fleet upgrade ${slug} --pin ${version}` },
+      { kind: "step", text: `version pin — ${client} → ${version}` },
+      { kind: "step", text: `canary — ${slug}-01 upgraded first` },
+      { kind: "step", text: "health gate — head advancing · peers stable" },
+      { kind: "step", text: "auto-rollback — armed on gate failure" },
+      { kind: "step", text: "rollout — remaining nodes, one at a time" },
+      { kind: "done", text: `fleet on ${version} — zero downtime · zero slashing` },
+    ]
+  }
+  return [
+    { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
+    { kind: "cmd", text: `fleet identity migrate ${slug} --to ${slug}-09` },
+    { kind: "step", text: "signing key — KMS decrypt · envelope" },
+    { kind: "step", text: `source node — ${slug}-02 quarantined from p2p` },
+    { kind: "step", text: `restore — key on ${slug}-09 · test-sign ok` },
+    { kind: "step", text: "double-sign guard — old host fenced" },
+    { kind: "done", text: `identity live on ${slug}-09 — one key, never two nodes` },
+  ]
+}
+
+function FleetAutomation() {
+  const [chainIdx, setChainIdx] = useState(0)
+  const [primitive, setPrimitive] = useState<FleetPrimitiveId>("deploy")
+  const [visible, setVisible] = useState(0)
+  const [auto, setAuto] = useState(true)
+
+  const chain = fleetChains[chainIdx]
+  const lines = fleetTranscript(chain, primitive)
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setVisible(lines.length)
+      return
+    }
+
+    setVisible(0)
+    let i = 0
+    let t: ReturnType<typeof setTimeout>
+
+    const step = () => {
+      i++
+      setVisible(i)
+      if (i < lines.length) {
+        const next = lines[i]
+        const delay = next.kind === "cmd" ? 650 : next.kind === "done" ? 750 : 420 + Math.random() * 320
+        t = setTimeout(step, delay)
+      } else if (auto) {
+        // Tour the matrix: next chain, next primitive — same choreography every time
+        t = setTimeout(() => {
+          setPrimitive((p) => fleetPrimitiveOrder[(fleetPrimitiveOrder.indexOf(p) + 1) % fleetPrimitiveOrder.length])
+          setChainIdx((c) => (c + 1) % fleetChains.length)
+        }, 3200)
+      }
+    }
+
+    t = setTimeout(step, 500)
+    return () => clearTimeout(t)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [chainIdx, primitive, auto])
+
+  const selectChain = (i: number) => {
+    setAuto(false)
+    setChainIdx(i)
+  }
+  const selectPrimitive = (id: FleetPrimitiveId) => {
+    setAuto(false)
+    setPrimitive(id)
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-wrap gap-1.5 sm:justify-center">
+        {fleetChains.map((c, i) => (
+          <button
+            key={c.slug}
+            type="button"
+            onClick={() => selectChain(i)}
+            aria-pressed={i === chainIdx}
+            aria-label={`Run primitives on ${c.name}`}
+            className={`font-mono text-[11px] px-2.5 py-1 rounded border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
+              i === chainIdx
+                ? "border-[#4B7F9B]/50 bg-[#4B7F9B]/10 text-[#4B7F9B]"
+                : "border-[#1F1D20] text-slate-500 hover:text-slate-300 hover:border-slate-700"
+            }`}
+          >
+            {c.slug}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid lg:grid-cols-5 gap-6 items-stretch">
+        <div className="lg:col-span-2 flex flex-col gap-4">
+          {fleetPrimitives.map((p) => {
+            const active = p.id === primitive
+            const Icon = p.icon
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => selectPrimitive(p.id)}
+                aria-pressed={active}
+                className={`text-left flex-1 p-5 rounded-lg border backdrop-blur transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
+                  active
+                    ? "border-[#4B7F9B]/40 bg-[#4B7F9B]/[0.06]"
+                    : "border-[#1F1D20] bg-[#1F1D20]/80 hover:border-[#4B7F9B]/20"
+                }`}
+              >
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                    <Icon className="h-4 w-4 text-[#4B7F9B]" />
+                  </div>
+                  <h3 className={`text-base font-bold transition-colors ${active ? "text-[#4B7F9B]" : "text-slate-200"}`}>
+                    {p.label}
+                  </h3>
+                  {active && (
+                    <span className="ml-auto flex items-center gap-2">
+                      <span className="status-dot" />
+                      <span className="text-emerald-400 text-[10px] uppercase tracking-wider">Running</span>
+                    </span>
+                  )}
+                </div>
+                <p className="text-sm text-slate-400 leading-relaxed">{p.blurb}</p>
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="lg:col-span-3 rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col hover:border-[#4B7F9B]/30 transition-colors duration-300">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
+                <Terminal className="h-2.5 w-2.5 text-slate-400" />
+              </div>
+              <span className="text-slate-400 text-[10px] sm:text-[11px] font-mono truncate">
+                matt@blueprint:~/fleet-ops
+              </span>
+            </div>
+            <span className="font-mono text-[10px] text-slate-600">
+              {chainIdx + 1}/{fleetChains.length} · {primitive}
+            </span>
+          </div>
+          <div className="p-4 sm:p-5 min-h-[300px] sm:min-h-[340px] font-mono text-[11px] sm:text-[12px] leading-relaxed flex-1">
+            {lines.slice(0, visible).map((line, i) => {
+              if (line.kind === "note") {
+                return (
+                  <motion.div
+                    key={`${chain.slug}-${primitive}-${i}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-slate-600 pb-1.5"
+                  >
+                    # {line.text}
+                  </motion.div>
+                )
+              }
+              if (line.kind === "cmd") {
+                return (
+                  <motion.div
+                    key={`${chain.slug}-${primitive}-${i}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="pb-1.5"
+                  >
+                    <span className="text-slate-600">$</span> <span className="text-slate-200 font-semibold">{line.text}</span>
+                  </motion.div>
+                )
+              }
+              if (line.kind === "step") {
+                return (
+                  <motion.div
+                    key={`${chain.slug}-${primitive}-${i}`}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex items-baseline justify-between gap-4 py-0.5"
+                  >
+                    <span className="text-slate-400 min-w-0">
+                      <span className="text-[#4B7F9B]/70">▸</span> {line.text}
+                    </span>
+                    <span className="shrink-0">
+                      <span className="text-emerald-400">✓</span>
+                      {line.meta && <span className="text-slate-600"> {line.meta}</span>}
+                    </span>
+                  </motion.div>
+                )
+              }
+              return (
+                <motion.div
+                  key={`${chain.slug}-${primitive}-${i}`}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="pt-1.5 text-slate-300"
+                >
+                  <span className="text-emerald-400">●</span> {line.text}
+                </motion.div>
+              )
+            })}
+            {visible >= lines.length && (
+              <div className="pt-2">
+                <span className="text-slate-600">$</span>{" "}
+                <span
+                  className="inline-block w-[6px] h-[11px] bg-[#4B7F9B] align-middle"
+                  style={{ animation: "blink-cursor 1s step-end infinite" }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+        {[
+          { value: "19", label: "protocols, one layer" },
+          { value: "3", label: "primitives run it all" },
+          { value: "<1h", label: "cold start to live" },
+          { value: "0", label: "bespoke setups" },
+        ].map((s) => (
+          <div key={s.label} className="text-center">
+            <div className="text-2xl md:text-3xl font-bold text-slate-100 font-mono">{s.value}</div>
+            <div className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-[0.2em]">{s.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// =========================================================
 // LIVE CANTON TELEMETRY (ccscan.xyz public API, anonymous tier)
 // =========================================================
 
@@ -939,47 +1326,22 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
 }
 
 // =========================================================
-// WAKATIME (lazy-mounted on approach)
+// WAKATIME (eager — starts downloading with the page)
 // =========================================================
 
 function WakaTimeChart() {
-  const ref = useRef<HTMLDivElement>(null)
-  const [load, setLoad] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const ob = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setLoad(true)
-          ob.disconnect()
-        }
-      },
-      { rootMargin: "600px" },
-    )
-    ob.observe(el)
-    return () => ob.disconnect()
-  }, [])
-
   return (
-    <div ref={ref} className="relative w-full" style={{ maxWidth: "100%" }}>
+    <div className="relative w-full" style={{ maxWidth: "100%" }}>
       <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[769px]">
-        {load ? (
-          <object
-            data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
-            type="image/svg+xml"
-            title="Monthly coding activity chart"
-            className="absolute w-full h-full"
-            style={{ backgroundColor: "transparent", maxWidth: "1048px", margin: "0 auto", left: 0, right: 0 }}
-          >
-            Coding activity chart
-          </object>
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center font-mono text-xs text-slate-600">
-            loading activity…
-          </div>
-        )}
+        <object
+          data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
+          type="image/svg+xml"
+          title="Monthly coding activity chart"
+          className="absolute w-full h-full"
+          style={{ backgroundColor: "transparent", maxWidth: "1048px", margin: "0 auto", left: 0, right: 0 }}
+        >
+          Coding activity chart
+        </object>
       </div>
     </div>
   )
@@ -1580,6 +1942,39 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ==================== FLEET AUTOMATION ==================== */}
+        <section id="automation" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <Layers className="h-3 w-3" />
+                  <span>// fleet-automation</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  One Layer <span className="gradient-text">Runs the Fleet</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+                  One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 19
+                  protocols, each a plug-in behind three battle-tested primitives. Add a chain, scale capacity, or
+                  recover from an outage in minutes of audited, repeatable ops — not a nineteenth bespoke setup.
+                  Pick any chain: the choreography never changes.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp}>
+                <FleetAutomation />
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* ==================== AI DEVELOPMENT ==================== */}
         <section id="ai" className="relative py-16 md:py-24 overflow-hidden">
           <div className="section-divider" />
@@ -1758,10 +2153,92 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ==================== CONSUMER AI PLATFORM ==================== */}
+        <section id="platform" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <Cpu className="h-3 w-3" />
+                  <span>// consumer-ai-platform</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  Real-Time <span className="gradient-text">Consumer AI Platform</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+                  Solo architect and full-stack/ML engineer on an end-to-end system spanning GPU inference
+                  infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC — from
+                  containerized model workers through the production web app.
+                </p>
+              </motion.div>
+
+              <motion.div
+                variants={slideUp}
+                className="flex flex-wrap items-center sm:justify-center gap-x-2 gap-y-2 mb-10 sm:mb-12 font-mono text-[11px]"
+              >
+                {aiPlatformFlow.map((stage, i) => (
+                  <span key={stage} className="flex items-center gap-2">
+                    <span className="px-2.5 py-1 rounded border border-[#1F1D20] bg-[#1F1D20]/60 text-slate-400">
+                      {stage}
+                    </span>
+                    {i < aiPlatformFlow.length - 1 && <span className="text-[#4B7F9B]/50">→</span>}
+                  </span>
+                ))}
+              </motion.div>
+
+              <div className="grid gap-4 lg:grid-cols-6">
+                {aiPlatformDomains.map((domain) => {
+                  const Icon = domain.icon
+                  return (
+                    <motion.div
+                      key={domain.title}
+                      variants={slideUp}
+                      className={`p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
+                        domain.span === 3 ? "lg:col-span-3" : "lg:col-span-2"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
+                        </div>
+                        <h3 className="text-lg font-bold">{domain.title}</h3>
+                      </div>
+                      <ul className="space-y-2.5 mb-5">
+                        {domain.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-3 text-sm text-slate-400 leading-relaxed">
+                            <ChevronRight className="h-4 w-4 text-[#4B7F9B]/50 flex-shrink-0 mt-0.5" />
+                            <span>{b}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {domain.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
         {/* ==================== EXPERIENCE ==================== */}
         <section id="experience" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-12">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
             <motion.div
               initial="hidden"
               whileInView="visible"
