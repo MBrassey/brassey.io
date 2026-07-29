@@ -35,6 +35,7 @@ import {
   Sparkles,
   Terminal,
   Users,
+  Wallet,
   X,
   Zap,
 } from "lucide-react"
@@ -42,6 +43,7 @@ import CountUp from "react-countup"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import AvatarWeb from "@/components/avatar-web"
+import { WalletDemo } from "@/components/wallet-demo"
 
 // =========================================================
 // DATA
@@ -52,6 +54,7 @@ const navItems = [
   { id: "automation", label: "Automation" },
   { id: "ai", label: "AI Dev" },
   { id: "platform", label: "AI Platform" },
+  { id: "wallet", label: "Wallet" },
   { id: "experience", label: "Experience" },
   { id: "expertise", label: "Expertise" },
   { id: "projects", label: "Projects" },
@@ -1853,12 +1856,6 @@ export default function Home() {
                 {item.label}
               </Link>
             ))}
-            <Link
-              href="/wallet"
-              className="text-xs uppercase tracking-wider transition-colors text-slate-500 hover:text-slate-300"
-            >
-              Wallet
-            </Link>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -1929,20 +1926,6 @@ export default function Home() {
                     </Link>
                   </motion.div>
                 ))}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.05 }}
-                >
-                  <Link
-                    href="/wallet"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-white/[0.04]"
-                  >
-                    Wallet
-                    <ArrowUpRight className="h-4 w-4 text-slate-600" />
-                  </Link>
-                </motion.div>
               </nav>
 
               {/* Social links at bottom */}
@@ -2549,6 +2532,45 @@ export default function Home() {
                   )
                 })}
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ==================== SOLANA WALLET ==================== */}
+        <section id="wallet" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <Wallet className="h-3 w-3" />
+                  <span>// solana-defi-wallet</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  Solana <span className="gradient-text">DeFi Wallet</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
+                  Non-custodial, browser-native, passkey-secured — live market data, inert controls.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp}>
+                <WalletDemo />
+              </motion.div>
+
+              <motion.div variants={slideUp} className="mt-8">
+                <Link
+                  href="/wallet"
+                  className="inline-flex items-center gap-2 text-sm text-[#4B7F9B] hover:text-[#6ba3bf] transition-colors"
+                >
+                  Security architecture &amp; full write-up <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
             </motion.div>
           </div>
         </section>
