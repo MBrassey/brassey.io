@@ -1996,7 +1996,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 container px-4 md:px-6 text-right space-y-8">
+          <div className="relative z-10 container px-4 md:px-6 md:pr-20 lg:pr-24 text-right space-y-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
