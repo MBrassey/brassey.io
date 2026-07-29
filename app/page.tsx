@@ -2609,9 +2609,9 @@ export default function Home() {
                   Real-Time <span className="gradient-text">Consumer AI Platform</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Solo architect and full-stack/ML engineer on an end-to-end system spanning GPU inference
-                  infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC — from
-                  containerized model workers through the production web app.
+                  Personal project — solo architect and full-stack/ML engineer on an end-to-end system spanning GPU
+                  inference infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC
+                  — from containerized model workers through the production web app.
                 </p>
               </motion.div>
 
