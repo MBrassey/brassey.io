@@ -273,11 +273,11 @@ const experience = [
   },
   {
     title: "Operations Center Administrator",
-    company: "Taos, an IBM company",
+    company: "IBM",
     location: "Remote | Culver City, CA",
     period: "2015 — 2021",
     description:
-      "Lead Systems Administrator via Taos/IBM (MSP). Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
+      "Lead Systems Administrator at IBM. Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
     highlights: [
       "Effective contributor to Ansible codebase via GitHub Enterprise for daily continuous integration",
       "Maintained 98+% security compliance across over 900 Windows/Unix systems",
@@ -2157,7 +2157,19 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
                 className="text-left space-y-4"
               >
-                <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+                <div className="relative">
+                  {/* Spread right wing: light clear panes tapering organically
+                      behind each line, feather tips sweeping toward the right. */}
+                  <div aria-hidden="true" className="pointer-events-none absolute -inset-x-3 -inset-y-2 flex flex-col gap-[3px]">
+                    {[100, 92, 85, 73, 64, 52, 41, 29].map((w, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 rounded-r-md border border-white/[0.05] bg-gradient-to-r from-white/[0.025] via-white/[0.012] to-white/[0.004] backdrop-blur-[2px]"
+                        style={{ width: `${w}%` }}
+                      />
+                    ))}
+                  </div>
+                  <p className="relative text-slate-300 text-base sm:text-lg leading-relaxed">
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate high-performance validator
@@ -2167,7 +2179,8 @@ export default function Home() {
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and identity primitives that power
                   AI-driven validator operations.
-                </p>
+                  </p>
+                </div>
                 <div className="flex gap-4">
                   <Link
                     href="https://github.com/mbrassey"
