@@ -2405,7 +2405,7 @@ export default function Home() {
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 15
                   protocols, each a plug-in behind three battle-tested primitives. Add a chain, scale capacity, or
-                  recover from an outage in minutes of audited, repeatable ops — not a fifteenth bespoke setup.
+                  recover from an outage in minutes with the same audited, repeatable ops — never another bespoke setup.
                   Pick any chain: the choreography never changes.
                 </p>
               </motion.div>
