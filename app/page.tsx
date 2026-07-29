@@ -1690,13 +1690,13 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
 function WakaTimeChart() {
   return (
     <div className="relative w-full" style={{ maxWidth: "100%" }}>
-      <div className="h-[300px] sm:h-[400px] md:h-[600px] lg:h-[769px]">
+      <div className="h-[300px] sm:h-[420px] md:h-[640px] lg:h-[820px]">
         <object
           data="https://wakatime.com/share/@532855a8-3081-4600-a53d-4262beb65d14/f2004230-ef8c-43f6-a706-5e2934626e2c.svg"
           type="image/svg+xml"
           title="Monthly coding activity chart"
           className="absolute w-full h-full"
-          style={{ backgroundColor: "transparent", maxWidth: "1048px", margin: "0 auto", left: 0, right: 0 }}
+          style={{ backgroundColor: "transparent", margin: "0 auto", left: 0, right: 0 }}
         >
           Coding activity chart
         </object>
@@ -2981,7 +2981,7 @@ export default function Home() {
         {/* ==================== RECOMMENDATIONS ==================== */}
         <section id="recommendations" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-5xl mx-auto pt-12">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -3039,7 +3039,7 @@ export default function Home() {
         {/* ==================== CODING ACTIVITY ==================== */}
         <section id="activity" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-5xl mx-auto pt-12">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
             <motion.div
               initial="hidden"
               whileInView="visible"
