@@ -1398,7 +1398,7 @@ function FleetAutomation() {
 // longest at the top, re-measured on every resize.
 function WingPanes() {
   const selfRef = useRef<HTMLDivElement>(null)
-  const [panes, setPanes] = useState<{ top: number; height: number; width: number }[]>([])
+  const [panes, setPanes] = useState<{ top: number; height: number; width: number; alpha: number }[]>([])
 
   useEffect(() => {
     const host = selfRef.current?.parentElement
@@ -1442,6 +1442,8 @@ function WingPanes() {
             top: l.top - hostRect.top - 3,
             height: l.bottom - l.top + 6,
             width: l.right - hostRect.left + 12 + ext,
+            // Accent fade: strongest at the top feather, vanishing at the tip.
+            alpha: 0.2 * taper,
           }
         }),
       )
@@ -1464,7 +1466,12 @@ function WingPanes() {
         <div
           key={i}
           className="absolute -left-3 rounded-r-md border border-white/[0.05] bg-gradient-to-r from-white/[0.025] via-white/[0.012] to-white/[0.004] backdrop-blur-[2px]"
-          style={{ top: pane.top, height: pane.height, width: pane.width }}
+          style={{
+            top: pane.top,
+            height: pane.height,
+            width: pane.width,
+            backgroundColor: `rgba(75, 127, 155, ${pane.alpha.toFixed(3)})`,
+          }}
         />
       ))}
     </div>
