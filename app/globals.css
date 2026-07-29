@@ -252,9 +252,8 @@
 }
 
 /* ========== Smooth Anchors, Focus & Selection ========== */
-html {
-  scroll-behavior: smooth;
-}
+/* Lenis is the single scroll engine — native CSS smoothing would stack a
+   second easing on top of it and drag every programmatic scroll. */
 
 section[id] {
   scroll-margin-top: 4rem;

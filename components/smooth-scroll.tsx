@@ -40,10 +40,12 @@ export default function SmoothScroll() {
       // force lets nav links fire while a menu overlay still has Lenis stopped
       if (target) lenis.scrollTo(target, { offset: -64, force: true })
     }
-    document.addEventListener("click", onAnchorClick)
+    // Capture phase: claim hash-link clicks before Next's Link handler can
+    // race a second (native) scroll against the Lenis animation.
+    document.addEventListener("click", onAnchorClick, true)
 
     return () => {
-      document.removeEventListener("click", onAnchorClick)
+      document.removeEventListener("click", onAnchorClick, true)
       cancelAnimationFrame(rafId)
       lenis.destroy()
       delete window.lenis
