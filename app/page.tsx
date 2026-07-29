@@ -1208,11 +1208,13 @@ function FleetAutomation() {
         t = setTimeout(step, delay)
       } else if (auto) {
         // Tour the matrix: each chain plays deploy → upgrade → identity, then
-        // the next chain takes over — every combination gets covered.
+        // a random different chain takes over.
         t = setTimeout(() => {
           const next = fleetPrimitiveOrder[(fleetPrimitiveOrder.indexOf(primitive) + 1) % fleetPrimitiveOrder.length]
           if (next === fleetPrimitiveOrder[0]) {
-            setChainIdx((c) => (c + 1) % fleetChains.length)
+            let r = Math.floor(Math.random() * fleetChains.length)
+            if (r === chainIdx) r = (r + 1) % fleetChains.length
+            setChainIdx(r)
           }
           setPrimitive(next)
         }, 3200)
