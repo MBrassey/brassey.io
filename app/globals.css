@@ -467,8 +467,8 @@ p {
 
 /* Ambient footer icon glow: the "hovered" look, breathing. */
 @keyframes footerIconPulse {
-  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(75, 127, 155, 0.5)); }
-  50% { transform: scale(1.14); filter: drop-shadow(0 0 10px rgba(75, 127, 155, 0.95)); }
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 3px rgba(75, 127, 155, 0.35)); }
+  50% { transform: scale(1.1); filter: drop-shadow(0 0 6px rgba(75, 127, 155, 0.6)); }
 }
 .footer-icon-lit {
   color: #4B7F9B;
