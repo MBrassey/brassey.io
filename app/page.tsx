@@ -161,7 +161,7 @@ const infrastructureNodes: InfraNode[] = [
     description:
       "Personal project — a Canton Network validator supporting the enterprise-grade blockchain for synchronized financial markets. Hosts the full-genesis Canton Coin indexing pipeline and scan endpoint powering ccscan (ccscan.xyz).",
     links: [
-      { label: "ccscan", url: "https://ccscan.xyz" },
+      { label: "ccscan", url: "https://ccscan.xyz/party/blueprint-validator-1%3A%3A1220daab58adcae026bd2ca7ad95014f678bda3ce2a6f91b744cf3ec3d87f09deeac" },
     ],
   },
 ]
