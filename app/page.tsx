@@ -3083,7 +3083,7 @@ export default function Home() {
         {/* ==================== CONTACT ==================== */}
         <section id="contact" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-3xl mx-auto pt-12 text-left">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12 text-left">
             <motion.div
               initial="hidden"
               whileInView="visible"
