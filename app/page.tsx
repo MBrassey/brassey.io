@@ -172,6 +172,14 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "Solana DeFi Wallet",
+    subtitle: "Non-Custodial Wallet — Self-Custody Key Management",
+    description:
+      "Browser-native, self-custody Solana wallet where the private key never leaves the user's device and the server can never spend or decrypt it. Passkey-bound key storage (WebAuthn PRF wrapping an AES-GCM-encrypted ed25519 seed), BIP39 recovery, a passkey-encrypted portable vault with a server-enforced non-custodial invariant, authenticated key rotation with takeover protection, and envelope-encryption discipline throughout. Live wireframe demo with real market data.",
+    tech: ["Solana", "WebAuthn PRF", "AES-GCM", "HKDF", "BIP39", "ed25519", "IndexedDB", "Jupiter"],
+    url: "/wallet",
+  },
+  {
     title: "ccscan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
@@ -240,7 +248,7 @@ const experience = [
     highlights: [
       "Operating high-performance mainnet validator fleets across 8 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, XDC, and Babylon (Bitcoin staking)",
       "Architected the fleet's plug-in automation layer — 19 protocols deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
-      "Exposed the same deploy, upgrade, identity migration, and resync primitives to AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
+      "Exposed the same deploy, upgrade, and identity primitives to AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
@@ -2111,7 +2119,7 @@ export default function Home() {
                   plus Rocket Pool and Lido CSM on the Ethereum side — 50+ nodes with
                   $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
-                  custom OpenAPI specification, and built the deploy, upgrade, and resync primitives that power
+                  custom OpenAPI specification, and built the deploy, upgrade, and identity primitives that power
                   AI-driven validator operations.
                 </p>
                 <div className="flex gap-4">
@@ -2752,7 +2760,12 @@ export default function Home() {
               <div className="grid gap-6 md:grid-cols-2">
                 {projects.map((project, i) => (
                   <motion.div key={i} variants={slideUp} className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}>
-                    <Link href={project.url} target="_blank" rel="noopener noreferrer" className="block group h-full">
+                    <Link
+                      href={project.url}
+                      target={project.url.startsWith("/") ? undefined : "_blank"}
+                      rel={project.url.startsWith("/") ? undefined : "noopener noreferrer"}
+                      className="block group h-full"
+                    >
                       <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full flex flex-col gap-4">
                         <div className="flex items-start justify-between">
                           <div>
