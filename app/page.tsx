@@ -2930,7 +2930,7 @@ export default function Home() {
         {/* ==================== CERTIFICATIONS ==================== */}
         <section id="credentials" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-4xl mx-auto pt-12">
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
             <motion.div
               initial="hidden"
               whileInView="visible"
