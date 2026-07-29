@@ -198,7 +198,7 @@ const projects: Project[] = [
     description:
       "Full-stack Canton blockchain platform with 14 REST endpoints, 14 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
     tech: ["Canton", "Daml", "Spring Boot", "Java 21", "PostgreSQL", "gRPC", "MCP", "OpenAPI 3.1"],
-    url: "https://ccledger.theblueprint.xyz",
+    url: "https://ccledger.xyz",
   },
   {
     title: "Solentic",

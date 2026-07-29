@@ -124,7 +124,7 @@ const personJsonLd = {
     "https://github.com/MBrassey",
     "https://www.linkedin.com/in/mbrassey/",
     "https://solentic.theblueprint.xyz",
-    "https://ccledger.theblueprint.xyz",
+    "https://ccledger.xyz",
     "https://ccscan.xyz",
   ],
   knowsAbout: [
