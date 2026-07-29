@@ -1834,7 +1834,7 @@ export default function Home() {
       </nav>
 
       {/* ==================== HEADER ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.08]/50 bg-[#000102]/80 backdrop-blur-xl">
+      <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.05] bg-[#000102]/80 backdrop-blur-xl">
         <div className="container flex h-14 items-center justify-between px-4 md:px-6">
           <Link href="#" className="text-lg font-bold">
             <span className="text-[#4B7F9B]">brassey</span>
@@ -1853,6 +1853,12 @@ export default function Home() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/wallet"
+              className="text-xs uppercase tracking-wider transition-colors text-slate-500 hover:text-slate-300"
+            >
+              Wallet
+            </Link>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -1890,7 +1896,7 @@ export default function Home() {
           >
             <div className="flex flex-col h-full">
               {/* Mobile menu header */}
-              <div className="flex items-center justify-between h-14 px-4 border-b border-white/[0.08]/50">
+              <div className="flex items-center justify-between h-14 px-4 border-b border-white/[0.05]">
                 <span className="text-lg font-bold">
                   <span className="text-[#4B7F9B]">brassey</span>
                   <span className="text-slate-500">.io</span>
@@ -1916,18 +1922,32 @@ export default function Home() {
                     <Link
                       href={`#${item.id}`}
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-white/[0.08]/30"
+                      className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-white/[0.04]"
                     >
                       {item.label}
                       <ChevronRight className="h-4 w-4 text-slate-600" />
                     </Link>
                   </motion.div>
                 ))}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: navItems.length * 0.05 }}
+                >
+                  <Link
+                    href="/wallet"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-white/[0.04]"
+                  >
+                    Wallet
+                    <ArrowUpRight className="h-4 w-4 text-slate-600" />
+                  </Link>
+                </motion.div>
               </nav>
 
               {/* Social links at bottom */}
               <div className="px-8 pb-8">
-                <div className="flex items-center justify-center gap-8 py-4 border-t border-white/[0.08]/50">
+                <div className="flex items-center justify-center gap-8 py-4 border-t border-white/[0.05]">
                   <Link
                     href="https://github.com/mbrassey"
                     target="_blank"
