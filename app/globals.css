@@ -457,3 +457,10 @@ p {
     inset 0 1px 0 rgba(255, 255, 255, 0.06),
     0 16px 40px rgba(0, 0, 0, 0.35);
 }
+
+/* Official token marks in the wallet demo, desaturated to sit in the
+   wireframe palette alongside the generic monochrome marks. */
+.wd-mark {
+  filter: saturate(0.35) brightness(0.95);
+  opacity: 0.9;
+}

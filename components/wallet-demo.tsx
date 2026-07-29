@@ -132,12 +132,12 @@ function UsdcMark({ className = "" }: { className?: string }) {
 // PAX Gold: the official Paxos brand mark, served locally.
 function PaxgMark({ className = "" }: { className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src="/tokens/paxg.png" alt="" aria-hidden="true" className={`${className} object-contain`} />
+  return <img src="/tokens/paxg.png" alt="" aria-hidden="true" className={`${className} object-contain wd-mark`} />
 }
 // jitoSOL: the official Jito liquid-staking coin, served locally.
 function JitoMark({ className = "" }: { className?: string }) {
   // eslint-disable-next-line @next/next/no-img-element
-  return <img src="/tokens/jitosol.png" alt="" aria-hidden="true" className={`${className} object-contain`} />
+  return <img src="/tokens/jitosol.png" alt="" aria-hidden="true" className={`${className} object-contain wd-mark`} />
 }
 
 const MARKS: Record<TokenKey, (p: { className?: string }) => React.JSX.Element> = {
