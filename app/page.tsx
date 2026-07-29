@@ -1443,7 +1443,7 @@ function WingPanes() {
             height: l.bottom - l.top + 6,
             width: l.right - hostRect.left + 12 + ext,
             // Accent fade: strongest at the top feather, vanishing at the tip.
-            alpha: 0.2 * taper,
+            alpha: 0.1 * taper,
           }
         }),
       )
