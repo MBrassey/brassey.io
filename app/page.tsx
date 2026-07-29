@@ -2555,7 +2555,7 @@ export default function Home() {
                   Solana <span className="gradient-text">DeFi Wallet</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Non-custodial, browser-native, passkey-secured — live market data, inert controls.
+                  Non-custodial, browser-native, passkey-secured — live market data.
                 </p>
               </motion.div>
 

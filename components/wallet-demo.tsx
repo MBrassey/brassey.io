@@ -1373,7 +1373,7 @@ export function WalletDemo() {
         <CollectiblesCard />
       </motion.div>
       <motion.div variants={wdSlideUp} className="pt-2 text-left font-mono text-[11px] text-slate-600">
-        Runs on Solana mainnet · live prices via Alchemy + Jupiter · demo holdings, inert controls
+        Runs on Solana mainnet · live prices via Alchemy + Jupiter
       </motion.div>
     </motion.div>
   )

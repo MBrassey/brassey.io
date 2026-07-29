@@ -93,7 +93,7 @@ export default function WalletPage() {
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Live demo</h2>
             <span className="font-mono text-[11px] text-slate-500">
-              wireframe preview · live market data · inert controls
+              wireframe preview · live market data
             </span>
           </div>
           <WalletDemo />
