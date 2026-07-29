@@ -59,8 +59,8 @@ const architecture = [
 
 export default function WalletPage() {
   return (
-    <div className="min-h-screen bg-[#141316] text-slate-200">
-      <header className="sticky top-0 z-40 border-b border-[#1F1D20] bg-[#141316]/85 backdrop-blur">
+    <div className="min-h-screen bg-[#000102] text-slate-200 scan-lines">
+      <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#000102]/85 backdrop-blur">
         <div className="container px-4 md:px-6 max-w-6xl mx-auto flex h-14 items-center justify-between">
           <Link
             href="/"
@@ -73,15 +73,15 @@ export default function WalletPage() {
       </header>
 
       <main className="container px-4 md:px-6 max-w-6xl mx-auto py-14 md:py-20 space-y-16 md:space-y-24">
-        <section className="text-left sm:text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+        <section className="text-left space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
             <Lock className="h-3 w-3" />
             <span>// solana-defi-wallet</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
             Solana <span className="gradient-text">DeFi Wallet</span>
           </h1>
-          <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+          <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
             A browser-native, self-custody wallet where the private key never leaves the user&apos;s device and the
             server can never spend or decrypt it — with recoverability and cross-device portability layered on
             without breaking that guarantee. Solo-designed and built, from the WebAuthn key ceremony to the swap
@@ -100,9 +100,9 @@ export default function WalletPage() {
         </section>
 
         <section aria-label="Security architecture" className="space-y-6">
-          <div className="text-left sm:text-center space-y-3">
+          <div className="text-left space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Security architecture</h2>
-            <p className="text-slate-400 max-w-3xl mx-auto text-sm sm:text-base">
+            <p className="text-slate-400 max-w-3xl text-sm sm:text-base">
               Non-custodial wallet engineering — self-custody key management on Solana with WebAuthn.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function WalletPage() {
               return (
                 <div
                   key={a.title}
-                  className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
+                  className="p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
@@ -145,7 +145,7 @@ export default function WalletPage() {
         </section>
       </main>
 
-      <footer className="border-t border-[#1F1D20]">
+      <footer className="border-t border-white/[0.08]">
         <div className="container px-4 md:px-6 max-w-6xl mx-auto py-8 flex items-center justify-between">
           <Link href="/" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#4B7F9B] transition-colors">
             <ArrowLeft className="h-3.5 w-3.5" /> Back to portfolio

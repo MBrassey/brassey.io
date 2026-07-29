@@ -779,7 +779,7 @@ function ValueCard({ d }: { d: Demo }) {
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <h3 className="font-semibold text-slate-200">Total value</h3>
-            <span className="inline-flex items-center rounded-full border border-white/[0.12] bg-white/[0.04] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">
+            <span className="inline-flex items-center rounded-sm border border-white/[0.12] bg-white/[0.04] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-slate-500">
               Demo
             </span>
           </div>
@@ -829,12 +829,12 @@ function ValueCard({ d }: { d: Demo }) {
             <Lock className="h-3 w-3 text-emerald-400/80" aria-hidden="true" />
             Your address
           </span>
-          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/25 bg-emerald-400/[0.06] px-2 py-0.5 text-[10px] font-medium text-emerald-400">
+          <span className="inline-flex items-center gap-1 rounded-sm border border-emerald-400/25 bg-emerald-400/[0.06] px-2 py-0.5 text-[10px] font-medium text-emerald-400">
             Non-custodial
           </span>
         </div>
         <div className="mt-2.5 flex items-center gap-2">
-          <code className="min-w-0 flex-1 truncate rounded-md bg-[#151417] px-3 py-3 font-mono text-[13px] text-[#4B7F9B]">
+          <code className="min-w-0 flex-1 truncate rounded-md bg-black/30 px-3 py-3 font-mono text-[13px] text-[#4B7F9B]">
             {PREVIEW_ADDRESS}
           </code>
           <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-white/[0.1] bg-white/[0.02] text-slate-400">
@@ -880,7 +880,7 @@ function SwapTokenPill({ token }: { token: TokenKey }) {
   const c = TOKEN_COLOR[token]
   return (
     <span
-      className="shrink-0 inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-sm font-semibold"
+      className="shrink-0 inline-flex items-center gap-1.5 rounded-sm border px-2.5 py-1 text-sm font-semibold"
       style={{ borderColor: `${c}4d`, background: `${c}14`, color: c }}
     >
       <TokenLogo token={token} size={16} />
@@ -916,7 +916,7 @@ function SwapCard({ d }: { d: Demo }) {
       </div>
 
       <div className="relative mt-2.5 rounded-md border border-white/[0.05] bg-white/[0.02] p-2.5">
-        <div className="rounded-md border border-white/[0.06] bg-[#151417] p-2.5">
+        <div className="rounded-md border border-white/[0.06] bg-black/30 p-2.5">
           <div className="flex items-center justify-between text-[11px] text-slate-500">
             <span>You pay</span>
             <div className="flex items-center gap-2">
@@ -934,14 +934,14 @@ function SwapCard({ d }: { d: Demo }) {
 
         <div className="flex justify-center">
           <span
-            className="relative z-10 -my-3 inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/[0.1] bg-[#151417] text-slate-200"
+            className="relative z-10 -my-3 inline-flex h-9 w-9 items-center justify-center rounded-md border border-white/[0.1] bg-black/30 text-slate-200"
             aria-hidden="true"
           >
             <ArrowDownUp className="h-4 w-4" />
           </span>
         </div>
 
-        <div className="relative rounded-md border border-white/[0.06] bg-[#151417] p-2.5">
+        <div className="relative rounded-md border border-white/[0.06] bg-black/30 p-2.5">
           <div className="flex items-center justify-between text-[11px] text-slate-500">
             <span>You receive</span>
           </div>
@@ -950,11 +950,11 @@ function SwapCard({ d }: { d: Demo }) {
               {receivePaxg.toFixed(4)}
             </span>
             <span className="relative shrink-0">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.1] bg-white/[0.03] px-2.5 py-1 text-sm font-semibold text-slate-200">
+              <span className="inline-flex items-center gap-1.5 rounded-sm border border-white/[0.1] bg-white/[0.03] px-2.5 py-1 text-sm font-semibold text-slate-200">
                 <TokenLogo token="PAXG" size={18} />
                 PAXG
               </span>
-              <div className="absolute right-0 top-full z-20 mt-1.5 flex gap-1 rounded-md border border-white/[0.1] bg-[#1a191c] p-1 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
+              <div className="absolute right-0 top-full z-20 mt-1.5 flex gap-1 rounded-md border border-white/[0.1] bg-black/80 backdrop-blur p-1 shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
                 {RECEIVE_TOKENS.map(([k, hint]) => (
                   <span
                     key={k}
@@ -1304,7 +1304,7 @@ function CollectiblesCard() {
                   <Gem className="h-8 w-8 text-slate-700" strokeWidth={1.2} aria-hidden="true" />
                 </div>
                 <span
-                  className={`absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold backdrop-blur-sm ${
+                  className={`absolute right-2 top-2 rounded-sm px-2 py-0.5 text-[10px] font-semibold backdrop-blur-sm ${
                     c.chip === "Collected"
                       ? "bg-emerald-400/15 text-emerald-300 ring-1 ring-emerald-300/30"
                       : "bg-[#4B7F9B]/20 text-slate-200 ring-1 ring-[#4B7F9B]/45"
@@ -1372,7 +1372,7 @@ export function WalletDemo() {
       <motion.div variants={wdSlideUp}>
         <CollectiblesCard />
       </motion.div>
-      <motion.div variants={wdSlideUp} className="pt-2 text-center font-mono text-[11px] text-slate-600">
+      <motion.div variants={wdSlideUp} className="pt-2 text-left font-mono text-[11px] text-slate-600">
         Runs on Solana mainnet · live prices via Alchemy + Jupiter · demo holdings, inert controls
       </motion.div>
     </motion.div>

@@ -471,7 +471,7 @@ function AnimatedCounter({
   const isInView = useInView(ref, { once: true })
 
   return (
-    <div ref={ref} className="text-center">
+    <div ref={ref} className="text-left">
       <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4B7F9B]">
         {prefix}
         <CountUp start={0} end={isInView ? end : 0} duration={2.5} separator="," useEasing enableScrollSpy scrollSpyOnce />
@@ -829,16 +829,16 @@ function PlatformTrace() {
 
   const trackGrid = (
     <div className="absolute inset-0 flex" aria-hidden="true">
-      <div className="flex-1 border-r border-[#1F1D20]" />
-      <div className="flex-1 border-r border-[#1F1D20]" />
-      <div className="flex-1 border-r border-[#1F1D20]" />
+      <div className="flex-1 border-r border-white/[0.08]" />
+      <div className="flex-1 border-r border-white/[0.08]" />
+      <div className="flex-1 border-r border-white/[0.08]" />
       <div className="flex-1" />
     </div>
   )
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap items-center sm:justify-center gap-x-2 gap-y-2 font-mono text-[11px]">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-2 font-mono text-[11px]">
         {platformStages.map((stage, i) => {
           const active = stage.key === activeStage
           const visited = visitedStages.has(stage.key)
@@ -849,8 +849,8 @@ function PlatformTrace() {
                   active
                     ? "border-[#4B7F9B]/60 bg-[#4B7F9B]/15 text-[#4B7F9B]"
                     : visited
-                      ? "border-[#4B7F9B]/25 bg-[#1F1D20]/60 text-slate-400"
-                      : "border-[#1F1D20] bg-[#1F1D20]/60 text-slate-500"
+                      ? "border-[#4B7F9B]/25 bg-white/[0.03] text-slate-400"
+                      : "border-white/[0.07] bg-white/[0.015] text-slate-500"
                 }`}
               >
                 {stage.label}
@@ -861,8 +861,8 @@ function PlatformTrace() {
         })}
       </div>
 
-      <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur overflow-hidden hover:border-[#4B7F9B]/30 transition-colors duration-300">
-        <div className="flex overflow-x-auto border-b border-[#1F1D20]">
+      <div className="rounded-lg glass-pane overflow-hidden hover:border-[#4B7F9B]/30 transition-colors duration-300">
+        <div className="flex overflow-x-auto border-b border-white/[0.08]">
           {platformScenarios.map((s, i) => {
             const active = i === scenarioIdx
             const progress = active ? Math.min(visible / steps, 1) : 0
@@ -963,8 +963,8 @@ function PlatformTrace() {
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-2 mt-1 border-t border-[#1F1D20] font-mono text-[10px] text-slate-600">
-          <span>00:00</span>
+        <div className="flex items-center justify-between pt-2 mt-1 border-t border-white/[0.08] font-mono text-[10px] text-slate-600">
+          <span>0</span>
           <span>{scenario.totalLabel}</span>
         </div>
         </div>
@@ -1159,10 +1159,14 @@ function FleetAutomation() {
         const delay = next.kind === "cmd" ? 650 : next.kind === "done" ? 750 : 420 + Math.random() * 320
         t = setTimeout(step, delay)
       } else if (auto) {
-        // Tour the matrix: next chain, next primitive — same choreography every time
+        // Tour the matrix: each chain plays deploy → upgrade → identity, then
+        // the next chain takes over — every combination gets covered.
         t = setTimeout(() => {
-          setPrimitive((p) => fleetPrimitiveOrder[(fleetPrimitiveOrder.indexOf(p) + 1) % fleetPrimitiveOrder.length])
-          setChainIdx((c) => (c + 1) % fleetChains.length)
+          const next = fleetPrimitiveOrder[(fleetPrimitiveOrder.indexOf(primitive) + 1) % fleetPrimitiveOrder.length]
+          if (next === fleetPrimitiveOrder[0]) {
+            setChainIdx((c) => (c + 1) % fleetChains.length)
+          }
+          setPrimitive(next)
         }, 3200)
       }
     }
@@ -1183,7 +1187,7 @@ function FleetAutomation() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap gap-1.5 sm:justify-center">
+      <div className="flex flex-wrap gap-1.5">
         {fleetChains.map((c, i) => (
           <button
             key={c.slug}
@@ -1194,7 +1198,7 @@ function FleetAutomation() {
             className={`font-mono text-[11px] px-2.5 py-1 rounded border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
               i === chainIdx
                 ? "border-[#4B7F9B]/50 bg-[#4B7F9B]/10 text-[#4B7F9B]"
-                : "border-[#1F1D20] text-slate-500 hover:text-slate-300 hover:border-slate-700"
+                : "border-white/[0.08] text-slate-500 hover:text-slate-300 hover:border-slate-700"
             }`}
           >
             {c.slug}
@@ -1216,7 +1220,7 @@ function FleetAutomation() {
                 className={`text-left flex-1 p-5 rounded-lg border backdrop-blur transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
                   active
                     ? "border-[#4B7F9B]/40 bg-[#4B7F9B]/[0.06]"
-                    : "border-[#1F1D20] bg-[#1F1D20]/80 hover:border-[#4B7F9B]/20"
+                    : "border-white/[0.08] bg-white/[0.02] hover:border-[#4B7F9B]/25"
                 }`}
               >
                 <div className="flex items-center gap-3 mb-2">
@@ -1239,8 +1243,8 @@ function FleetAutomation() {
           })}
         </div>
 
-        <div className="lg:col-span-3 rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col hover:border-[#4B7F9B]/30 transition-colors duration-300">
-          <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
+        <div className="lg:col-span-3 rounded-lg glass-pane overflow-hidden flex flex-col hover:border-[#4B7F9B]/30 transition-colors duration-300">
+          <div className="flex items-center justify-between px-3 py-1.5 border-b border-white/[0.06] bg-white/[0.03]">
             <div className="flex items-center gap-2">
               <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
                 <Terminal className="h-2.5 w-2.5 text-slate-400" />
@@ -1332,7 +1336,7 @@ function FleetAutomation() {
           { value: "<1h", label: "cold start to live" },
           { value: "0", label: "bespoke setups" },
         ].map((s) => (
-          <div key={s.label} className="text-center">
+          <div key={s.label} className="text-left">
             <div className="text-2xl md:text-3xl font-bold text-slate-100 font-mono">{s.value}</div>
             <div className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-[0.2em]">{s.label}</div>
           </div>
@@ -1563,15 +1567,15 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
       onOpenChange={onOpenChange}
       label="Command menu"
       overlayClassName="fixed inset-0 z-[80] bg-black/70 backdrop-blur-sm"
-      contentClassName="fixed z-[81] top-[14%] left-1/2 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-[#1F1D20] bg-[#0a0b0d]/95 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
+      contentClassName="fixed z-[81] top-[14%] left-1/2 w-[calc(100vw-2rem)] max-w-xl -translate-x-1/2 overflow-hidden rounded-lg border border-white/[0.08] bg-[#0a0b0d]/95 backdrop-blur-xl shadow-[0_24px_80px_rgba(0,0,0,0.65)]"
     >
-      <div className="flex items-center gap-3 border-b border-[#1F1D20] px-4">
+      <div className="flex items-center gap-3 border-b border-white/[0.08] px-4">
         <span className="font-mono text-[#4B7F9B] text-sm">&gt;</span>
         <CmdK.Input
           placeholder="type a command or search…"
           className="h-12 flex-1 bg-transparent font-mono text-sm text-slate-200 placeholder:text-slate-600 outline-none border-0 focus:ring-0"
         />
-        <kbd className="rounded border border-[#1F1D20] px-1.5 py-0.5 font-mono text-[10px] text-slate-600">esc</kbd>
+        <kbd className="rounded border border-white/[0.08] px-1.5 py-0.5 font-mono text-[10px] text-slate-600">esc</kbd>
       </div>
       <CmdK.List data-lenis-prevent className="max-h-[min(56vh,400px)] overflow-y-auto overscroll-contain py-2">
         <CmdK.Empty className="px-4 py-8 text-center font-mono text-xs text-slate-600">
@@ -1830,14 +1834,14 @@ export default function Home() {
       </nav>
 
       {/* ==================== HEADER ==================== */}
-      <header className="fixed top-0 left-0 right-0 z-40 border-b border-[#1F1D20]/50 bg-[#000102]/80 backdrop-blur-xl">
+      <header className="fixed top-0 left-0 right-0 z-40 border-b border-white/[0.08]/50 bg-[#000102]/80 backdrop-blur-xl">
         <div className="container flex h-14 items-center justify-between px-4 md:px-6">
           <Link href="#" className="text-lg font-bold">
             <span className="text-[#4B7F9B]">brassey</span>
             <span className="text-slate-500">.io</span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-6">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navItems.map((item) => (
               <Link
                 key={item.id}
@@ -1855,7 +1859,7 @@ export default function Home() {
             <button
               onClick={() => setCmdOpen(true)}
               aria-label="Search and navigate (⌘K)"
-              className="inline-flex items-center gap-1.5 rounded border border-[#1F1D20] px-2 py-1.5 lg:py-1 font-mono text-[10px] text-slate-500 transition-colors hover:border-[#4B7F9B]/40 hover:text-[#4B7F9B]"
+              className="inline-flex items-center gap-1.5 rounded border border-white/[0.08] px-2 py-1.5 lg:py-1 font-mono text-[10px] text-slate-500 transition-colors hover:border-[#4B7F9B]/40 hover:text-[#4B7F9B]"
             >
               <Search className="h-3.5 w-3.5 lg:h-3 lg:w-3" />
               <span className="hidden lg:inline">⌘K</span>
@@ -1886,7 +1890,7 @@ export default function Home() {
           >
             <div className="flex flex-col h-full">
               {/* Mobile menu header */}
-              <div className="flex items-center justify-between h-14 px-4 border-b border-[#1F1D20]/50">
+              <div className="flex items-center justify-between h-14 px-4 border-b border-white/[0.08]/50">
                 <span className="text-lg font-bold">
                   <span className="text-[#4B7F9B]">brassey</span>
                   <span className="text-slate-500">.io</span>
@@ -1912,7 +1916,7 @@ export default function Home() {
                     <Link
                       href={`#${item.id}`}
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-[#1F1D20]/30"
+                      className="flex items-center justify-between py-3 text-xl text-slate-300 hover:text-[#4B7F9B] transition-colors border-b border-white/[0.08]/30"
                     >
                       {item.label}
                       <ChevronRight className="h-4 w-4 text-slate-600" />
@@ -1923,7 +1927,7 @@ export default function Home() {
 
               {/* Social links at bottom */}
               <div className="px-8 pb-8">
-                <div className="flex items-center justify-center gap-8 py-4 border-t border-[#1F1D20]/50">
+                <div className="flex items-center justify-center gap-8 py-4 border-t border-white/[0.08]/50">
                   <Link
                     href="https://github.com/mbrassey"
                     target="_blank"
@@ -1972,12 +1976,12 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 container px-4 md:px-6 text-left sm:text-center space-y-8">
+          <div className="relative z-10 container px-4 md:px-6 text-left space-y-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/5"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm border border-emerald-500/30 bg-emerald-500/5"
             >
               <span className="status-dot" style={{ width: 6, height: 6 }} />
               <span className="text-emerald-400 text-xs tracking-wider">ENGINEERING MANAGER, STAKING</span>
@@ -2001,7 +2005,7 @@ export default function Home() {
               <p className="text-lg sm:text-xl md:text-2xl text-[#4B7F9B]">
                 Engineering Manager, Staking — Blockchain Infrastructure Architect
               </p>
-              <p className="text-slate-400 max-w-2xl mx-auto text-sm sm:text-base">
+              <p className="text-slate-400 max-w-2xl text-sm sm:text-base">
                 Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
                 bare-metal to smart contracts.
               </p>
@@ -2011,7 +2015,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
             >
               <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                 <Link href="#infrastructure">
@@ -2038,7 +2042,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-12 sm:pt-16 max-w-3xl mx-auto"
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-12 sm:pt-16 max-w-3xl"
             >
               <AnimatedCounter end={50} suffix="+" label="Active Nodes" />
               <AnimatedCounter end={25} suffix="+" label="Protocols" />
@@ -2056,7 +2060,7 @@ export default function Home() {
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-5 h-8 rounded-full border border-[#1F1D20] flex items-start justify-center p-1.5"
+              className="w-5 h-8 rounded-full border border-white/[0.08] flex items-start justify-center p-1.5"
             >
               <div className="w-1 h-1.5 rounded-full bg-[#4B7F9B]" />
             </motion.div>
@@ -2075,7 +2079,7 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
                 className="relative w-full md:w-auto md:flex-shrink-0"
               >
-                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-[#1F1D20] breathe-border md:w-80 md:h-80">
+                <div className="relative w-full aspect-square rounded-2xl overflow-hidden border border-white/[0.08] breathe-border md:w-80 md:h-80">
                   <img
                     src="/mbrassey.jpg"
                     alt="Matt Brassey"
@@ -2164,13 +2168,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Network className="h-3 w-3" />
                   <span>// infrastructure</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Infrastructure Command</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   Real-time validator and node operations across multiple blockchain networks. Deploying, monitoring,
                   upgrading &amp; maintaining high-performance mainnet validators and data RPC nodes.
                 </p>
@@ -2181,7 +2185,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="group relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
+                    className="group relative p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-3">
@@ -2231,7 +2235,7 @@ export default function Home() {
                               href={link.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[11px] text-slate-500 hover:text-[#4B7F9B] transition-colors flex items-center gap-1 border border-[#1F1D20] rounded px-2 py-0.5 hover:border-[#4B7F9B]/30"
+                              className="text-[11px] text-slate-500 hover:text-[#4B7F9B] transition-colors flex items-center gap-1 border border-white/[0.08] rounded px-2 py-0.5 hover:border-[#4B7F9B]/30"
                             >
                               {link.label} <ArrowUpRight className="h-2.5 w-2.5" />
                             </Link>
@@ -2256,15 +2260,15 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Layers className="h-3 w-3" />
                   <span>// fleet-automation</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   One Layer <span className="gradient-text">Runs the Fleet</span>
                 </h2>
-                <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 19
                   protocols, each a plug-in behind three battle-tested primitives. Add a chain, scale capacity, or
                   recover from an outage in minutes of audited, repeatable ops — not a nineteenth bespoke setup.
@@ -2296,15 +2300,15 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Terminal className="h-3 w-3" />
                   <span>// ai-development</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   The <span className="gradient-text">1000x</span> Developer
                 </h2>
-                <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   16 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
                   AI from a tool into a force multiplier. As an elite AI operator and cutting-edge technology adopter,
                   I combine deep infrastructure expertise with 1000x development velocity — the experience to know
@@ -2314,7 +2318,7 @@ export default function Home() {
 
               <div className="grid lg:grid-cols-2 gap-8 items-stretch">
                 <motion.div variants={slideUp} className="flex flex-col gap-6">
-                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                  <div className="flex-1 p-6 rounded-lg glass-pane space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Terminal className="h-5 w-5 text-[#4B7F9B]" />
@@ -2332,7 +2336,7 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <div className="flex-1 p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                  <div className="flex-1 p-6 rounded-lg glass-pane space-y-4 holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
                         <Zap className="h-5 w-5 text-[#4B7F9B]" />
@@ -2352,8 +2356,8 @@ export default function Home() {
                 </motion.div>
 
                 <motion.div variants={slideUp}>
-                  <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden flex flex-col h-full hover:border-[#4B7F9B]/30 transition-colors duration-300">
-                    <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
+                  <div className="rounded-lg glass-pane overflow-hidden flex flex-col h-full hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                    <div className="flex items-center justify-between px-3 py-1.5 border-b border-white/[0.06] bg-white/[0.03]">
                       <div className="flex items-center gap-2">
                         <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
                           <Terminal className="h-2.5 w-2.5 text-slate-400" />
@@ -2444,7 +2448,7 @@ export default function Home() {
                 </motion.div>
               </div>
 
-              <motion.div variants={slideUp} className="flex flex-wrap gap-3 sm:justify-center mt-12">
+              <motion.div variants={slideUp} className="flex flex-wrap gap-3 mt-12">
                 {["Claude Code", "OpenClaw", "Cursor", "GitHub Copilot", "v0.dev", "Claude AI", "MCP Protocol"].map(
                   (tool) => (
                     <Badge key={tool} variant="outline" className="border-[#4B7F9B]/20 text-[#4B7F9B]/70 px-4 py-1.5">
@@ -2467,15 +2471,15 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-10 sm:mb-12">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Cpu className="h-3 w-3" />
                   <span>// consumer-ai-platform</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                   Real-Time <span className="gradient-text">Consumer AI Platform</span>
                 </h2>
-                <p className="text-slate-400 max-w-3xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   Solo architect and full-stack/ML engineer on an end-to-end system spanning GPU inference
                   infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC — from
                   containerized model workers through the production web app.
@@ -2493,7 +2497,7 @@ export default function Home() {
                     <motion.div
                       key={domain.title}
                       variants={slideUp}
-                      className={`p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
+                      className={`p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
                         domain.span === 3 ? "lg:col-span-3" : "lg:col-span-2"
                       }`}
                     >
@@ -2539,13 +2543,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <GitBranch className="h-3 w-3" />
                   <span>// experience</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   16+ years of engineering — from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
@@ -2559,11 +2563,11 @@ export default function Home() {
                     </div>
                     {i < experience.length - 1 && (
                       <div className="absolute left-0 top-5 w-10 bottom-0 flex justify-center">
-                        <div className="w-px bg-gradient-to-b from-cyan-400/30 to-transparent" />
+                        <div className="w-px bg-gradient-to-b from-[#4B7F9B]/30 to-transparent" />
                       </div>
                     )}
 
-                    <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                    <div className="p-6 rounded-lg glass-pane hover:border-[#4B7F9B]/30 transition-colors duration-300">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
                         <div>
                           <h3 className="text-xl font-bold">{role.title}</h3>
@@ -2601,19 +2605,19 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Layers className="h-3 w-3" />
                   <span>// expertise</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Technical Expertise</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   Specialized knowledge across the full blockchain infrastructure stack.
                 </p>
               </motion.div>
 
               <div className="grid gap-6 md:grid-cols-3">
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                <motion.div variants={slideUp} className="p-6 rounded-lg glass-pane holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-[#4B7F9B]/10"><Server className="h-5 w-5 text-[#4B7F9B]" /></div>
                     <h3 className="text-lg font-bold">Backend &amp; Infrastructure</h3>
@@ -2655,7 +2659,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                <motion.div variants={slideUp} className="p-6 rounded-lg glass-pane holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-[#4B7F9B]/10"><Code2 className="h-5 w-5 text-[#4B7F9B]" /></div>
                     <h3 className="text-lg font-bold">Frontend &amp; Web3</h3>
@@ -2693,7 +2697,7 @@ export default function Home() {
                   </div>
                 </motion.div>
 
-                <motion.div variants={slideUp} className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
+                <motion.div variants={slideUp} className="p-6 rounded-lg glass-pane holo-shimmer space-y-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
                   <div className="flex items-center gap-3">
                     <div className="p-2 rounded-lg bg-emerald-500/10"><Database className="h-5 w-5 text-emerald-400" /></div>
                     <h3 className="text-lg font-bold">DevOps &amp; Operations</h3>
@@ -2746,13 +2750,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Code2 className="h-3 w-3" />
                   <span>// projects</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Featured Projects</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   Decentralized applications and blockchain platforms built with cutting-edge technology.
                 </p>
               </motion.div>
@@ -2766,7 +2770,7 @@ export default function Home() {
                       rel={project.url.startsWith("/") ? undefined : "noopener noreferrer"}
                       className="block group h-full"
                     >
-                      <div className="p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift h-full flex flex-col gap-4">
+                      <div className="p-6 rounded-lg glass-pane holo-shimmer card-lift h-full flex flex-col gap-4">
                         <div className="flex items-start justify-between">
                           <div>
                             <h3 className="text-xl font-bold group-hover:text-[#4B7F9B] transition-colors">
@@ -2804,13 +2808,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Award className="h-3 w-3" />
                   <span>// certifications</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Certifications</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   Professional credentials and industry certifications.
                 </p>
               </motion.div>
@@ -2824,7 +2828,7 @@ export default function Home() {
                   return (
                   <motion.div key={i} variants={slideUp}>
                     <CardWrapper {...wrapperProps} className="block group h-full">
-                      <div className="p-5 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur holo-shimmer card-lift text-center space-y-3 breathe-border cursor-pointer h-full flex flex-col items-center justify-center">
+                      <div className="p-5 rounded-lg glass-pane holo-shimmer card-lift text-center space-y-3 breathe-border cursor-pointer h-full flex flex-col items-center justify-center">
                         <div className="w-12 h-12 mx-auto rounded-full bg-[#4B7F9B]/10 flex items-center justify-center">
                           <Award className="h-6 w-6 text-[#4B7F9B]" />
                         </div>
@@ -2855,13 +2859,13 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Users className="h-3 w-3" />
                   <span>// recommendations</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Colleague Feedback</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   What colleagues and collaborators have to say.
                 </p>
               </motion.div>
@@ -2871,7 +2875,7 @@ export default function Home() {
                   <motion.div
                     key={i}
                     variants={slideUp}
-                    className="relative p-6 rounded-lg border border-[#1F1D20] bg-[#1F1D20]/60 backdrop-blur holo-shimmer card-lift"
+                    className="relative p-6 rounded-lg glass-pane holo-shimmer card-lift"
                   >
                     <div className="absolute -top-3 left-4 text-3xl text-[#4B7F9B]/30 font-serif">&ldquo;</div>
                     <p className="text-slate-300 italic text-sm leading-relaxed mb-6 pt-2">{rec.quote}</p>
@@ -2913,20 +2917,20 @@ export default function Home() {
               viewport={{ once: true, margin: "-100px" }}
               variants={staggerContainer}
             >
-              <motion.div variants={slideUp} className="text-left sm:text-center space-y-4 mb-12 sm:mb-16">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-12 sm:mb-16">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Activity className="h-3 w-3" />
                   <span>// activity</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Coding Activity</h2>
-                <p className="text-slate-400 max-w-2xl mx-auto text-base sm:text-lg">
+                <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
                   Development activity tracked in real-time.
                 </p>
               </motion.div>
 
               <motion.div variants={slideUp}>
-                <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur overflow-hidden breathe-border">
-                  <div className="flex items-center justify-between p-4 border-b border-[#1F1D20]">
+                <div className="rounded-lg glass-pane overflow-hidden breathe-border">
+                  <div className="flex items-center justify-between p-4 border-b border-white/[0.08]">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-[#4B7F9B]" />
                       <span className="text-sm text-slate-300">Monthly Coding Stats</span>
@@ -2950,7 +2954,7 @@ export default function Home() {
         {/* ==================== CONTACT ==================== */}
         <section id="contact" className="relative py-16 md:py-24">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-3xl mx-auto pt-12 text-left sm:text-center">
+          <div className="container px-4 md:px-6 max-w-3xl mx-auto pt-12 text-left">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -2958,7 +2962,7 @@ export default function Home() {
               variants={staggerContainer}
             >
               <motion.div variants={slideUp} className="space-y-4 mb-12">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
                   <Mail className="h-3 w-3" />
                   <span>// contact</span>
                 </div>
@@ -2969,7 +2973,7 @@ export default function Home() {
                 </p>
               </motion.div>
 
-              <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center">
+              <motion.div variants={slideUp} className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                   <Link href="mailto:matt@brassey.io">
                     <Mail className="mr-2 h-5 w-5" /> Email Me
@@ -2992,7 +2996,7 @@ export default function Home() {
       </main>
 
       {/* ==================== FOOTER ==================== */}
-      <footer className="border-t border-[#1F1D20] py-8">
+      <footer className="border-t border-white/[0.08] py-8">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4 md:px-6">
           <p className="text-sm text-slate-600">
             &copy; <span suppressHydrationWarning>{new Date().getFullYear()}</span> <span className="text-[#4B7F9B]">brassey</span>.io
