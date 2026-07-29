@@ -24,14 +24,17 @@ import {
   Github,
   KeyRound,
   Layers,
+  LifeBuoy,
   Linkedin,
   Mail,
   Menu,
   Network,
+  RefreshCw,
   Rocket,
   Search,
   Server,
   Shield,
+  ShieldCheck,
   Sparkles,
   Terminal,
   Users,
@@ -180,7 +183,7 @@ const projects: Project[] = [
     description:
       "Browser-native, self-custody Solana wallet where the private key never leaves the user's device and the server can never spend or decrypt it. Passkey-bound key storage (WebAuthn PRF wrapping an AES-GCM-encrypted ed25519 seed), BIP39 recovery, a passkey-encrypted portable vault with a server-enforced non-custodial invariant, authenticated key rotation with takeover protection, and envelope-encryption discipline throughout. Live wireframe demo with real market data.",
     tech: ["Solana", "WebAuthn PRF", "AES-GCM", "HKDF", "BIP39", "ed25519", "IndexedDB", "Jupiter"],
-    url: "/wallet",
+    url: "#wallet",
   },
   {
     title: "ccscan",
@@ -671,6 +674,49 @@ function CodeStream() {
     </div>
   )
 }
+
+// =========================================================
+// SOLANA WALLET SECURITY ARCHITECTURE
+// =========================================================
+
+const walletArchitecture = [
+  {
+    icon: KeyRound,
+    title: "Passkey-bound key storage",
+    body: "The ed25519 wallet seed is AES-GCM-encrypted under a wrapping key derived from a WebAuthn passkey's PRF extension and persisted in IndexedDB, so every signature requires a live hardware or biometric passkey gesture — only your passkey can spend. Keys are decrypted only inside a scoped withKeypair() boundary and zeroed from memory immediately after use.",
+    tags: ["WebAuthn PRF", "AES-GCM", "IndexedDB"],
+  },
+  {
+    icon: LifeBuoy,
+    title: "BIP39 recovery",
+    body: "24-word mnemonic backup as a direct 32-byte-entropy encoding of the wallet seed (seed ↔ mnemonic, then Keypair.fromSeed), plus an optional user recovery passphrase that encrypts a second in-browser backup — two independent recovery paths, neither of which exposes the key to any server.",
+    tags: ["BIP39", "24 words", "ed25519"],
+  },
+  {
+    icon: Server,
+    title: "Portable vault, hard non-custodial invariant",
+    body: "A passkey-encrypted server-side vault lets a user restore their wallet on a new device or browser. The invariant is enforced server-side: only PRF-mode-wrapped blobs are ever accepted for upload, so the platform stores only ciphertext it structurally cannot open — portability without custody.",
+    tags: ["opaque ciphertext", "server-enforced"],
+  },
+  {
+    icon: RefreshCw,
+    title: "Rotation & step-up",
+    body: "Authenticated key rotation with takeover protection — a stale or compromised session elsewhere can't survive a security change — and a step-up recovery and re-enrollment ceremony for the passphrase-vault path.",
+    tags: ["takeover protection", "step-up auth"],
+  },
+  {
+    icon: Layers,
+    title: "Envelope-encryption discipline",
+    body: "Per-item data-encryption keys wrapped by a master key (AES-GCM with HKDF-derived subkeys), versioned so the decrypt path is never removed under key rotation.",
+    tags: ["DEK / KEK", "HKDF", "versioned"],
+  },
+  {
+    icon: ShieldCheck,
+    title: "Security-audited",
+    body: "The full wallet surface has been through repeated fresh-eyes security audits — key exposure, fund loss, rotation-takeover, vault-overwrite — with findings triaged and closed. No path to key disclosure or unauthorized spend.",
+    tags: ["audited", "fail-closed"],
+  },
+]
 
 // =========================================================
 // CONSUMER AI PLATFORM (solo architect capstone)
@@ -1595,7 +1641,7 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
         </CmdK.Group>
         <CmdK.Group heading="Projects">
           {projects.map((p) => (
-            <CmdK.Item key={p.title} onSelect={() => openUrl(p.url)} className={itemClass}>
+            <CmdK.Item key={p.title} onSelect={() => (p.url.startsWith("#") ? goTo(p.url.slice(1)) : openUrl(p.url))} className={itemClass}>
               <Code2 className="h-3.5 w-3.5 opacity-50" />
               <span className="flex-1">{p.title}</span>
               <ArrowUpRight className="h-3 w-3 opacity-40" />
@@ -2563,13 +2609,53 @@ export default function Home() {
                 <WalletDemo />
               </motion.div>
 
-              <motion.div variants={slideUp} className="mt-8">
-                <Link
-                  href="/wallet#security"
-                  className="inline-flex items-center gap-2 text-sm text-[#4B7F9B] hover:text-[#6ba3bf] transition-colors"
-                >
-                  Security architecture &amp; full write-up <ArrowUpRight className="h-4 w-4" />
-                </Link>
+              <motion.div variants={slideUp} className="mt-12 sm:mt-16 space-y-4 mb-8">
+                <h3 className="text-xl sm:text-2xl font-bold tracking-tight">Security architecture</h3>
+                <p className="text-slate-400 max-w-3xl text-sm sm:text-base">
+                  Non-custodial wallet engineering — self-custody key management on Solana with WebAuthn. The private
+                  key never leaves the user&apos;s device and the server can never spend or decrypt it, with
+                  recoverability and cross-device portability layered on without breaking that guarantee.
+                </p>
+              </motion.div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {walletArchitecture.map((a) => {
+                  const Icon = a.icon
+                  return (
+                    <motion.div
+                      key={a.title}
+                      variants={slideUp}
+                      className="p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
+                        </div>
+                        <h4 className="text-base font-bold">{a.title}</h4>
+                      </div>
+                      <p className="text-sm text-slate-400 leading-relaxed mb-4">{a.body}</p>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {a.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+
+              <motion.div variants={slideUp} className="mt-4 p-6 rounded-lg border border-[#4B7F9B]/25 bg-[#4B7F9B]/[0.05]">
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  <span className="text-[#4B7F9B] font-semibold">The distinctive engineering:</span> reconciling three
+                  normally-conflicting requirements — true self-custody, real recoverability, and seamless
+                  cross-device use — by making the server a store of opaque, passkey-wrapped ciphertext rather than a
+                  custodian.
+                </p>
               </motion.div>
             </motion.div>
           </div>
@@ -2808,8 +2894,8 @@ export default function Home() {
                   <motion.div key={i} variants={slideUp} className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}>
                     <Link
                       href={project.url}
-                      target={project.url.startsWith("/") ? undefined : "_blank"}
-                      rel={project.url.startsWith("/") ? undefined : "noopener noreferrer"}
+                      target={project.url.startsWith("http") ? "_blank" : undefined}
+                      rel={project.url.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="block group h-full"
                     >
                       <div className="p-6 rounded-lg glass-pane holo-shimmer card-lift h-full flex flex-col gap-4">
