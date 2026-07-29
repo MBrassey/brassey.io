@@ -674,96 +674,110 @@ const platformStages = [
   { key: "client", label: "client" },
 ]
 
-interface PlatformTraceLine {
-  t: string
+interface PlatformSpan {
   stage: string
-  text: string
-  ok?: boolean
+  label: string
+  start: number
+  dur: number
+  d: string
+  warn?: boolean
 }
 
-const platformScenarios: { id: string; label: string; lines: PlatformTraceLine[] }[] = [
+const platformScenarios: {
+  id: string
+  label: string
+  total: number
+  totalLabel: string
+  spans: PlatformSpan[]
+  done: string
+}[] = [
   {
     id: "chat",
     label: "chat turn",
-    lines: [
-      { t: "00.000", stage: "client", text: "POST /chat — SSE stream opened" },
-      { t: "00.014", stage: "kernel", text: "deliberation pass — intent + context assembly" },
-      { t: "00.032", stage: "kernel", text: "route: chat → 70B endpoint · per-task model routing" },
-      { t: "00.061", stage: "dispatch", text: "enqueue — queue 0 · bounded retries armed" },
-      { t: "00.118", stage: "gpu", text: "worker warm — weights cached on network volume" },
-      { t: "00.640", stage: "gpu", text: "first token 0.6s · 41 tok/s sustained" },
-      { t: "02.310", stage: "rtc", text: "tokens streaming on per-user SSE bus" },
-      { t: "04.880", stage: "kernel", text: "memory extract — 2 facts · envelope-encrypted write" },
-      { t: "04.910", stage: "kernel", text: "guards — classifiers pass · egress isolated" },
-      { t: "05.020", stage: "client", text: "turn complete — 214 tokens streamed", ok: true },
+    total: 5020,
+    totalLabel: "5.02s",
+    spans: [
+      { stage: "client", label: "SSE stream opened", start: 0, dur: 14, d: "14ms" },
+      { stage: "kernel", label: "deliberation · route → 70B", start: 14, dur: 47, d: "47ms" },
+      { stage: "dispatch", label: "enqueue · retries armed", start: 61, dur: 57, d: "57ms" },
+      { stage: "gpu", label: "worker warm — cached weights", start: 118, dur: 522, d: "0.5s" },
+      { stage: "gpu", label: "generation · 41 tok/s", start: 640, dur: 4240, d: "4.2s" },
+      { stage: "rtc", label: "token stream on SSE bus", start: 2310, dur: 2710, d: "2.7s" },
+      { stage: "kernel", label: "memory extract · guards", start: 4880, dur: 130, d: "130ms" },
     ],
+    done: "turn complete — 214 tokens",
   },
   {
     id: "img2img",
     label: "img2img",
-    lines: [
-      { t: "00.000", stage: "client", text: "upload accepted — img2img request" },
-      { t: "00.018", stage: "kernel", text: "scene understanding → prompt synthesis" },
-      { t: "00.041", stage: "dispatch", text: "route: diffusion endpoint · execution ceiling 90s" },
-      { t: "00.322", stage: "gpu", text: "cold start 3.8s — weights cached on network volume" },
-      { t: "04.150", stage: "gpu", text: "multi-ControlNet pass — edge · depth · pose" },
-      { t: "09.870", stage: "gpu", text: "IP-Adapter face embedding applied" },
-      { t: "14.200", stage: "gpu", text: "super-resolution upscale" },
-      { t: "15.410", stage: "rtc", text: "result pushed over SSE" },
-      { t: "15.520", stage: "client", text: "face-consistent output delivered", ok: true },
+    total: 15520,
+    totalLabel: "15.5s",
+    spans: [
+      { stage: "kernel", label: "scene understanding → prompt", start: 18, dur: 304, d: "0.3s" },
+      { stage: "dispatch", label: "route: diffusion endpoint", start: 322, dur: 90, d: "90ms" },
+      { stage: "gpu", label: "cold start — cached weights", start: 412, dur: 3738, d: "3.7s" },
+      { stage: "gpu", label: "multi-ControlNet — edge·depth·pose", start: 4150, dur: 5720, d: "5.7s" },
+      { stage: "gpu", label: "IP-Adapter face embedding", start: 9870, dur: 4330, d: "4.3s" },
+      { stage: "gpu", label: "super-resolution upscale", start: 14200, dur: 1210, d: "1.2s" },
+      { stage: "rtc", label: "result over SSE", start: 15410, dur: 110, d: "110ms" },
     ],
+    done: "face-consistent output delivered",
   },
   {
     id: "img2vid",
     label: "img2vid",
-    lines: [
-      { t: "00.000", stage: "client", text: "img2vid job submitted" },
-      { t: "00.020", stage: "dispatch", text: "enqueue — stall detection armed" },
-      { t: "00.850", stage: "gpu", text: "video diffusion — frame batch 1/7" },
-      { t: "12.300", stage: "dispatch", text: "stall detected — worker unresponsive" },
-      { t: "12.310", stage: "dispatch", text: "retry 1/3 — exponential backoff · re-dispatched" },
-      { t: "13.750", stage: "gpu", text: "resumed on fresh worker — no double-billing" },
-      { t: "38.400", stage: "gpu", text: "frames encoded → clip" },
-      { t: "38.900", stage: "rtc", text: "delivery over SSE · receipt stored" },
-      { t: "39.020", stage: "client", text: "clip ready — credits settled", ok: true },
+    total: 39020,
+    totalLabel: "39.0s",
+    spans: [
+      { stage: "dispatch", label: "enqueue · stall detection armed", start: 20, dur: 830, d: "0.8s" },
+      { stage: "gpu", label: "video diffusion — frame batches", start: 850, dur: 11450, d: "11.5s" },
+      { stage: "dispatch", label: "stall → retry 1/3 · backoff", start: 12300, dur: 1450, d: "1.5s", warn: true },
+      { stage: "gpu", label: "resume — no double-billing", start: 13750, dur: 24650, d: "24.7s" },
+      { stage: "rtc", label: "delivery · receipt stored", start: 38400, dur: 620, d: "0.6s" },
     ],
+    done: "clip ready — credits settled",
   },
   {
     id: "webrtc",
     label: "webrtc call",
-    lines: [
-      { t: "00.000", stage: "client", text: "call request — signaling on SSE bus" },
-      { t: "00.024", stage: "rtc", text: "TURN credentials minted — short-lived HMAC" },
-      { t: "00.058", stage: "rtc", text: "relay-first ICE — candidates gathered" },
-      { t: "00.310", stage: "rtc", text: "peers connected — DTLS-SRTP up" },
-      { t: "00.480", stage: "client", text: "canvas capture — live media-track transform" },
-      { t: "00.610", stage: "client", text: "p2p call live — heartbeats armed", ok: true },
+    total: 610,
+    totalLabel: "0.61s",
+    spans: [
+      { stage: "client", label: "signaling on SSE bus", start: 0, dur: 24, d: "24ms" },
+      { stage: "rtc", label: "TURN creds — short-lived HMAC", start: 24, dur: 34, d: "34ms" },
+      { stage: "rtc", label: "relay-first ICE gather", start: 58, dur: 252, d: "0.25s" },
+      { stage: "rtc", label: "peers connect · DTLS-SRTP", start: 310, dur: 170, d: "0.17s" },
+      { stage: "client", label: "canvas media-track transform", start: 480, dur: 130, d: "0.13s" },
     ],
+    done: "p2p call live — heartbeats armed",
   },
   {
     id: "cron",
     label: "self-scheduled",
-    lines: [
-      { t: "00.000", stage: "kernel", text: "cron fire — proactive check-in due" },
-      { t: "00.012", stage: "kernel", text: "CAS claim acquired — duplicate runs fenced" },
-      { t: "00.038", stage: "kernel", text: "reflection pass over memory store" },
-      { t: "00.420", stage: "dispatch", text: "route: draft → 70B endpoint" },
-      { t: "02.110", stage: "gpu", text: "draft generated — classifiers pass" },
-      { t: "02.240", stage: "rtc", text: "delivered on user's SSE channel" },
-      { t: "02.255", stage: "kernel", text: "idempotency key recorded", ok: true },
+    total: 2255,
+    totalLabel: "2.26s",
+    spans: [
+      { stage: "kernel", label: "cron fire — CAS claim", start: 0, dur: 38, d: "38ms" },
+      { stage: "kernel", label: "reflection over memory", start: 38, dur: 382, d: "0.4s" },
+      { stage: "dispatch", label: "route: draft → 70B", start: 420, dur: 140, d: "140ms" },
+      { stage: "gpu", label: "draft · classifiers pass", start: 560, dur: 1550, d: "1.6s" },
+      { stage: "rtc", label: "deliver on SSE channel", start: 2110, dur: 130, d: "130ms" },
     ],
+    done: "idempotency key recorded",
   },
   {
     id: "train",
     label: "qlora train",
-    lines: [
-      { t: "00:00", stage: "worker", text: "GPU pod spun per-run — 80 GB card" },
-      { t: "00:41", stage: "gpu", text: "QLoRA 4-bit — 70B base sharded in" },
-      { t: "14:20", stage: "gpu", text: "epoch 1/3 — loss 1.84 → 1.12" },
-      { t: "41:03", stage: "gpu", text: "epoch 3/3 — checkpoint → network volume" },
-      { t: "52:07", stage: "worker", text: "pod torn down — $0 while idle" },
-      { t: "52:08", stage: "kernel", text: "blind-A/B rollout queued", ok: true },
+    total: 3180,
+    totalLabel: "53m",
+    spans: [
+      { stage: "worker", label: "pod spun per-run — 80 GB", start: 0, dur: 41, d: "41s" },
+      { stage: "gpu", label: "QLoRA 4-bit — 70B shard-in", start: 41, dur: 819, d: "14m" },
+      { stage: "gpu", label: "epochs 1–3 · loss 1.84 → 1.12", start: 860, dur: 1603, d: "27m" },
+      { stage: "gpu", label: "checkpoint → network volume", start: 2463, dur: 664, d: "11m" },
+      { stage: "worker", label: "teardown — $0 idle", start: 3127, dur: 53, d: "53s" },
     ],
+    done: "blind-A/B rollout queued",
   },
 ]
 
@@ -773,14 +787,16 @@ function PlatformTrace() {
   const [auto, setAuto] = useState(true)
 
   const scenario = platformScenarios[scenarioIdx]
-  const lines = scenario.lines
-  const shown = lines.slice(0, visible)
-  const activeStage = shown.length > 0 ? shown[shown.length - 1].stage : null
-  const visitedStages = new Set(shown.map((l) => l.stage))
+  const spans = scenario.spans
+  const steps = spans.length + 1
+  const shown = Math.min(visible, spans.length)
+  const doneShown = visible > spans.length
+  const activeStage = shown > 0 && !doneShown ? spans[shown - 1].stage : null
+  const visitedStages = new Set(spans.slice(0, shown).map((s) => s.stage))
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(lines.length)
+      setVisible(steps)
       return
     }
 
@@ -791,8 +807,8 @@ function PlatformTrace() {
     const step = () => {
       i++
       setVisible(i)
-      if (i < lines.length) {
-        t = setTimeout(step, 420 + Math.random() * 300)
+      if (i < steps) {
+        t = setTimeout(step, 550 + Math.random() * 250)
       } else if (auto) {
         t = setTimeout(() => setScenarioIdx((s) => (s + 1) % platformScenarios.length), 3200)
       }
@@ -802,6 +818,15 @@ function PlatformTrace() {
     return () => clearTimeout(t)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scenarioIdx, auto])
+
+  const trackGrid = (
+    <div className="absolute inset-0 flex" aria-hidden="true">
+      <div className="flex-1 border-r border-[#1F1D20]" />
+      <div className="flex-1 border-r border-[#1F1D20]" />
+      <div className="flex-1 border-r border-[#1F1D20]" />
+      <div className="flex-1" />
+    </div>
+  )
 
   return (
     <div className="space-y-4">
@@ -850,48 +875,83 @@ function PlatformTrace() {
         ))}
       </div>
 
-      <div className="max-w-3xl mx-auto rounded-lg border border-[#1F1D20] bg-[#1F1D20] overflow-hidden hover:border-[#4B7F9B]/30 transition-colors duration-300">
-        <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1F1D20] bg-[#1a1a1e]">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded-sm bg-slate-700/50 flex items-center justify-center">
-              <Terminal className="h-2.5 w-2.5 text-slate-400" />
-            </div>
-            <span className="text-slate-400 text-[10px] sm:text-[11px] font-mono truncate">
-              matt@platform:~/request-traces
-            </span>
-          </div>
-          <span className="font-mono text-[10px] text-slate-600">
-            trace {scenarioIdx + 1}/{platformScenarios.length} · {scenario.label}
+      <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur p-4 sm:p-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
+        <div className="flex items-center justify-between mb-4 font-mono text-[11px]">
+          <span className="text-slate-500">
+            trace · <span className="text-[#4B7F9B]">{scenario.label}</span>
+          </span>
+          <span className="text-slate-600">
+            {scenarioIdx + 1}/{platformScenarios.length} · {scenario.totalLabel} total
           </span>
         </div>
-        <div className="p-4 sm:p-5 min-h-[280px] font-mono text-[11px] sm:text-[12px] leading-relaxed">
-          {shown.map((line, i) => (
+
+        <div className="min-h-[224px]">
+          {spans.slice(0, shown).map((s, i) => {
+            const width = Math.max((s.dur / scenario.total) * 100, 1.5)
+            const left = Math.min((s.start / scenario.total) * 100, 100 - width)
+            return (
+              <motion.div
+                key={`${scenario.id}-${i}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.25 }}
+                className="flex items-center gap-2 sm:gap-3 h-7"
+              >
+                <span className="w-12 sm:w-14 shrink-0 text-right font-mono text-[9px] uppercase tracking-wider text-[#4B7F9B]/60">
+                  {s.stage}
+                </span>
+                <span className="w-32 sm:w-52 shrink-0 truncate font-mono text-[10px] sm:text-[11px] text-slate-400">
+                  {s.label}
+                </span>
+                <div className="relative flex-1 h-4">
+                  {trackGrid}
+                  <div
+                    className="absolute top-1/2 -translate-y-1/2 h-2"
+                    style={{ left: `${left}%`, width: `${width}%` }}
+                  >
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.45 }}
+                      className={`h-full w-full rounded-sm origin-left ${
+                        s.warn
+                          ? "bg-amber-400/25 border border-amber-400/50"
+                          : "bg-[#4B7F9B]/30 border border-[#4B7F9B]/60"
+                      }`}
+                    />
+                  </div>
+                </div>
+                <span className="w-12 shrink-0 text-right font-mono text-[10px] text-slate-500">{s.d}</span>
+              </motion.div>
+            )
+          })}
+
+          {doneShown && (
             <motion.div
-              key={`${scenario.id}-${i}`}
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2 }}
-              className="flex items-baseline gap-3 py-0.5"
+              key={`${scenario.id}-done`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
+              className="flex items-center gap-2 sm:gap-3 h-7"
             >
-              <span className="w-12 shrink-0 text-right text-slate-600 text-[10px]">{line.t}</span>
-              <span className="w-16 shrink-0 text-[#4B7F9B]/70 text-[10px] uppercase tracking-wider">
-                {line.stage}
+              <span className="w-12 sm:w-14 shrink-0 text-right font-mono text-[9px] uppercase tracking-wider text-emerald-400/70">
+                done
               </span>
-              <span className={`min-w-0 ${line.ok ? "text-slate-300" : "text-slate-400"}`}>
-                {line.ok && <span className="text-emerald-400">✓ </span>}
-                {line.text}
+              <span className="w-32 sm:w-52 shrink-0 truncate font-mono text-[10px] sm:text-[11px] text-emerald-400/80">
+                ✓ {scenario.done}
               </span>
+              <div className="relative flex-1 h-4">
+                {trackGrid}
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-emerald-400/70" />
+              </div>
+              <span className="w-12 shrink-0 text-right font-mono text-[10px] text-slate-500">{scenario.totalLabel}</span>
             </motion.div>
-          ))}
-          {visible >= lines.length && (
-            <div className="pt-2 pl-[60px]">
-              <span className="text-slate-600">$</span>{" "}
-              <span
-                className="inline-block w-[6px] h-[11px] bg-[#4B7F9B] align-middle"
-                style={{ animation: "blink-cursor 1s step-end infinite" }}
-              />
-            </div>
           )}
+        </div>
+
+        <div className="flex items-center justify-between pt-2 mt-1 border-t border-[#1F1D20] font-mono text-[10px] text-slate-600">
+          <span>00:00</span>
+          <span>{scenario.totalLabel}</span>
         </div>
       </div>
     </div>
@@ -970,7 +1030,6 @@ interface FleetChain {
 
 const fleetChains: FleetChain[] = [
   { name: "Avalanche", slug: "avalanche", client: "avalanchego", snap: "412 GB", live: "31m", version: "v1.13.2" },
-  { name: "Cardano", slug: "cardano", client: "cardano-node", snap: "184 GB", live: "44m", version: "10.1.4" },
   { name: "Cosmos", slug: "cosmos", client: "gaiad", snap: "97 GB", live: "26m", version: "v21.0.1" },
   { name: "Polkadot", slug: "polkadot", client: "polkadot", snap: "228 GB", live: "38m", version: "v1.16.2" },
   { name: "Kusama", slug: "kusama", client: "polkadot", snap: "146 GB", live: "29m", version: "v1.16.2" },
@@ -983,11 +1042,8 @@ const fleetChains: FleetChain[] = [
   { name: "XDC", slug: "xdc", client: "XDC", snap: "88 GB", live: "24m", version: "v2.3.0" },
   { name: "Tezos", slug: "tezos", client: "octez-node", snap: "64 GB", live: "19m", version: "v21.2" },
   { name: "Algorand", slug: "algorand", client: "algod", snap: "42 GB", live: "14m", version: "4.0.2" },
-  { name: "Babylon", slug: "babylon", client: "babylond", snap: "58 GB", live: "21m", version: "v1.1.0" },
   { name: "Canton", slug: "canton", client: "canton", snap: "121 GB", live: "27m", version: "3.3.2" },
   { name: "Audius", slug: "audius", client: "audius-node", snap: "34 GB", live: "12m", version: "0.7.11" },
-  { name: "Story", slug: "story", client: "story + geth", snap: "51 GB", live: "18m", version: "v1.3.0" },
-  { name: "Cosmos-based chains", slug: "cosmos-sdk", client: "any Cosmos SDK chain", snap: "chain-sized", live: "≤30m", version: "v0.50.x" },
 ]
 
 const fleetPrimitives = [
