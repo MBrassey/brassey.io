@@ -853,33 +853,39 @@ function PlatformTrace() {
         })}
       </div>
 
-      <div className="flex flex-wrap sm:justify-center gap-1.5">
-        {platformScenarios.map((s, i) => (
-          <button
-            key={s.id}
-            type="button"
-            onClick={() => {
-              setAuto(false)
-              setScenarioIdx(i)
-            }}
-            aria-pressed={i === scenarioIdx}
-            aria-label={`Replay the ${s.label} trace`}
-            className={`font-mono text-[11px] px-2.5 py-1 rounded border transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60 ${
-              i === scenarioIdx
-                ? "border-[#4B7F9B]/50 bg-[#4B7F9B]/10 text-[#4B7F9B]"
-                : "border-[#1F1D20] text-slate-500 hover:text-slate-300 hover:border-slate-700"
-            }`}
-          >
-            {s.label}
-          </button>
-        ))}
-      </div>
+      <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur overflow-hidden hover:border-[#4B7F9B]/30 transition-colors duration-300">
+        <div className="flex overflow-x-auto border-b border-[#1F1D20]">
+          {platformScenarios.map((s, i) => {
+            const active = i === scenarioIdx
+            const progress = active ? Math.min(visible / steps, 1) : 0
+            return (
+              <button
+                key={s.id}
+                type="button"
+                onClick={() => {
+                  setAuto(false)
+                  setScenarioIdx(i)
+                }}
+                aria-pressed={active}
+                aria-label={`Replay the ${s.label} trace`}
+                className={`relative flex-1 shrink-0 whitespace-nowrap px-3 py-2.5 font-mono text-[10px] sm:text-[11px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-[#4B7F9B]/60 ${
+                  active ? "text-[#4B7F9B] bg-[#4B7F9B]/[0.04]" : "text-slate-500 hover:text-slate-300"
+                }`}
+              >
+                {s.label}
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-0 left-0 h-[2px] bg-[#4B7F9B] transition-[width] duration-500 ease-linear"
+                  style={{ width: `${progress * 100}%` }}
+                />
+              </button>
+            )
+          })}
+        </div>
 
-      <div className="rounded-lg border border-[#1F1D20] bg-[#1F1D20]/80 backdrop-blur p-4 sm:p-6 hover:border-[#4B7F9B]/30 transition-colors duration-300">
+        <div className="p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4 font-mono text-[11px]">
-          <span className="text-slate-500">
-            trace · <span className="text-[#4B7F9B]">{scenario.label}</span>
-          </span>
+          <span className="text-slate-500">// request-trace</span>
           <span className="text-slate-600">
             {scenarioIdx + 1}/{platformScenarios.length} · {scenario.totalLabel} total
           </span>
@@ -952,6 +958,7 @@ function PlatformTrace() {
         <div className="flex items-center justify-between pt-2 mt-1 border-t border-[#1F1D20] font-mono text-[10px] text-slate-600">
           <span>00:00</span>
           <span>{scenario.totalLabel}</span>
+        </div>
         </div>
       </div>
     </div>
@@ -1348,10 +1355,10 @@ let cantonStarted = false
 // Proxied through /api/canton so the ccscan API key stays server-side, with
 // `no-store` on both hops: ccscan sends `cache-control: public, max-age=15`, so
 // a cached poll would replay a stale head instead of reaching the API.
-const CANTON_POLL_MS = 12000
+const CANTON_POLL_MS = 6000
 // A second poll lands well before the first interval so the measured rate takes
 // over from the seeded estimate within seconds of load.
-const CANTON_FIRST_REFRESH_MS = 5000
+const CANTON_FIRST_REFRESH_MS = 2500
 
 // Seed an initial rate from tx_24h, damped toward the observed steady state (the
 // 24h mean overstates it — bursts pull the average up). Only used to decide how
@@ -1360,9 +1367,9 @@ const CANTON_SEED_DAMPING = 0.6
 // Start the counter this far behind the confirmed head — slightly more than one
 // poll interval — so there is always real, already-confirmed ground to cover and
 // the number is visibly climbing from the first frame.
-const CANTON_LAG_S = 14
+const CANTON_LAG_S = 8
 // Easing time constant for closing the gap to the confirmed head.
-const CANTON_TAU_S = 8
+const CANTON_TAU_S = 4
 
 async function cantonPoll() {
   if (typeof document !== "undefined" && document.visibilityState === "hidden") return

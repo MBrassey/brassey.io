@@ -12,7 +12,7 @@ export const revalidate = 0
 // req/min ceiling. Collapse concurrent traffic onto a single upstream call so
 // visitor count can't exhaust the key's budget. The window is short enough that
 // the head stays fresh — ccscan's own ingest cursor only advances every ~10s.
-const UPSTREAM_TTL_MS = 4000
+const UPSTREAM_TTL_MS = 3000
 type Payload = { head_seq: number; latest_round: number; party_count_est: number; tx_24h: number }
 let cached: { at: number; data: Payload } | null = null
 let inflight: Promise<Payload | null> | null = null
