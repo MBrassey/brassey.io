@@ -471,7 +471,7 @@ function AnimatedCounter({
   const isInView = useInView(ref, { once: true })
 
   return (
-    <div ref={ref} className="text-left">
+    <div ref={ref} className="text-right">
       <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#4B7F9B]">
         {prefix}
         <CountUp start={0} end={isInView ? end : 0} duration={2.5} separator="," useEasing enableScrollSpy scrollSpyOnce />
@@ -1996,7 +1996,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative z-10 container px-4 md:px-6 text-left space-y-8">
+          <div className="relative z-10 container px-4 md:px-6 text-right space-y-8">
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -2025,7 +2025,7 @@ export default function Home() {
               <p className="text-lg sm:text-xl md:text-2xl text-[#4B7F9B]">
                 Engineering Manager, Staking — Blockchain Infrastructure Architect
               </p>
-              <p className="text-slate-400 max-w-2xl text-sm sm:text-base">
+              <p className="text-slate-400 max-w-2xl ml-auto text-sm sm:text-base">
                 Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
                 bare-metal to smart contracts.
               </p>
@@ -2035,7 +2035,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+              className="flex flex-col sm:flex-row sm:justify-end gap-3 sm:gap-4"
             >
               <Button size="lg" className="bg-[#4B7F9B] hover:bg-[#4B7F9B]/90 text-black font-semibold w-full sm:w-auto" asChild>
                 <Link href="#infrastructure">
@@ -2062,7 +2062,7 @@ export default function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-12 sm:pt-16 max-w-3xl"
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 pt-12 sm:pt-16 max-w-3xl ml-auto"
             >
               <AnimatedCounter end={50} suffix="+" label="Active Nodes" />
               <AnimatedCounter end={25} suffix="+" label="Protocols" />
