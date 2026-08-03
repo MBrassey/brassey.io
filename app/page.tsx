@@ -233,12 +233,59 @@ const projects: Project[] = [
   },
 ]
 
-const experience = [
+// "Mar 2023"-style month + year for a LinkedIn-style role range.
+const fmtMonth = (iso: string) =>
+  new Date(iso + "-15T00:00:00Z").toLocaleDateString("en-US", { month: "short", year: "numeric", timeZone: "UTC" })
+
+// LinkedIn-style tenure ("3 yrs 5 mos") from YYYY-MM to YYYY-MM (or now).
+function tenure(start: string, end?: string): string {
+  const [sy, sm] = start.split("-").map(Number)
+  const now = new Date()
+  const [ey, em] = end ? end.split("-").map(Number) : [now.getFullYear(), now.getMonth() + 1]
+  // LinkedIn counts a completed range inclusive of its end month.
+  const months = (ey - sy) * 12 + (em - sm) + (end ? 1 : 0)
+  const yrs = Math.floor(months / 12)
+  const mos = months % 12
+  const parts = []
+  if (yrs) parts.push(`${yrs} yr${yrs > 1 ? "s" : ""}`)
+  if (mos) parts.push(`${mos} mo${mos > 1 ? "s" : ""}`)
+  return parts.join(" ") || "1 mo"
+}
+
+// "2 yrs" from a "2021 — 2023" period string (year precision only).
+function periodYears(period: string): string | null {
+  const m = period.match(/(\d{4})\s*—\s*(\d{4})/)
+  if (!m) return null
+  const yrs = Number(m[2]) - Number(m[1])
+  return yrs > 0 ? `${yrs} yr${yrs > 1 ? "s" : ""}` : null
+}
+
+interface ExperienceRole {
+  title: string
+  start: string
+  end?: string
+}
+
+const experience: {
+  title: string
+  company: string
+  location: string
+  period: string
+  employment?: string
+  roles?: ExperienceRole[]
+  description: string
+  highlights: string[]
+}[] = [
   {
     title: "Engineering Manager",
     company: "Blueprint, Inc",
     location: "Remote | NYC, NY",
     period: "2023 — Present",
+    employment: "Full-time",
+    roles: [
+      { title: "Engineering Manager", start: "2025-02" },
+      { title: "Senior Blockchain Infrastructure Engineer", start: "2023-03", end: "2025-02" },
+    ],
     description:
       "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Cardano, Cosmos, Polkadot, Kusama, NEAR, Polygon, Stacks, Sui, XDC, Tezos, Algorand, Audius, Canton, Story, and Babylon — plus Rocket Pool and Lido CSM — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
@@ -2828,14 +2875,41 @@ export default function Home() {
                     <div className="p-6 rounded-lg glass-pane hover:border-[#4B7F9B]/30 transition-colors duration-300">
                       <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
                         <div>
-                          <h3 className="text-xl font-bold">{role.title}</h3>
-                          <p className="text-[#4B7F9B] text-sm">{role.company}</p>
+                          <h3 className="text-xl font-bold">{role.roles ? role.company : role.title}</h3>
+                          <p className="text-[#4B7F9B] text-sm" suppressHydrationWarning>
+                            {role.roles
+                              ? `${role.employment ?? "Full-time"} · ${tenure(role.roles[role.roles.length - 1].start)}`
+                              : role.company}
+                          </p>
                           <p className="text-slate-600 text-xs">{role.location}</p>
                         </div>
                         <span className="text-sm text-slate-500 font-mono mt-1 md:mt-0 flex-shrink-0 transition-colors group-hover:text-[#4B7F9B]">
                           {role.period}
+                          {!role.roles && periodYears(role.period) ? ` · ${periodYears(role.period)}` : ""}
                         </span>
                       </div>
+                      {role.roles && (
+                        <div className="mb-4 mt-1">
+                          {role.roles.map((r, k) => (
+                            <div key={r.title} className="relative pl-6 pb-3 last:pb-0">
+                              <span
+                                className="absolute left-0 top-[7px] h-2 w-2 rounded-full border border-[#4B7F9B]/70 bg-[#4B7F9B]/25"
+                                aria-hidden="true"
+                              />
+                              {k < role.roles.length - 1 && (
+                                <span
+                                  className="absolute left-[3.5px] top-[19px] bottom-[-3px] w-px bg-white/[0.08]"
+                                  aria-hidden="true"
+                                />
+                              )}
+                              <div className="text-sm font-semibold text-slate-200">{r.title}</div>
+                              <div className="font-mono text-xs text-slate-500" suppressHydrationWarning>
+                                {fmtMonth(r.start)} — {r.end ? fmtMonth(r.end) : "Present"} · {tenure(r.start, r.end)}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                       <p className="text-slate-400 mb-4 text-sm leading-relaxed">{role.description}</p>
                       <ul className="space-y-1.5">
                         {role.highlights.map((h, j) => (
