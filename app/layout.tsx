@@ -11,7 +11,7 @@ const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] })
 const siteUrl = "https://brassey.io"
 const siteTitle = "Matt Brassey | Blockchain Infrastructure Architect & Engineering Manager"
 const siteDescription =
-  "Engineering Manager and Blockchain Infrastructure Architect with 15+ years of DevOps expertise and 5+ years in blockchain. Operating 50+ validators across Solana, Ethereum, Avalanche, Audius, Algorand, Canton, XDC, NEAR, and Babylon — plus Rocket Pool and Lido CSM. Leading AI-augmented development at Blueprint Infrastructure. Specializing in validator operations, multi-chain architecture, staking infrastructure, and distributed systems."
+  "Engineering Manager and Blockchain Infrastructure Architect with 15+ years of DevOps expertise and 5+ years in blockchain. Operating 50+ validators across Solana, Ethereum, Avalanche, Audius, Algorand, Canton, XDC, and NEAR — plus Rocket Pool and Lido CSM. Leading AI-augmented development at Blueprint Infrastructure. Specializing in validator operations, multi-chain architecture, staking infrastructure, and distributed systems."
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "NEAR validator",
     "Rocket Pool node operator",
     "Lido CSM",
-    "Babylon Bitcoin staking",
+    "XDC validator operations",
     "Jito BAM",
     "DoubleZero",
     "MEV-boost",
@@ -140,7 +140,6 @@ const personJsonLd = {
     "NEAR",
     "Rocket Pool",
     "Lido CSM",
-    "Babylon",
     "DevOps",
     "Bare-metal Infrastructure",
     "Distributed Systems",
