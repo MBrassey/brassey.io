@@ -31,14 +31,18 @@ export default function SmoothScroll() {
       if (!anchor) return
       const id = anchor.getAttribute("href")!.slice(1)
       e.preventDefault()
-      if (!id) {
-        lenis.scrollTo(0, { force: true })
-        return
-      }
-      const target = document.getElementById(id)
-      // -64px offset mirrors the scroll-margin-top under the fixed header;
-      // force lets nav links fire while a menu overlay still has Lenis stopped
-      if (target) lenis.scrollTo(target, { offset: -64, force: true })
+      // Defer past this click's React handlers: a menu overlay closing on the
+      // same tap restores body scroll and restarts Lenis first, so the scroll
+      // isn't swallowed while the page is still locked. -64px mirrors the
+      // scroll-margin under the fixed header; force covers a stopped Lenis.
+      window.setTimeout(() => {
+        if (!id) {
+          lenis.scrollTo(0, { force: true })
+          return
+        }
+        const target = document.getElementById(id)
+        if (target) lenis.scrollTo(target, { offset: -64, force: true })
+      }, 60)
     }
     // Capture phase: claim hash-link clicks before Next's Link handler can
     // race a second (native) scroll against the Lenis animation.
