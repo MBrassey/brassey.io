@@ -292,7 +292,7 @@ const experience: {
       "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Cardano, Cosmos, Polkadot, Kusama, NEAR, Polygon, Stacks, Sui, XDC, Tezos, Algorand, Audius, Canton, and Story — plus Rocket Pool and Lido CSM — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
       "Operating high-performance mainnet validator fleets across 7 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, and XDC",
-      "Architected the fleet's plug-in automation layer — 16 protocols deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
+      "Architected the fleet's plug-in automation layer — 15 protocols deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
       "Exposed the same deploy, upgrade, and identity primitives to AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
       "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
@@ -1135,7 +1135,6 @@ const fleetChains: FleetChain[] = [
   { name: "Avalanche", slug: "avalanche", client: "avalanchego", snap: "412 GB", live: "31m", version: "v1.13.2" },
   { name: "Ethereum", slug: "ethereum", client: "besu + teku", snap: "1.3 TB", live: "54m", version: "25.7.0" },
   { name: "Cosmos", slug: "cosmos", client: "gaiad", snap: "97 GB", live: "26m", version: "v21.0.1" },
-  { name: "Polkadot", slug: "polkadot", client: "polkadot", snap: "228 GB", live: "38m", version: "v1.16.2" },
   { name: "Kusama", slug: "kusama", client: "polkadot", snap: "146 GB", live: "29m", version: "v1.16.2" },
   { name: "NEAR", slug: "near", client: "neard", snap: "512 GB", live: "52m", version: "2.3.1" },
   { name: "Polygon", slug: "polygon", client: "bor + heimdall", snap: "1.1 TB", live: "58m", version: "v1.5.3" },
@@ -1422,7 +1421,7 @@ function FleetAutomation() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
         {[
-          { value: "16", label: "protocols, one layer" },
+          { value: "15", label: "protocols, one layer" },
           { value: "3", label: "primitives run it all" },
           { value: "<1h", label: "cold start to live" },
           { value: "0", label: "bespoke setups" },
@@ -2498,7 +2497,7 @@ export default function Home() {
                   One Layer <span className="gradient-text">Runs the Fleet</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 16
+                  One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 15
                   protocols, each a plug-in behind three battle-tested primitives. Add a chain, scale capacity, or
                   recover from an outage in minutes with the same audited, repeatable ops — never another bespoke setup.
                   Pick any chain: the choreography never changes.
