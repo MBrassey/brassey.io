@@ -2353,7 +2353,7 @@ export default function Home() {
             >
               <AnimatedCounter end={50} suffix="+" label="Active Nodes" />
               <AnimatedCounter end={25} suffix="+" label="Protocols" />
-              <AnimatedCounter end={16} suffix="+" label="Years Experience" />
+              <AnimatedCounter end={17} suffix="+" label="Years Experience" />
               <AnimatedCounter end={500} suffix="M+" prefix="$" label="AUM" />
             </motion.div>
           </div>
@@ -2619,7 +2619,7 @@ export default function Home() {
                   The <span className="gradient-text">1000x</span> Developer
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  16 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
+                  17 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
                   AI from a tool into a force multiplier. As an elite AI operator and cutting-edge technology adopter,
                   I combine deep infrastructure expertise with 1000x development velocity — the experience to know
                   what to build, and the AI mastery to ship it in days instead of months.
@@ -2654,7 +2654,7 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      16 years of engineering — from managing 900+ servers at IBM to maintaining 200+ wallets
+                      17 years of engineering — from managing 900+ servers at IBM to maintaining 200+ wallets
                       at Bittrex to running $500M+ in staked validator infrastructure — provides the experience
                       that separates an elite AI operator from someone just prompting. Cloud-to-bare-metal migrations,
                       custom Grafana monitoring pipelines, automated node provisioning with AWS launch templates,
@@ -3123,7 +3123,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
                 <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
-                  16+ years of engineering — from founding a hosting company to managing $500M+ in blockchain staking
+                  17+ years of engineering — from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
               </motion.div>
