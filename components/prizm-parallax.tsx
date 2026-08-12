@@ -249,10 +249,10 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
       entries.sort((p, q) => p.depth - q.depth)
       for (const e of entries) {
         // soft glow halo
-        ctx.globalAlpha = e.a * (0.035 + 0.03 * e.pulse)
+        ctx.globalAlpha = e.a * (0.05 + 0.04 * e.pulse)
         ctx.drawImage(e.raster, e.x - e.s * 0.1, e.y - e.s * 0.1, e.s * 1.2, e.s * 1.2)
         // the mark
-        ctx.globalAlpha = e.a * (0.13 + 0.08 * e.pulse)
+        ctx.globalAlpha = e.a * (0.2 + 0.12 * e.pulse)
         ctx.drawImage(e.raster, e.x, e.y, e.s, e.s)
       }
       ctx.globalAlpha = 1
@@ -319,16 +319,24 @@ export function PrizmParallax({ className }: { className?: string }) {
   }, [near])
 
   return (
-    <div ref={ref} aria-hidden="true" className={`pointer-events-none absolute inset-0 overflow-hidden ${className ?? ""}`}>
+    <div
+      ref={ref}
+      aria-hidden="true"
+      className={`pointer-events-none absolute inset-x-0 top-0 h-[1050px] overflow-hidden ${className ?? ""}`}
+    >
+      {/* A bounded stage, roughly viewport-tall like prizm.trading's. The helix's
+          visibility term peaks at the stage's vertical centre and falls off
+          toward its edges, so spanning a 2,000px section would leave every mark
+          in the dim tails. */}
       <Parallax speed={70} className="absolute inset-0">
-        <div className="absolute inset-x-0 -top-[10%] h-[120%]">{near && <RisingHelix tokens={tokens} />}</div>
+        <div className="absolute inset-x-0 -top-[8%] h-[116%]">{near && <RisingHelix tokens={tokens} />}</div>
       </Parallax>
       {/* Feather the field into the page top and bottom so it never cuts hard. */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, #000102 0%, rgba(0,1,2,0.75) 12%, rgba(0,1,2,0.55) 50%, rgba(0,1,2,0.75) 88%, #000102 100%)",
+            "linear-gradient(to bottom, #000102 0%, transparent 14%, transparent 72%, #000102 100%)",
         }}
       />
     </div>
