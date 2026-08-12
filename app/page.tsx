@@ -61,7 +61,7 @@ import { AuditKillChain } from "@/components/audit-killchain"
 // =========================================================
 
 // Every section: drives the orbital dots, the mobile menu and the command menu.
-// `primary` marks the ones the desktop header has room for — the rest stay a
+// `primary` marks the ones the desktop header has room for; the rest stay a
 // keystroke away in ⌘K rather than crowding the bar into the wordmark.
 const navItems: { id: string; label: string; primary?: boolean }[] = [
   { id: "infrastructure", label: "Infrastructure", primary: true },
@@ -195,7 +195,7 @@ const projects: Project[] = [
     title: "ccscan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
-      "Full-history Canton Network explorer and chain API — every Canton Coin transaction since genesis, served from a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, seconds behind chain head) on Blueprint validator infrastructure. 20 public REST endpoints with deterministic keyset cursors, trigram party search, live Scan pass-through for balances and ANS names, metered anonymous-to-enterprise key tiers, and Stripe billing.",
+      "Full-history Canton Network explorer and chain API: every Canton Coin transaction since genesis, served from a custom indexer that transforms the Super Validator Scan API's global feed into a normalized per-party PostgreSQL index (324M+ rows, seconds behind chain head) on Blueprint validator infrastructure. 20 public REST endpoints with deterministic keyset cursors, trigram party search, live Scan pass-through for balances and ANS names, metered anonymous-to-enterprise key tiers, and Stripe billing.",
     tech: ["Canton", "Python", "Flask", "PostgreSQL", "OpenAPI 3.1", "Stripe", "REST API", "Vanilla JS"],
     url: "https://ccscan.xyz",
   },
@@ -203,7 +203,7 @@ const projects: Project[] = [
     title: "agtop",
     subtitle: "Terminal UI for AI Agent Monitoring",
     description:
-      "Process monitor for AI coding agents — like top, but for Claude Code, OpenAI Codex, Aider, Block Goose, and Google Gemini. Reads /proc plus on-disk session transcripts to surface CPU, RSS, in-flight tools and subagents, token usage, estimated cost, and context-window fill. Native FFI on macOS and Windows, with distribution via Cargo, Homebrew, apt, winget, AUR, FreeBSD pkg, and npm.",
+      "Process monitor for AI coding agents: like top, but for Claude Code, OpenAI Codex, Aider, Block Goose, and Google Gemini. Reads /proc plus on-disk session transcripts to surface CPU, RSS, in-flight tools and subagents, token usage, estimated cost, and context-window fill. Native FFI on macOS and Windows, with distribution via Cargo, Homebrew, apt, winget, AUR, FreeBSD pkg, and npm.",
     tech: ["Rust", "Ratatui", "sysinfo", "Cargo", "FFI", "TUI", "Cross-Platform"],
     url: "https://github.com/MBrassey/agtop",
   },
@@ -211,7 +211,7 @@ const projects: Project[] = [
     title: "ccledger",
     subtitle: "Canton Network Infrastructure API",
     description:
-      "Full-stack Canton blockchain platform with 14 REST endpoints, 14 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application — listed in the official Canton app directory.",
+      "Full-stack Canton blockchain platform with 14 REST endpoints, 14 MCP tools, and 7 immutable action types (attest, transfer, lock, mint, settle). Self-service API key registration, CCL rewards token economy, and a gRPC ledger connection to Canton MainNet. Approved by the Canton Foundation as a featured Canton Network application, listed in the official Canton app directory.",
     tech: ["Canton", "Daml", "Spring Boot", "Java 21", "PostgreSQL", "gRPC", "MCP", "OpenAPI 3.1"],
     url: "https://ccledger.xyz",
   },
@@ -268,9 +268,9 @@ function tenure(start: string, end?: string): string {
   return parts.join(" ") || "1 mo"
 }
 
-// "2 yrs" from a "2021 — 2023" period string (year precision only).
+// "2 yrs" from a "2021 - 2023" period string (year precision only).
 function periodYears(period: string): string | null {
-  const m = period.match(/(\d{4})\s*—\s*(\d{4})/)
+  const m = period.match(/(\d{4})\s*-\s*(\d{4})/)
   if (!m) return null
   const yrs = Number(m[2]) - Number(m[1])
   return yrs > 0 ? `${yrs} yr${yrs > 1 ? "s" : ""}` : null
@@ -296,23 +296,23 @@ const experience: {
     title: "Engineering Manager",
     company: "Blueprint, Inc",
     location: "Remote | NYC, NY",
-    period: "2023 — Present",
+    period: "2023 - Present",
     employment: "Full-time",
     roles: [
       { title: "Engineering Manager", start: "2025-02" },
       { title: "Senior Blockchain Infrastructure Engineer", start: "2023-03", end: "2025-02" },
     ],
     description:
-      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Cardano, Cosmos, Polkadot, Kusama, NEAR, Polygon, Stacks, Sui, XDC, Tezos, Algorand, Audius, Canton, and Story — plus Rocket Pool and Lido CSM — monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
+      "Lead for blockchain infrastructure and staking operations at Blueprint, a Hivemind Capital venture. Operating and maintaining high-performance validator fleets across Solana, Ethereum, Avalanche, Cardano, Cosmos, Polkadot, Kusama, NEAR, Polygon, Stacks, Sui, XDC, Tezos, Algorand, Audius, Canton, and Story, plus Rocket Pool and Lido CSM, monitoring consensus health, responding to network events, and ensuring maximum uptime across 50+ nodes.",
     highlights: [
-      "Operating high-performance mainnet validator fleets across 7 distinct L1s with $500M+ staked AUM — Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, and XDC",
-      "Architected the fleet's plug-in automation layer — 15 protocols deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
-      "Exposed the same deploy, upgrade, and identity primitives to AI tooling — enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
+      "Operating high-performance mainnet validator fleets across 7 distinct L1s with $500M+ staked AUM: Solana (Jito), Ethereum (MEV-boosted), Avalanche (8-node fleet for AVAX One treasury), Algorand, Audius (17 nodes), Canton, and XDC",
+      "Architected the fleet's plug-in automation layer covering 15 protocols, all deployed, upgraded, and disaster-recovered the exact same way through three battle-tested primitives: one-command deploy standing up the full node (compute, IAM, networking, monitoring, alerts) with snapshot-accelerated sync live in under an hour; version-pinned, health-gated upgrades that auto-roll-back on failure; and KMS-encrypted signing-key identity migration with old-node quarantine so two nodes never run the same key",
+      "Exposed the same deploy, upgrade, and identity primitives to AI tooling, enabling Claude Code and OpenClaw agents to manage validator lifecycle operations",
       "Designed and implemented microservice architecture with unified blockchain gateway aggregating data across 25+ protocols via custom OpenAPI specification",
-      "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers — driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
+      "Built hybrid infrastructure from the ground up: on-premises bare-metal servers, cloud instances, and third-party RPC providers, driving substantial cost savings by migrating Solana and archival nodes from cloud to bare-metal",
       "Developed custom Node Exporter and Grafana metrics for real-time monitoring of peer count, block height, validator version, uptime, skip rate, and resource utilization across all fleets",
-      "Built Solentic (solentic.theblueprint.xyz) — the first agentic Solana staking infrastructure — exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
-      "Built ccscan (ccscan.xyz) — full-history Canton Network explorer and chain API: a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
+      "Built Solentic (solentic.theblueprint.xyz), the first agentic Solana staking infrastructure, exposing 30 REST endpoints and 26 MCP tools for programmatic stake/unstake, real-time APY breakdowns including Jito MEV, on-chain memo attribution, SHA-256 source verification, and zero-custody unsigned transaction flow",
+      "Built ccscan (ccscan.xyz), the full-history Canton Network explorer and chain API, on a custom indexer ingesting the Super Validator Scan API global feed into a 324M+ row per-party PostgreSQL index on Blueprint validator infrastructure, orchestrated behind 20 public REST endpoints with metered, Stripe-billed API key tiers and an OpenAPI 3.1 spec",
       "Built ccledger (14 REST endpoints, 14 MCP tools for Canton)",
     ],
   },
@@ -320,11 +320,11 @@ const experience: {
     title: "Senior Wallet Operations Engineer",
     company: "Bittrex, Inc",
     location: "Remote | Seattle, WA",
-    period: "2021 — 2023",
+    period: "2021 - 2023",
     description:
       "Highly performant Wallet Operations Engineer responsible for maintaining wallet uptime within one of the world's largest cryptocurrency wallet infrastructures. Operating within a CI/CD pipeline, contributed code deployed to production daily.",
     highlights: [
-      "Maintained over 200 cryptocurrency wallets — managed deposits, withdrawals, and address functionalities",
+      "Maintained over 200 cryptocurrency wallets: managed deposits, withdrawals, and address functionalities",
       "Integrated native blockchains with multiple asset support, onboarded dependent assets across 250+ cryptocurrency projects",
       "Closely monitored and prepared various blockchain components for hard-forks and network updates",
       "Wrote custom Alpine & Ubuntu Dockerfiles to install node/wallet software from source",
@@ -337,7 +337,7 @@ const experience: {
     title: "Operations Center Administrator",
     company: "IBM",
     location: "Remote | Culver City, CA",
-    period: "2015 — 2021",
+    period: "2015 - 2021",
     description:
       "Lead Systems Administrator at IBM. Responsible for the automation and success of monthly patching for over 900 Windows and Linux systems.",
     highlights: [
@@ -352,7 +352,7 @@ const experience: {
     title: "Systems Engineer",
     company: "FLEXTECHS",
     location: "On Site | Boise, ID",
-    period: "2013 — 2015",
+    period: "2013 - 2015",
     description:
       "Configured and installed web servers, domain controllers, desktop nodes, and network equipment for various endpoint locations. Headed physical bare-metal datacenter deployments.",
     highlights: [
@@ -366,7 +366,7 @@ const experience: {
     title: "Founder & CEO",
     company: "EcoServer, LLC",
     location: "Remote | Romoland, CA",
-    period: "2009 — 2013",
+    period: "2009 - 2013",
     description:
       "Established a directly solar-powered website hosting platform by colocating server equipment in a solar-powered data center facility. Integrated WHMCS & cPanel for VPS hosting deployment. Later sold entity to Viridio.",
     highlights: [
@@ -542,7 +542,7 @@ function AnimatedCounter({
 }
 
 const codeLines = [
-  { type: "txt", text: "● I'll fix rewards accounting on the Solana fleet — Jito MEV tips aren't included in the APY gauge." },
+  { type: "txt", text: "● I'll fix rewards accounting on the Solana fleet: Jito MEV tips aren't included in the APY gauge." },
   { type: "blank", text: "" },
   { type: "cmd", text: "● Read(src/validators/solana.ts)" },
   { type: "out", text: "  ⎿  Read 47 lines (ctrl+o to expand)" },
@@ -586,7 +586,7 @@ const codeLines = [
   { type: "todo", text: "     ☐ Roll Avalanche fleet to v1.13.2" },
   { type: "todo", text: "     ☐ Check cc-indexer cursor lag" },
   { type: "blank", text: "" },
-  { type: "txt", text: "● Rolling the Avalanche fleet next — va-1 first, health-gated before the rest follow." },
+  { type: "txt", text: "● Rolling the Avalanche fleet next: va-1 first, health-gated before the rest follow." },
   { type: "blank", text: "" },
   { type: "cmd", text: "● Bash(ssh avax-va-1 'avalanchego --version')" },
   { type: "out", text: "  ⎿  avalanche/1.13.1 [network=mainnet]" },
@@ -629,7 +629,7 @@ const codeLines = [
   { type: "out", text: "  ⎿  cc-indexer  | ingested page=1000 head=321752023 lag=2s" },
   { type: "out", text: "     cc-indexer  | ingested page=1000 head=321752841 lag=1s" },
   { type: "blank", text: "" },
-  { type: "txt", text: "● Fleet is green — 50 nodes reporting, indexer at chain head. Epoch review complete." },
+  { type: "txt", text: "● Fleet is green: 50 nodes reporting, indexer at chain head. Epoch review complete." },
   { type: "blank", text: "" },
   { type: "blank", text: "" },
 ]
@@ -736,13 +736,13 @@ const prizmPillars = [
   {
     icon: CandlestickChart,
     title: "CEX-grade terminal over pure DeFi rails",
-    body: "Pro charts on the deepest pool for any of 100+ SPL markets, a ⌘K market switcher, and Market / Limit / DCA orders wired end-to-end through Jupiter — spot swaps, Trigger for limits, Recurring for DCA — with open-order management and cancel. The frontend never cares whether a fill crosses Raydium, Orca, Meteora or Phoenix: the execution engine turns all of it into one quote, one signature, one receipt.",
+    body: "Pro charts on the deepest pool for any of 100+ SPL markets, a ⌘K market switcher, and Market / Limit / DCA orders wired end-to-end through Jupiter (spot swaps, Trigger for limits, Recurring for DCA) with open-order management and cancel. The frontend never cares whether a fill crosses Raydium, Orca, Meteora or Phoenix: the execution engine turns all of it into one quote, one signature, one receipt.",
     tags: ["Jupiter v6", "limit + DCA", "100+ markets"],
   },
   {
     icon: ShieldCheck,
     title: "One guarded execution path",
-    body: "Every transaction — swap, send, stake, order, strategy — funnels through a single guarded path that fails closed: the tx is bound to an allowlisted program set (resolving all keys behind address-lookup tables), exactly one required signature with this wallet as fee payer, simulation against fresh on-chain state, then delta verification against an independently derived output floor computed from trusted USD prices rather than the aggregator's self-reported number. Only after all of that is the key ever used.",
+    body: "Every transaction (swap, send, stake, order, strategy) funnels through a single guarded path that fails closed: the tx is bound to an allowlisted program set (resolving all keys behind address-lookup tables), exactly one required signature with this wallet as fee payer, simulation against fresh on-chain state, then delta verification against an independently derived output floor computed from trusted USD prices rather than the aggregator's self-reported number. Only after all of that is the key ever used.",
     tags: ["program allowlist", "simulate", "independent floor"],
   },
   {
@@ -754,7 +754,7 @@ const prizmPillars = [
   {
     icon: Layers,
     title: "Atomic strategies & flash-loan aggregation",
-    body: "Drag-and-drop DeFi legos compose into one atomic transaction, with live compile and simulate. A flash-loan aggregator ranks capital across Solana money markets and EVM pools behind a deliberately simple surface, and an immutable on-chain profit guard (Anchor, holds no funds, no authority, no CPI) reverts the whole transaction unless real profit lands in the owner's account — so a failed arb costs gas, never principal.",
+    body: "Drag-and-drop DeFi legos compose into one atomic transaction, with live compile and simulate. A flash-loan aggregator ranks capital across Solana money markets and EVM pools behind a deliberately simple surface, and an immutable on-chain profit guard (Anchor, holds no funds, no authority, no CPI) reverts the whole transaction unless real profit lands in the owner's account, so a failed arb costs gas, never principal.",
     tags: ["Anchor guard", "atomic", "profit-or-revert"],
   },
   {
@@ -773,25 +773,25 @@ const auditPhases = [
   {
     icon: Target,
     title: "9 attacker personas, run in parallel",
-    body: "Every audit is driven by a high-intelligence agent — Claude Opus working the target through a 10-phase kill chain — not a scanner dumping results. The agent reasons under nine attacker personas, each a distinct adversary lens: per batch they run in parallel against the target, each emitting a structured hypothesis bank. The agent poses the attack hypotheses, reasons through the contract's trust model, and decides what is actually exploitable.",
+    body: "Every audit is driven by a high-intelligence agent (Claude Opus working the target through a 10-phase kill chain), not a scanner dumping results. The agent reasons under nine attacker personas, each a distinct adversary lens: per batch they run in parallel against the target, each emitting a structured hypothesis bank. The agent poses the attack hypotheses, reasons through the contract's trust model, and decides what is actually exploitable.",
     tags: ["Claude Opus", "10-phase kill chain", "hypothesis bank"],
   },
   {
     icon: Radar,
-    title: "Tools corroborate — they never author a finding",
-    body: "Across every surviving hypothesis the agent orchestrates a deep tool campaign: static (slither, aderyn, semgrep, wake, mythril), symbolic (halmos, kontrol), fuzz (echidna, medusa, etheno) with persistent corpora that compound across batches, composition (forge, cast, anvil) for multi-step state manipulation, and primitive-replay against a curated disclosure cache — Nomad, Ronin, Multichain, Euler, Curve, Wormhole-22. Static, symbolic and fuzz results confirm or refute a hypothesis; they never write one.",
+    title: "Tools corroborate but never author a finding",
+    body: "Across every surviving hypothesis the agent orchestrates a deep tool campaign: static (slither, aderyn, semgrep, wake, mythril), symbolic (halmos, kontrol), fuzz (echidna, medusa, etheno) with persistent corpora that compound across batches, composition (forge, cast, anvil) for multi-step state manipulation, and primitive-replay against a curated disclosure cache: Nomad, Ronin, Multichain, Euler, Curve, Wormhole-22. Static, symbolic and fuzz results confirm or refute a hypothesis; they never write one.",
     tags: ["static", "symbolic", "fuzz", "primitive replay"],
   },
   {
     icon: Workflow,
     title: "A kill chain that compounds",
-    body: "Per-phase budgets scale by static signal strength, EV-weighted persona slots down-weight unproductive lenses across runs, and a learning DB feeds the next batch with \u201cthis class on this target already returned X\u201d context — so the kill chain compounds rather than re-explores. Eight stacked intel sections (learning DB, attack graph, coverage, fork-diff vs upstream, primitive replay, per-function audit state, symbolic, invariant) feed the agent before it reasons, so nothing is a cold scan funneled to a result.",
+    body: "Per-phase budgets scale by static signal strength, EV-weighted persona slots down-weight unproductive lenses across runs, and a learning DB feeds the next batch with \u201cthis class on this target already returned X\u201d context, so the kill chain compounds rather than re-explores. Eight stacked intel sections (learning DB, attack graph, coverage, fork-diff vs upstream, primitive replay, per-function audit state, symbolic, invariant) feed the agent before it reasons, so nothing is a cold scan funneled to a result.",
     tags: ["learning DB", "EV-weighted", "8 intel sections"],
   },
   {
     icon: Bug,
     title: "Every finding ships with a reproducing PoC",
-    body: "For each surviving hypothesis the agent writes a runnable Foundry PoC that must fail on the vulnerable code — a P6.5 mainnet-fork gate drops any PoC that won't reproduce. An independent defender Claude then critiques it red-team / blue-team and the agent refines over rounds before a finding ships. Single-rig friendly: an optional cross-rig consensus tag records concurrence when peers are configured, but never blocks a solo operator. Live operator visibility on /ops.",
+    body: "For each surviving hypothesis the agent writes a runnable Foundry PoC that must fail on the vulnerable code; a P6.5 mainnet-fork gate drops any PoC that won't reproduce. An independent defender Claude then critiques it red-team / blue-team and the agent refines over rounds before a finding ships. Single-rig friendly: an optional cross-rig consensus tag records concurrence when peers are configured, but never blocks a solo operator. Live operator visibility on /ops.",
     tags: ["Foundry PoC", "mainnet-fork gate", "red/blue team"],
   },
 ]
@@ -804,25 +804,25 @@ const walletArchitecture = [
   {
     icon: KeyRound,
     title: "Passkey-bound key storage",
-    body: "The ed25519 wallet seed is AES-GCM-encrypted under a wrapping key derived from a WebAuthn passkey's PRF extension and persisted in IndexedDB, so every signature requires a live hardware or biometric passkey gesture — only your passkey can spend. Keys are decrypted only inside a scoped withKeypair() boundary and zeroed from memory immediately after use.",
+    body: "The ed25519 wallet seed is AES-GCM-encrypted under a wrapping key derived from a WebAuthn passkey's PRF extension and persisted in IndexedDB, so every signature requires a live hardware or biometric passkey gesture: only your passkey can spend. Keys are decrypted only inside a scoped withKeypair() boundary and zeroed from memory immediately after use.",
     tags: ["WebAuthn PRF", "AES-GCM", "IndexedDB"],
   },
   {
     icon: LifeBuoy,
     title: "BIP39 recovery",
-    body: "24-word mnemonic backup as a direct 32-byte-entropy encoding of the wallet seed (seed ↔ mnemonic, then Keypair.fromSeed), plus an optional user recovery passphrase that encrypts a second in-browser backup — two independent recovery paths, neither of which exposes the key to any server.",
+    body: "24-word mnemonic backup as a direct 32-byte-entropy encoding of the wallet seed (seed ↔ mnemonic, then Keypair.fromSeed), plus an optional user recovery passphrase that encrypts a second in-browser backup. That is two independent recovery paths, neither of which exposes the key to any server.",
     tags: ["BIP39", "24 words", "ed25519"],
   },
   {
     icon: Server,
     title: "Portable vault, hard non-custodial invariant",
-    body: "A passkey-encrypted server-side vault lets a user restore their wallet on a new device or browser. The invariant is enforced server-side: only PRF-mode-wrapped blobs are ever accepted for upload, so the platform stores only ciphertext it structurally cannot open — portability without custody.",
+    body: "A passkey-encrypted server-side vault lets a user restore their wallet on a new device or browser. The invariant is enforced server-side: only PRF-mode-wrapped blobs are ever accepted for upload, so the platform stores only ciphertext it structurally cannot open, portability without custody.",
     tags: ["opaque ciphertext", "server-enforced"],
   },
   {
     icon: RefreshCw,
     title: "Rotation & step-up",
-    body: "Authenticated key rotation with takeover protection — a stale or compromised session elsewhere can't survive a security change — and a step-up recovery and re-enrollment ceremony for the passphrase-vault path.",
+    body: "Authenticated key rotation with takeover protection, a stale or compromised session elsewhere can't survive a security change, and a step-up recovery and re-enrollment ceremony for the passphrase-vault path.",
     tags: ["takeover protection", "step-up auth"],
   },
   {
@@ -834,7 +834,7 @@ const walletArchitecture = [
   {
     icon: ShieldCheck,
     title: "Security-audited",
-    body: "The full wallet surface has been through repeated fresh-eyes security audits — key exposure, fund loss, rotation-takeover, vault-overwrite — with findings triaged and closed. No path to key disclosure or unauthorized spend.",
+    body: "The full wallet surface has been through repeated fresh-eyes security audits (key exposure, fund loss, rotation-takeover, vault-overwrite) with findings triaged and closed. No path to key disclosure or unauthorized spend.",
     tags: ["audited", "fail-closed"],
   },
 ]
@@ -878,12 +878,12 @@ const platformScenarios: {
       { stage: "client", label: "SSE stream opened", start: 0, dur: 14, d: "14ms" },
       { stage: "kernel", label: "deliberation · route → 70B", start: 14, dur: 47, d: "47ms" },
       { stage: "dispatch", label: "enqueue · retries armed", start: 61, dur: 57, d: "57ms" },
-      { stage: "gpu", label: "worker warm — cached weights", start: 118, dur: 522, d: "0.5s" },
+      { stage: "gpu", label: "worker warm: cached weights", start: 118, dur: 522, d: "0.5s" },
       { stage: "gpu", label: "generation · 41 tok/s", start: 640, dur: 4240, d: "4.2s" },
       { stage: "rtc", label: "token stream on SSE bus", start: 2310, dur: 2710, d: "2.7s" },
       { stage: "kernel", label: "memory extract · guards", start: 4880, dur: 130, d: "130ms" },
     ],
-    done: "turn complete — 214 tokens",
+    done: "turn complete · 214 tokens",
   },
   {
     id: "img2img",
@@ -893,8 +893,8 @@ const platformScenarios: {
     spans: [
       { stage: "kernel", label: "scene understanding → prompt", start: 18, dur: 304, d: "0.3s" },
       { stage: "dispatch", label: "route: diffusion endpoint", start: 322, dur: 90, d: "90ms" },
-      { stage: "gpu", label: "cold start — cached weights", start: 412, dur: 3738, d: "3.7s" },
-      { stage: "gpu", label: "multi-ControlNet — edge·depth·pose", start: 4150, dur: 5720, d: "5.7s" },
+      { stage: "gpu", label: "cold start: cached weights", start: 412, dur: 3738, d: "3.7s" },
+      { stage: "gpu", label: "multi-ControlNet: edge·depth·pose", start: 4150, dur: 5720, d: "5.7s" },
       { stage: "gpu", label: "IP-Adapter face embedding", start: 9870, dur: 4330, d: "4.3s" },
       { stage: "gpu", label: "super-resolution upscale", start: 14200, dur: 1210, d: "1.2s" },
       { stage: "rtc", label: "result over SSE", start: 15410, dur: 110, d: "110ms" },
@@ -908,12 +908,12 @@ const platformScenarios: {
     totalLabel: "39.0s",
     spans: [
       { stage: "dispatch", label: "enqueue · stall detection armed", start: 20, dur: 830, d: "0.8s" },
-      { stage: "gpu", label: "video diffusion — frame batches", start: 850, dur: 11450, d: "11.5s" },
+      { stage: "gpu", label: "video diffusion: frame batches", start: 850, dur: 11450, d: "11.5s" },
       { stage: "dispatch", label: "stall → retry 1/3 · backoff", start: 12300, dur: 1450, d: "1.5s", warn: true },
-      { stage: "gpu", label: "resume — no double-billing", start: 13750, dur: 24650, d: "24.7s" },
+      { stage: "gpu", label: "resume: no double-billing", start: 13750, dur: 24650, d: "24.7s" },
       { stage: "rtc", label: "delivery · receipt stored", start: 38400, dur: 620, d: "0.6s" },
     ],
-    done: "clip ready — credits settled",
+    done: "clip ready · credits settled",
   },
   {
     id: "webrtc",
@@ -922,12 +922,12 @@ const platformScenarios: {
     totalLabel: "0.61s",
     spans: [
       { stage: "client", label: "signaling on SSE bus", start: 0, dur: 24, d: "24ms" },
-      { stage: "rtc", label: "TURN creds — short-lived HMAC", start: 24, dur: 34, d: "34ms" },
+      { stage: "rtc", label: "TURN creds: short-lived HMAC", start: 24, dur: 34, d: "34ms" },
       { stage: "rtc", label: "relay-first ICE gather", start: 58, dur: 252, d: "0.25s" },
       { stage: "rtc", label: "peers connect · DTLS-SRTP", start: 310, dur: 170, d: "0.17s" },
       { stage: "client", label: "canvas media-track transform", start: 480, dur: 130, d: "0.13s" },
     ],
-    done: "p2p call live — heartbeats armed",
+    done: "p2p call live · heartbeats armed",
   },
   {
     id: "cron",
@@ -935,7 +935,7 @@ const platformScenarios: {
     total: 2255,
     totalLabel: "2.26s",
     spans: [
-      { stage: "kernel", label: "cron fire — CAS claim", start: 0, dur: 38, d: "38ms" },
+      { stage: "kernel", label: "cron fire: CAS claim", start: 0, dur: 38, d: "38ms" },
       { stage: "kernel", label: "reflection over memory", start: 38, dur: 382, d: "0.4s" },
       { stage: "dispatch", label: "route: draft → 70B", start: 420, dur: 140, d: "140ms" },
       { stage: "gpu", label: "draft · classifiers pass", start: 560, dur: 1550, d: "1.6s" },
@@ -949,11 +949,11 @@ const platformScenarios: {
     total: 3180,
     totalLabel: "53m",
     spans: [
-      { stage: "worker", label: "pod spun per-run — 80 GB", start: 0, dur: 41, d: "41s" },
-      { stage: "gpu", label: "QLoRA 4-bit — 70B shard-in", start: 41, dur: 819, d: "14m" },
+      { stage: "worker", label: "pod spun per-run: 80 GB", start: 0, dur: 41, d: "41s" },
+      { stage: "gpu", label: "QLoRA 4-bit: 70B shard-in", start: 41, dur: 819, d: "14m" },
       { stage: "gpu", label: "epochs 1–3 · loss 1.84 → 1.12", start: 860, dur: 1603, d: "27m" },
       { stage: "gpu", label: "checkpoint → network volume", start: 2463, dur: 664, d: "11m" },
-      { stage: "worker", label: "teardown — $0 idle", start: 3127, dur: 53, d: "53s" },
+      { stage: "worker", label: "teardown: $0 idle", start: 3127, dur: 53, d: "53s" },
     ],
     done: "blind-A/B rollout queued",
   },
@@ -1149,9 +1149,9 @@ const aiPlatformDomains = [
     title: "Autonomous LLM Agent",
     span: 3,
     bullets: [
-      "Stateful, long-lived agent with a multi-facet cognition loop — deliberation before response, structured memory extraction, reflection, and proactive self-scheduling — unified by a single prompt kernel with per-task model routing across a fleet of inference endpoints.",
+      "Stateful, long-lived agent with a multi-facet cognition loop (deliberation before response, structured memory extraction, reflection, and proactive self-scheduling) unified by a single prompt kernel with per-task model routing across a fleet of inference endpoints.",
       "Typed, persistent, envelope-encrypted memory store with streaming token responses. Self-initiated behavior runs on cron jobs guarded by idempotency, rate limiting, and compare-and-set claims, so autonomous actions never duplicate or race.",
-      "Every model-generated output hardened with layered prompt-injection defense and fail-closed content classifiers — deterministic screens plus LLM — with strict egress isolation between users.",
+      "Every model-generated output hardened with layered prompt-injection defense and fail-closed content classifiers, deterministic screens plus LLM, with strict egress isolation between users.",
     ],
     tags: ["prompt kernel", "model routing", "CAS claims", "fail-closed"],
   },
@@ -1161,7 +1161,7 @@ const aiPlatformDomains = [
     span: 3,
     bullets: [
       "Serverless GPU inference platform (RunPod): min-0 pay-per-use autoscaling, network-volume weight caching for fast cold starts, per-endpoint execution ceilings, and a dispatch layer with bounded retries, exponential backoff, stall detection, and orphaned-job reconciliation with automatic refund.",
-      "Containerized model workers built and published by CI to a private registry — SHA-pinned, canary-then-fleet rollout with documented rollback.",
+      "Containerized model workers built and published by CI to a private registry, SHA-pinned, canary-then-fleet rollout with documented rollback.",
       "Custom training on ephemeral GPU pods spun per-run and torn down after: 4-bit QLoRA fine-tuning of a 70B LLM from a synthetically generated corpus, LoRA adapters for the diffusion stack, network-volume checkpointing, and blind-A/B rollout.",
       "VRAM discipline on shared 80 GB cards: sequential load/release, subprocess isolation for conflicting CUDA stacks, allocator tuning, and race-safe self-healing model-asset fetch on shared volumes.",
     ],
@@ -1237,7 +1237,7 @@ const fleetPrimitives = [
     label: "Deploy",
     icon: Rocket,
     blurb:
-      "One command stands up the full node — compute, IAM, networking, monitoring, alerts. Snapshot-accelerated sync goes live in under an hour, not days.",
+      "One command stands up the full node: compute, IAM, networking, monitoring, alerts. Snapshot-accelerated sync goes live in under an hour, not days.",
   },
   {
     id: "upgrade",
@@ -1251,7 +1251,7 @@ const fleetPrimitives = [
     label: "Identity",
     icon: KeyRound,
     blurb:
-      "The node's one irreplaceable signing key — KMS-encrypted, auto-restored on redeploy, and migratable host-to-host with the old node quarantined so two nodes never sign at once.",
+      "The node's one irreplaceable signing key: KMS-encrypted, auto-restored on redeploy, and migratable host-to-host with the old node quarantined so two nodes never sign at once.",
   },
 ] as const
 
@@ -1271,34 +1271,34 @@ function fleetTranscript(chain: FleetChain, primitive: FleetPrimitiveId): FleetL
     return [
       { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
       { kind: "cmd", text: `fleet deploy ${slug} --region us-east-1` },
-      { kind: "step", text: "terraform apply — compute · IAM · networking", meta: "42s" },
-      { kind: "step", text: "firewall — p2p open · RPC bound internal" },
-      { kind: "step", text: "monitoring — node-exporter · Grafana · alerts" },
-      { kind: "step", text: `snapshot restore — ${snap} verified` },
-      { kind: "step", text: "sync to head — snapshot-accelerated" },
-      { kind: "done", text: `${slug}-04 live in ${live} — signing enabled` },
+      { kind: "step", text: "terraform apply: compute · IAM · networking", meta: "42s" },
+      { kind: "step", text: "firewall: p2p open · RPC bound internal" },
+      { kind: "step", text: "monitoring: node-exporter · Grafana · alerts" },
+      { kind: "step", text: `snapshot restore: ${snap} verified` },
+      { kind: "step", text: "sync to head: snapshot-accelerated" },
+      { kind: "done", text: `${slug}-04 live in ${live} · signing enabled` },
     ]
   }
   if (primitive === "upgrade") {
     return [
       { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
       { kind: "cmd", text: `fleet upgrade ${slug} --pin ${version}` },
-      { kind: "step", text: `version pin — ${client} → ${version}` },
-      { kind: "step", text: `canary — ${slug}-01 upgraded first` },
-      { kind: "step", text: "health gate — head advancing · peers stable" },
-      { kind: "step", text: "auto-rollback — armed on gate failure" },
-      { kind: "step", text: "rollout — remaining nodes, one at a time" },
-      { kind: "done", text: `fleet on ${version} — zero downtime · zero slashing` },
+      { kind: "step", text: `version pin: ${client} → ${version}` },
+      { kind: "step", text: `canary: ${slug}-01 upgraded first` },
+      { kind: "step", text: "health gate: head advancing · peers stable" },
+      { kind: "step", text: "auto-rollback: armed on gate failure" },
+      { kind: "step", text: "rollout: remaining nodes, one at a time" },
+      { kind: "done", text: `fleet on ${version} · zero downtime · zero slashing` },
     ]
   }
   return [
     { kind: "note", text: `${chain.name} plug-in · client: ${client}` },
     { kind: "cmd", text: `fleet identity migrate ${slug} --to ${slug}-09` },
-    { kind: "step", text: "signing key — KMS decrypt · envelope" },
-    { kind: "step", text: `source node — ${slug}-02 quarantined from p2p` },
-    { kind: "step", text: `restore — key on ${slug}-09 · test-sign ok` },
-    { kind: "step", text: "double-sign guard — old host fenced" },
-    { kind: "done", text: `identity live on ${slug}-09 — one key, never two nodes` },
+    { kind: "step", text: "signing key: KMS decrypt · envelope" },
+    { kind: "step", text: `source node: ${slug}-02 quarantined from p2p` },
+    { kind: "step", text: `restore: key on ${slug}-09 · test-sign ok` },
+    { kind: "step", text: "double-sign guard: old host fenced" },
+    { kind: "done", text: `identity live on ${slug}-09 · one key, never two nodes` },
   ]
 }
 
@@ -1523,7 +1523,7 @@ function FleetAutomation() {
 // =========================================================
 
 // Two or three marks light up and pulse as if hovered, then hand the glow to a
-// new random set — a quiet heartbeat across the protocol row.
+// new random set, a quiet heartbeat across the protocol row.
 function FooterTechRow() {
   const [lit, setLit] = useState<number[]>([])
 
@@ -1569,7 +1569,7 @@ function FooterTechRow() {
 
 // A spread right wing behind the profile summary: one light clear-glass pane
 // per rendered text line, each measured off the live layout so its feather tip
-// always clears the line it backs, with an organically tapering overhang —
+// always clears the line it backs, with an organically tapering overhang:
 // longest at the top, re-measured on every resize.
 function WingPanes() {
   const selfRef = useRef<HTMLDivElement>(null)
@@ -1587,7 +1587,7 @@ function WingPanes() {
       const rects = Array.from(range.getClientRects()).filter((r) => r.width > 0)
       range.detach()
       const hostRect = host.getBoundingClientRect()
-      // Fragments (styled spans) split lines into several rects — merge by row.
+      // Fragments (styled spans) split lines into several rects, merge by row.
       const lines: { top: number; bottom: number; right: number }[] = []
       for (const r of rects.sort((a, b) => a.top - b.top)) {
         const last = lines[lines.length - 1]
@@ -1680,11 +1680,11 @@ const CANTON_POLL_MS = 6000
 const CANTON_FIRST_REFRESH_MS = 2500
 
 // Seed an initial rate from tx_24h, damped toward the observed steady state (the
-// 24h mean overstates it — bursts pull the average up). Only used to decide how
+// 24h mean overstates it, bursts pull the average up). Only used to decide how
 // far behind the head to start; the measured rate takes over within seconds.
 const CANTON_SEED_DAMPING = 0.6
-// Start the counter this far behind the confirmed head — slightly more than one
-// poll interval — so there is always real, already-confirmed ground to cover and
+// Start the counter this far behind the confirmed head, slightly more than one
+// poll interval, so there is always real, already-confirmed ground to cover and
 // the number is visibly climbing from the first frame.
 const CANTON_LAG_S = 8
 // Easing time constant for closing the gap to the confirmed head.
@@ -1941,7 +1941,7 @@ function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChange: (o: 
 }
 
 // =========================================================
-// WAKATIME (eager — starts downloading with the page)
+// WAKATIME (eager, starts downloading with the page)
 // =========================================================
 
 function WakaTimeChart() {
@@ -1963,7 +1963,7 @@ function WakaTimeChart() {
 }
 
 // =========================================================
-// FOOTER TECH MARKS (inline — no icon CDN)
+// FOOTER TECH MARKS (inline, no icon CDN)
 // =========================================================
 
 const footerTech: { label: string; path: string; viewBox?: string }[] = [
@@ -2310,7 +2310,7 @@ export default function Home() {
               className="space-y-3"
             >
               <p className="text-lg sm:text-xl md:text-2xl text-[#4B7F9B]">
-                Engineering Manager, Staking — Blockchain Infrastructure Architect
+                Engineering Manager, Staking, Blockchain Infrastructure Architect
               </p>
               <p className="text-slate-400 max-w-2xl ml-auto text-sm sm:text-base">
                 Commanding 50+ validators across 25+ protocols with $500M+ staked AUM. Building the decentralized future from
@@ -2428,8 +2428,8 @@ export default function Home() {
                   Engineering Manager of Staking at{" "}
                   <span className="text-[#4B7F9B]">Blueprint</span>, a{" "}
                   <span className="text-[#4B7F9B]">Hivemind Capital</span>{" "}venture. I operate high-performance validator
-                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and NEAR —
-                  plus Rocket Pool and Lido CSM on the Ethereum side — 50+ nodes with
+                  fleets across Solana, Ethereum, Avalanche, Algorand, Audius, Canton, Tezos, Polkadot, XDC, and NEAR,
+                  plus Rocket Pool and Lido CSM on the Ethereum side: 50+ nodes with
                   $500M+ staked AUM on hybrid bare-metal and cloud infrastructure I built from the ground up. I designed
                   a unified blockchain gateway aggregating live and historical data across 25+ protocols through a
                   custom OpenAPI specification, and built the deploy, upgrade, and identity primitives that power
@@ -2579,9 +2579,9 @@ export default function Home() {
                   One Layer <span className="gradient-text">Runs the Fleet</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet — 15
+                  One automation layer deploys, upgrades, and disaster-recovers the entire validator fleet, 15
                   protocols, each a plug-in behind three battle-tested primitives. Add a chain, scale capacity, or
-                  recover from an outage in minutes with the same audited, repeatable ops — never another bespoke setup.
+                  recover from an outage in minutes with the same audited, repeatable ops, never another bespoke setup.
                   Pick any chain: the choreography never changes.
                 </p>
               </motion.div>
@@ -2621,7 +2621,7 @@ export default function Home() {
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   17 years of battle-tested engineering provides the wisdom and architectural judgment that transforms
                   AI from a tool into a force multiplier. As an elite AI operator and cutting-edge technology adopter,
-                  I combine deep infrastructure expertise with 1000x development velocity — the experience to know
+                  I combine deep infrastructure expertise with 1000x development velocity, the experience to know
                   what to build, and the AI mastery to ship it in days instead of months.
                 </p>
               </motion.div>
@@ -2637,7 +2637,7 @@ export default function Home() {
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
                       As operator and commander of elite AI agent fleets, I orchestrate specialized agents across
-                      every layer of the stack — infrastructure provisioning, smart contract development,
+                      every layer of the stack, infrastructure provisioning, smart contract development,
                       frontend engineering, API design, security auditing, and automated testing. I practice compound
                       engineering where every code review, bug fix, and deployment compounds into persistent rules
                       that apply to all future work. I build custom MCP servers and author agent-facing runbooks
@@ -2654,11 +2654,11 @@ export default function Home() {
                       <h3 className="text-lg font-bold">Experience + Velocity = Elite Operator</h3>
                     </div>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      17 years of engineering — from managing 900+ servers at IBM to maintaining 200+ wallets
-                      at Bittrex to running $500M+ in staked validator infrastructure — provides the experience
+                      17 years of engineering, from managing 900+ servers at IBM to maintaining 200+ wallets
+                      at Bittrex to running $500M+ in staked validator infrastructure, provides the experience
                       that separates an elite AI operator from someone just prompting. Cloud-to-bare-metal migrations,
                       custom Grafana monitoring pipelines, automated node provisioning with AWS launch templates,
-                      and Dockerized blockchain deployments from source — all encoded into persistent agent
+                      and Dockerized blockchain deployments from source, all encoded into persistent agent
                       rules and deterministic runbooks so every deployment compounds on the last. Experience is the
                       compass; AI is the engine.
                     </p>
@@ -2710,9 +2710,9 @@ export default function Home() {
                       </div>
                       <div className="text-slate-500 pl-4">⎿ Done (17 tool uses · 28.9k tokens)</div>
                       <div className="pt-1.5 text-slate-300/90">
-                        ● Audit clean — <span className="text-emerald-400">0 critical, 0 high, 0 medium</span>.
+                        ● Audit clean: <span className="text-emerald-400">0 critical, 0 high, 0 medium</span>.
                       </div>
-                      <div className="text-slate-500 pl-4">SQL injection: none — parameterized throughout</div>
+                      <div className="text-slate-500 pl-4">SQL injection: none, parameterized throughout</div>
                       <div className="text-slate-500 pl-4">API keys: SHA-256 hashed at rest · rate limits enforced</div>
                       <div className="text-slate-500 pl-4">Headers: HSTS, CSP, X-Frame-Options verified</div>
 
@@ -2790,7 +2790,7 @@ export default function Home() {
                   Solana <span className="gradient-text">DeFi Wallet</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Non-custodial, browser-native, passkey-secured — live market data.
+                  Non-custodial, browser-native, passkey-secured, live market data.
                 </p>
               </motion.div>
 
@@ -2801,7 +2801,7 @@ export default function Home() {
               <motion.div variants={slideUp} className="mt-12 sm:mt-16 space-y-4 mb-8">
                 <h3 className="text-xl sm:text-2xl font-bold tracking-tight">Security architecture</h3>
                 <p className="text-slate-400 max-w-3xl text-sm sm:text-base">
-                  Non-custodial wallet engineering — self-custody key management on Solana with WebAuthn. The private
+                  Non-custodial wallet engineering, self-custody key management on Solana with WebAuthn. The private
                   key never leaves the user&apos;s device and the server can never spend or decrypt it, with
                   recoverability and cross-device portability layered on without breaking that guarantee.
                 </p>
@@ -2841,8 +2841,8 @@ export default function Home() {
               <motion.div variants={slideUp} className="mt-4 p-6 rounded-lg border border-[#4B7F9B]/25 bg-[#4B7F9B]/[0.05]">
                 <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                   <span className="text-[#4B7F9B] font-semibold">The distinctive engineering:</span> reconciling three
-                  normally-conflicting requirements — true self-custody, real recoverability, and seamless
-                  cross-device use — by making the server a store of opaque, passkey-wrapped ciphertext rather than a
+                  normally-conflicting requirements: true self-custody, real recoverability, and seamless
+                  cross-device use, by making the server a store of opaque, passkey-wrapped ciphertext rather than a
                   custodian.
                 </p>
               </motion.div>
@@ -2869,9 +2869,9 @@ export default function Home() {
                   Real-Time <span className="gradient-text">Consumer AI Platform</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Personal project — solo architect and full-stack/ML engineer on an end-to-end system spanning GPU
+                  Personal project, solo architect and full-stack/ML engineer on an end-to-end system spanning GPU
                   inference infrastructure, generative-media pipelines, an autonomous LLM agent, and real-time WebRTC
-                  — from containerized model workers through the production web app.
+                 , from containerized model workers through the production web app.
                 </p>
               </motion.div>
 
@@ -2940,7 +2940,7 @@ export default function Home() {
                   <span>// prizm-trading</span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
-                  PRIZM — <span className="gradient-text">Solana Trading Platform &amp; DEX</span>
+                  PRIZM, <span className="gradient-text">Solana Trading Platform &amp; DEX</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
                   Personal project, live at{" "}
@@ -2952,9 +2952,9 @@ export default function Home() {
                   >
                     prizm.trading
                   </Link>
-                  . A non-custodial trading platform on Solana — spot, limit and DCA execution, DeFi yield, liquid
+                  . A non-custodial trading platform on Solana: spot, limit and DCA execution, DeFi yield, liquid
                   staking, and atomic flash-loan strategies in one account whose keys never leave the device. Below is
-                  the actual terminal code — the chart and order book from the trade page — running on live mainnet
+                  the actual terminal code, the chart and order book from the trade page, running on live mainnet
                   market data.
                 </p>
               </motion.div>
@@ -3123,7 +3123,7 @@ export default function Home() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Experience</h2>
                 <p className="text-slate-400 max-w-2xl text-base sm:text-lg">
-                  17+ years of engineering — from founding a hosting company to managing $500M+ in blockchain staking
+                  17+ years of engineering, from founding a hosting company to managing $500M+ in blockchain staking
                   infrastructure.
                 </p>
               </motion.div>
@@ -3172,7 +3172,7 @@ export default function Home() {
                               )}
                               <div className="text-sm font-semibold text-slate-200">{r.title}</div>
                               <div className="font-mono text-xs text-slate-500" suppressHydrationWarning>
-                                {fmtMonth(r.start)} — {r.end ? fmtMonth(r.end) : "Present"} · {tenure(r.start, r.end)}
+                                {fmtMonth(r.start)}, {r.end ? fmtMonth(r.end) : "Present"} · {tenure(r.start, r.end)}
                               </div>
                             </div>
                           ))}

@@ -6,8 +6,8 @@
 // upstream read per window, the same pattern /api/canton uses.
 //
 // Two datasets, one hop each:
-//   candles — OHLCV for the chart (GeckoTerminal via PRIZM's cache)
-//   trades  — recent executed flow for the order book's basins and ladder
+//   candles, OHLCV for the chart (GeckoTerminal via PRIZM's cache)
+//   trades , recent executed flow for the order book's basins and ladder
 
 export const runtime = "nodejs"
 export const dynamic = "force-dynamic"
@@ -17,7 +17,7 @@ const UPSTREAM = "https://www.prizm.trading"
 const KINDS = { candles: 8_000, trades: 4_000, tokens: 60_000 } as const
 type Kind = keyof typeof KINDS
 const TIMEFRAMES = new Set(["1m", "5m", "15m", "1h", "4h", "1d"])
-// Base58, the only shape a Solana mint takes — never interpolate raw input.
+// Base58, the only shape a Solana mint takes, never interpolate raw input.
 const MINT_RE = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/
 
 const cache = new Map<string, { at: number; body: unknown }>()

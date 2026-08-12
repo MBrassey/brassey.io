@@ -5,7 +5,7 @@ export const size = {
   height: 630,
 }
 export const contentType = "image/png"
-export const alt = "Matt Brassey — Blockchain Infrastructure Architect & Engineering Manager"
+export const alt = "Matt Brassey · Blockchain Infrastructure Architect & Engineering Manager"
 
 async function loadFonts() {
   try {

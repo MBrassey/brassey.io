@@ -2,7 +2,7 @@
 //
 // Alchemy leads (its key stays server-side); Jupiter fills anything Alchemy
 // misses and takes over when the quota is spent. 24h change comes from Jupiter's
-// own field when present, else it is derived from Alchemy's historical series —
+// own field when present, else it is derived from Alchemy's historical series.
 // Alchemy publishes no change field, so it is computed rather than trusted.
 // See lib/market.ts for the shared cache and both legs.
 

@@ -14,9 +14,9 @@ export default function NotFound() {
           <div className="text-slate-500">
             <span className="text-emerald-400">$</span> curl -I brassey.io/…
           </div>
-          <div className="text-red-400/90">HTTP/2 404 — route not found</div>
+          <div className="text-red-400/90">HTTP/2 404 · route not found</div>
           <p className="text-xs text-slate-500 leading-relaxed">
-            The path you requested doesn&apos;t exist on this host. Every other route on this box is monitored — this
+            The path you requested doesn&apos;t exist on this host. Every other route on this box is monitored, and this
             one just isn&apos;t wired up.
           </p>
           <div className="pt-2">

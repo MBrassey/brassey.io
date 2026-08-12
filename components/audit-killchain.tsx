@@ -9,7 +9,7 @@
  * gate that cannot make them reproduce. The narrowing is the point.
  *
  * The GDScript `paint(fx)` painter maps one-to-one onto the canvas primitives
- * below — same geometry, same timings, same survivor counts — so the animation
+ * below (same geometry, same timings, same survivor counts) so the animation
  * matches the slide frame for frame without shipping a second engine to a
  * portfolio page.
  */
@@ -43,7 +43,7 @@ const PHASES = ["P0", "P1", "P2", "P3", "P4", "P5", "P6", "P6.5", "P7", "P8"]
 const TITLES = ["recon", "hypoth", "static", "symbol", "fuzz", "compose", "PoC", "fork gate", "defender", "refine"]
 const SURVIVE = [41, 41, 33, 27, 22, 18, 12, 6, 4, 1]
 
-/** The deck's deterministic hash — same seeds produce the same field. */
+/** The deck's deterministic hash, same seeds produce the same field. */
 const rnd = (seed: number) => {
   const v = Math.sin(seed * 12.9898) * 43758.5453123
   return v - Math.floor(v)

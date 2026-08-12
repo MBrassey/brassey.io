@@ -1,14 +1,14 @@
 // Shared, server-only market data. Every price, change, cross-rate and candle
 // on this site comes through here, so one source of truth backs them all.
 //
-// Alchemy is primary — its Prices API is the most reliable feed available with
+// Alchemy is primary, its Prices API is the most reliable feed available with
 // the key this site holds, and the key never leaves the server. Jupiter is the
 // fallback leg for anything Alchemy does not cover or when its quota is spent.
 // Nothing here is ever fabricated: a value that cannot be established comes
 // back null so the surface shows a dash instead of a confident wrong number.
 //
 // Note on transports: Alchemy publishes no price websocket (its WS is chain
-// JSON-RPC — accountSubscribe and friends — not token prices), so "live" here
+// JSON-RPC, accountSubscribe and friends, not token prices), so "live" here
 // means a short server-side cache in front of the REST feed, shared across all
 // visitors. That is both faster and far more reliable for a public page than a
 // per-visitor socket, and it keeps the quota from being burned by traffic.
@@ -110,12 +110,12 @@ export async function alchemySpot(mints: string[]): Promise<Record<string, numbe
   }
 }
 
-/** Jupiter's price feed — usdPrice plus its own 24h change. The fallback leg. */
+/** Jupiter's price feed, usdPrice plus its own 24h change. The fallback leg. */
 export async function jupiterSpot(mints: string[]): Promise<Record<string, Spot>> {
   const out: Record<string, Spot> = {}
   for (const m of mints) out[m] = { usd: null, change24h: null }
   if (mints.length === 0) return out
-  // Keyed host only — this site does not read unkeyed public feeds.
+  // Keyed host only, this site does not read unkeyed public feeds.
   const jk = process.env.JUPITER_API_KEY
   if (!jk) return out
   try {
@@ -191,7 +191,7 @@ export function change24hFrom(series: { t: number; v: number }[], nowUsd: number
  * Fold a price series into OHLC candles of `bucketSec`.
  *
  * Alchemy quotes one price per interval, not OHLC, so a candle is only honest
- * when several samples land inside it — hence the finer source interval per
+ * when several samples land inside it, hence the finer source interval per
  * timeframe below. Volume is NOT part of this feed and is left at zero rather
  * than invented; the chart hides its histogram when the candles carry none.
  */
@@ -225,7 +225,7 @@ const JUP_INTERVAL: Record<string, string> = {
 }
 
 /**
- * OHLCV candles from Jupiter's keyed chart feed — real open/high/low/close AND
+ * OHLCV candles from Jupiter's keyed chart feed, real open/high/low/close AND
  * real volume, which the price feeds cannot give. This is the primary candle
  * source; Alchemy's historical series is the fallback (see toCandles).
  */
@@ -269,7 +269,7 @@ export const JITOSOL_MINT = "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn"
  * A liquid-staking token accrues by appreciating against its underlying, so the
  * growth of the jitoSOL/SOL ratio over a window IS the realised yield: take the
  * ratio 30 days ago and now, and annualise. Returns null when either series is
- * unavailable — an APY is never guessed on a money surface.
+ * unavailable, an APY is never guessed on a money surface.
  */
 export async function jitoApyFromRatio(): Promise<number | null> {
   const days = 30

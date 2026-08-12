@@ -8,7 +8,7 @@
  * holds its station on the strand (uniform speed, evenly-spaced phases), swings
  * front-to-back as the strand turns, and bobs, sways and pulses like a bubble on
  * its way up. Every logo is rendered in the muted steel duotone this site uses
- * for protocol marks, so the field reads as one ambient system — never louder
+ * for protocol marks, so the field reads as one ambient system, never louder
  * than the interface over it. The whole stage drifts against the scroll.
  *
  * The marks are the real top-100 SPL tokens, their logos proxied same-origin so
@@ -112,7 +112,7 @@ function toSteelDuotone(img: HTMLImageElement): HTMLCanvasElement | null {
       px[i + 2] = DARK[2] + (LIGHT[2] - DARK[2]) * l
     }
     // Most SPL tokens publish full-bleed square art, so no shape filtering here
-    // — the landing page draws them all and the duotone plus the low compositing
+    //, the landing page draws them all and the duotone plus the low compositing
     // alpha is what keeps the field ambient. A soft radial falloff takes the
     // hard corner off a square mark without dropping it from the strand.
     const c2 = size / 2
@@ -205,7 +205,7 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
         return
       }
       const travel = H * 1.9 + 300
-      // Sparse strand — on prizm.trading's viewport-tall stage that is ~22 marks
+      // Sparse strand, on prizm.trading's viewport-tall stage that is ~22 marks
       // up at once. Travel scales with the stage height, so hold the marks-per-
       // pixel density instead of the count: a section-tall stage would otherwise
       // stretch the same 22 marks over twice the climb and read as empty. Each
@@ -284,7 +284,7 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
 
 /**
  * The rising-token helix as a parallaxing backdrop for the PRIZM section. The
- * token list loads on approach — the marks are real logos, so there's no reason
+ * token list loads on approach, the marks are real logos, so there's no reason
  * to fetch a hundred of them before the section is anywhere near the viewport.
  */
 export function PrizmParallax({ className }: { className?: string }) {
@@ -311,7 +311,7 @@ export function PrizmParallax({ className }: { className?: string }) {
   }, [])
 
   // The list itself is one small JSON, so fetch it at mount rather than on
-  // approach — the images then have a head start the moment `near` flips.
+  // approach, the images then have a head start the moment `near` flips.
   useEffect(() => {
     let alive = true
     ;(async () => {

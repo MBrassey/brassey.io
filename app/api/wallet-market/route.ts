@@ -1,4 +1,4 @@
-// Market feed for the wallet demo — keyed sources only.
+// Market feed for the wallet demo, keyed sources only.
 //
 // Alchemy's Prices API leads and Jupiter's keyed feed fills the gaps, both
 // through lib/market so this surface can never disagree with the trading

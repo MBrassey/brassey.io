@@ -13,7 +13,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ mint: string }
   const { mint } = await ctx.params
   if (!MINT_RE.test(mint)) return new Response("bad mint", { status: 400 })
   try {
-    // strict=1: the real icon or nothing — a generic monogram would put letter
+    // strict=1: the real icon or nothing, a generic monogram would put letter
     // circles in the helix instead of protocol marks.
     const res = await fetch(`${UPSTREAM}/api/logo/${mint}?strict=1`, {
       signal: AbortSignal.timeout(10_000),

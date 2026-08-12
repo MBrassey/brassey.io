@@ -7,9 +7,9 @@
  * palette. Data arrives through /api/prizm, a server-side proxy onto PRIZM's own
  * same-origin market routes.
  *
- *  • Chart — TradingView lightweight-charts, candles + volume over the deepest
+ *  • Chart, TradingView lightweight-charts, candles + volume over the deepest
  *    pool for the mint, polled on a per-timeframe cadence.
- *  • Order book — Solana AMM pairs have no central L2 book, so this is built
+ *  • Order book, Solana AMM pairs have no central L2 book, so this is built
  *    honestly from real executed flow: two basins of living liquid (one per
  *    side) holding that side's volume over a rolling window measured against a
  *    slow-decaying peak, over a price-level ladder showing the buy/sell split.
@@ -36,6 +36,7 @@ const MARKETS = [
   { symbol: "SOL", mint: "So11111111111111111111111111111111111111112" },
   { symbol: "JITOSOL", mint: "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn" },
   { symbol: "JUP", mint: "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN" },
+  { symbol: "USDC", mint: "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" },
 ] as const
 
 function fmtPrice(n: number): string {
@@ -254,7 +255,7 @@ function TradeChart({
     let live = false
     let empties = 0
     setState("loading")
-    // Wipe the previous market immediately — otherwise its candles sit under
+    // Wipe the previous market immediately, otherwise its candles sit under
     // the skeleton until the new ones arrive, which reads as a stuck chart.
     candleRef.current?.setData([])
     volRef.current?.setData([])
@@ -336,7 +337,7 @@ function TradeChart({
   }, [mint, tf])
 
   // Between candle refreshes, walk the newest candle's close to the live spot
-  // price — the same price the header shows — so the right edge is never stale.
+  // price, the same price the header shows, so the right edge is never stale.
   const lastRef = useRef<Candle | null>(null)
   useEffect(() => {
     const c = lastRef.current
@@ -615,7 +616,7 @@ function LiquidPool({
       }
 
       // Terrain: when the side's flow arrived across the window, oldest at the
-      // left edge — sediment the basin holds, clipped to the liquid.
+      // left edge, sediment the basin holds, clipped to the liquid.
       const sil = silRef.current
       if (sil && sil.length > 1) {
         ctx.beginPath()
@@ -906,7 +907,7 @@ function useFlow(trades: TradeRow[] | null) {
     const fresh = list.filter((t) => t.ts >= cutoff && !seen.current.has(t.tx))
     for (const t of fresh) seen.current.add(t.tx)
     if (seen.current.size > 1200) seen.current = new Set([...seen.current].slice(-600))
-    // The first poll is backfill, not news — don't splash a minute of history.
+    // The first poll is backfill, not news, don't splash a minute of history.
     if (!primed.current) {
       primed.current = true
       return
@@ -950,7 +951,7 @@ function useFlow(trades: TradeRow[] | null) {
         ref: Math.max(buy, sell, live.current.ref * 0.9997),
       }
 
-      // Release queued fills one at a time — a poll can land eight at once and
+      // Release queued fills one at a time, a poll can land eight at once and
       // they should arrive as eight separate hits, not one thump.
       if (pending.current.length && now - releasedAt > 110) {
         releasedAt = now
@@ -1101,7 +1102,7 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
   const buyShare = flowTotal > 0 ? snap.buy / flowTotal : 0.5
   const winning = buyShare >= 0.5
   const delta = Math.abs(snap.buy - snap.sell)
-  // The basins are always mounted — only the ladder waits on a priced model —
+  // The basins are always mounted, only the ladder waits on a priced model, so
   // so switching markets never tears the panel down and rebuilds it at a
   // different height.
   const ladder = model?.ladder ?? []
@@ -1196,7 +1197,7 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
             ))
           ) : (
             <p className="px-3 py-6 text-center text-[11px] leading-relaxed text-slate-600">
-              No fills in the window for this pair yet — the ladder is built from
+              No fills in the window for this pair yet, the ladder is built from
               executed flow, so it stays empty rather than inventing resting orders.
             </p>
           ))}
@@ -1324,16 +1325,42 @@ function Range24h({ mint, price }: { mint: string; price: number | null }) {
 // THE EMBEDDED TERMINAL SLICE
 // =========================================================
 
+const CYCLE_MS = 30_000
+const FADE_MS = 700
+
 export function PrizmDemo() {
   const [market, setMarket] = useState(0)
+  const [auto, setAuto] = useState(true)
+  // Dim through the swap so a market change reads as a dissolve rather than a
+  // hard cut. The reader's own click switches instantly.
+  const [fading, setFading] = useState(false)
   const mint = MARKETS[market].mint
+
+  // Tour the markets in a random order, never repeating the one on screen, and
+  // stop the moment the reader picks one themselves.
+  useEffect(() => {
+    if (!auto) return
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+    const id = setInterval(() => {
+      setFading(true)
+      window.setTimeout(() => {
+        setMarket((cur) => {
+          let next = Math.floor(Math.random() * MARKETS.length)
+          if (next === cur) next = (next + 1 + Math.floor(Math.random() * (MARKETS.length - 1))) % MARKETS.length
+          return next
+        })
+        setFading(false)
+      }, FADE_MS)
+    }, CYCLE_MS)
+    return () => clearInterval(id)
+  }, [auto])
 
   // Warm every market's candles and tape once the demo mounts, so switching
   // tabs is served from cache instead of waiting on a cold upstream round trip.
   useEffect(() => {
     const ctrl = new AbortController()
     const warm = async () => {
-      for (const m of MARKETS.slice(1)) {
+      for (const m of MARKETS) {
         for (const u of [
           `/api/candles?mint=${m.mint}&tf=15m`,
           `/api/prizm?kind=trades&mint=${m.mint}`,
@@ -1361,7 +1388,7 @@ export function PrizmDemo() {
   const price = spot?.[mint]?.usd ?? null
   const change = spot?.[mint]?.change24h ?? null
   const sol = spot?.[MARKETS[0].mint]?.usd ?? null
-  // Exchange rate against SOL — a real derived cross-rate, not a second quote.
+  // Exchange rate against SOL, a real derived cross-rate, not a second quote.
   const inSol = price != null && sol != null && sol > 0 ? price / sol : null
 
   return (
@@ -1372,7 +1399,11 @@ export function PrizmDemo() {
           <button
             key={m.mint}
             type="button"
-            onClick={() => setMarket(i)}
+            onClick={() => {
+              setAuto(false)
+              setFading(false)
+              setMarket(i)
+            }}
             aria-pressed={i === market}
             className={cx(
               "rounded-sm border px-2.5 py-1 font-mono text-[11px] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#4B7F9B]/60",
@@ -1398,6 +1429,10 @@ export function PrizmDemo() {
         </span>
       </div>
 
+      <div
+        className="transition-opacity ease-in-out"
+        style={{ opacity: fading ? 0.12 : 1, transitionDuration: `${FADE_MS}ms` }}
+      >
       <div className="glass-pane flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg px-4 py-3">
         <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-6 gap-y-3">
         <Stat label="Price" value={price != null ? fmtPrice(price) : " · "} />
@@ -1420,6 +1455,7 @@ export function PrizmDemo() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_330px]">
         <TradeChart mint={mint} symbol={MARKETS[market].symbol} livePrice={price} className="min-h-[340px] lg:h-[560px]" />
         <OrderBook key={mint} mint={mint} className="h-[560px]" />
+      </div>
       </div>
     </div>
   )

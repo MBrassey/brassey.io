@@ -1,11 +1,11 @@
-// Candles for the PRIZM chart — keyed feeds only.
+// Candles for the PRIZM chart, keyed feeds only.
 //
 // The chart used to read GeckoTerminal through prizm.trading's proxy: an
 // unkeyed public feed that returned an empty series often enough that the chart
 // frequently sat in its skeleton. Both legs here are keyed:
 //
-//   1. Jupiter's chart API (Pro key) — real OHLC *and* real volume.
-//   2. Alchemy's historical prices, folded into OHLC — no volume, so the
+//   1. Jupiter's chart API (Pro key), real OHLC *and* real volume.
+//   2. Alchemy's historical prices, folded into OHLC, no volume, so the
 //      histogram is hidden rather than faked when this leg serves.
 //
 // A short shared cache in front of them means a switch between markets or

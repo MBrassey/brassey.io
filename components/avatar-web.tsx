@@ -124,7 +124,7 @@ export default function AvatarWeb({ className = "" }: { className?: string }) {
   }, [])
 
   // The subject cutout layered above occludes the web, so strands vanish
-  // behind the head and body and re-emerge — no CSS mask needed
+  // behind the head and body and re-emerge, no CSS mask needed
   return (
     <canvas
       ref={canvasRef}

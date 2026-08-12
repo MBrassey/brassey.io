@@ -8,7 +8,7 @@
  * greyed placeholder collectibles. The balances are fixed demo holdings; every
  * USD figure is computed from LIVE market prices (SOL / gold / jitoSOL via
  * /api/wallet-market), so the money surface tracks the market in real time.
- * All controls are inert — nothing routes on chain.
+ * All controls are inert, nothing routes on chain.
  */
 
 import { useEffect, useRef, useState } from "react"
@@ -91,8 +91,8 @@ function formatTokenBalance(value: number, fullDec: number): string {
   return truncated.toFixed(2)
 }
 
-/** An unknown APY renders as unknown — never a fabricated figure. */
-const fmtApy = (apy: number | null) => (apy == null ? "—" : `${(apy * 100).toFixed(2)}%`)
+/** An unknown APY renders as unknown, never a fabricated figure. */
+const fmtApy = (apy: number | null) => (apy == null ? "n/a" : `${(apy * 100).toFixed(2)}%`)
 
 // =========================================================
 // TOKENS (generic wireframe identity)
@@ -107,7 +107,7 @@ const TOKEN_COLOR: Record<TokenKey, string> = {
   jitoSOL: "#4EA88A",
 }
 
-/** Generic monochrome marks — wireframe stand-ins, one per asset. */
+/** Generic monochrome marks, wireframe stand-ins, one per asset. */
 function SolMark({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
@@ -458,7 +458,7 @@ function LiquidCapsule({
       ctx.globalAlpha = 1
       ctx.restore()
 
-      // Tiny slow motes, drawn additively — suspended pigment.
+      // Tiny slow motes, drawn additively, suspended pigment.
       const moteRgb = MOTE[variantRef.current] ?? MOTE.sol
       ctx.globalCompositeOperation = "lighter"
       for (const b of bubbles) {
