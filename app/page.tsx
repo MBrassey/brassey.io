@@ -192,6 +192,14 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "prizm.trading",
+    subtitle: "Non-Custodial Solana Trading Platform & DEX",
+    description:
+      "CEX-grade trading terminal over pure DeFi rails: pro charts on the deepest pool for 100+ SPL markets, Market / Limit / DCA orders wired end-to-end through Jupiter, live DeFi yield and one-click liquid staking, and drag-and-drop legos that compose into one atomic transaction. Every transaction funnels through a single guarded execution path that verifies deltas against an independently derived output floor before the key is ever used, and the keys themselves are generated in the browser and sealed with AES-256-GCM.",
+    tech: ["Next.js 16", "React 19", "Solana web3.js", "Anchor", "Jupiter", "Rust", "lightweight-charts", "Godot"],
+    url: "https://prizm.trading",
+  },
+  {
     title: "ccscan",
     subtitle: "Canton Network Explorer & Chain API",
     description:
@@ -3363,7 +3371,7 @@ export default function Home() {
 
               <div className="grid gap-6 md:grid-cols-2">
                 {projects.map((project, i) => (
-                  <motion.div key={i} variants={slideUp} className={`h-full ${i === 0 ? "md:col-span-2" : ""}`}>
+                  <motion.div key={i} variants={slideUp} className="h-full">
                     <Link
                       href={project.url}
                       target={project.url.startsWith("http") ? "_blank" : undefined}
