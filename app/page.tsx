@@ -188,6 +188,8 @@ interface Project {
   description: string
   tech: string[]
   url: string
+  /** The flagship: carries the accent treatment in the grid. */
+  flagship?: boolean
 }
 
 const projects: Project[] = [
@@ -198,6 +200,7 @@ const projects: Project[] = [
       "CEX-grade trading terminal over pure DeFi rails: pro charts on the deepest pool for 100+ SPL markets, Market / Limit / DCA orders wired end-to-end through Jupiter, live DeFi yield and one-click liquid staking, and drag-and-drop legos that compose into one atomic transaction. Every transaction funnels through a single guarded execution path that verifies deltas against an independently derived output floor before the key is ever used, and the keys themselves are generated in the browser and sealed with AES-256-GCM.",
     tech: ["Next.js 16", "React 19", "Solana web3.js", "Anchor", "Jupiter", "Rust", "lightweight-charts", "Godot"],
     url: "https://prizm.trading",
+    flagship: true,
   },
   {
     title: "ccscan",
@@ -3378,21 +3381,50 @@ export default function Home() {
                       rel={project.url.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="block group h-full"
                     >
-                      <div className="p-6 rounded-lg glass-pane holo-shimmer card-lift h-full flex flex-col gap-4">
+                      <div
+                        className={`relative p-6 rounded-lg glass-pane holo-shimmer card-lift h-full flex flex-col gap-4 ${
+                          project.flagship ? "flagship-card" : ""
+                        }`}
+                      >
                         <div className="flex items-start justify-between">
                           <div>
-                            <h3 className="text-xl font-bold group-hover:text-[#4B7F9B] transition-colors">
-                              {project.title}
-                            </h3>
+                            <div className="flex items-center gap-2">
+                              <h3
+                                className={`text-xl font-bold transition-colors ${
+                                  project.flagship ? "text-[#6BA3BF]" : "group-hover:text-[#4B7F9B]"
+                                }`}
+                              >
+                                {project.title}
+                              </h3>
+                              {project.flagship && (
+                                <span className="rounded-sm border border-[#4B7F9B]/40 bg-[#4B7F9B]/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em] text-[#6BA3BF]">
+                                  flagship
+                                </span>
+                              )}
+                            </div>
                             <p className="text-sm text-[#4B7F9B]/70">{project.subtitle}</p>
                           </div>
-                          <ArrowUpRight className="h-5 w-5 text-slate-600 group-hover:text-[#4B7F9B] transition-colors flex-shrink-0" />
+                          <ArrowUpRight
+                            className={`h-5 w-5 transition-colors flex-shrink-0 ${
+                              project.flagship ? "text-[#4B7F9B]" : "text-slate-600 group-hover:text-[#4B7F9B]"
+                            }`}
+                          />
                         </div>
-                        <p className="text-sm text-slate-400 leading-relaxed">{project.description}</p>
+                        <p className={`text-sm leading-relaxed ${project.flagship ? "text-slate-300" : "text-slate-400"}`}>
+                          {project.description}
+                        </p>
                         {project.title === "ccscan" && <CantonLive />}
                         <div className="flex flex-wrap gap-2 mt-auto">
                           {project.tech.map((t) => (
-                            <Badge key={t} variant="outline" className="border-slate-700 text-slate-500 text-[10px] px-2 py-0">
+                            <Badge
+                              key={t}
+                              variant="outline"
+                              className={`text-[10px] px-2 py-0 ${
+                                project.flagship
+                                  ? "border-[#4B7F9B]/30 text-[#4B7F9B]/80"
+                                  : "border-slate-700 text-slate-500"
+                              }`}
+                            >
                               {t}
                             </Badge>
                           ))}
