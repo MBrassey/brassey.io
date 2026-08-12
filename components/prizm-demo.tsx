@@ -57,6 +57,11 @@ function fmtCompact(n: number): string {
   return n.toFixed(2)
 }
 
+function fmtPct(n: number | null): string {
+  if (n == null || !Number.isFinite(n)) return " · "
+  return `${n >= 0 ? "+" : ""}${n.toFixed(2)}%`
+}
+
 const cx = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(" ")
 
 /** Poll a URL, keeping the last good payload through a transient failure. */
@@ -119,8 +124,10 @@ const RESOLVE_POLL = 8_000
 const EMPTY_TOLERANCE = 7
 const RETRY_MAX = 30_000
 
-const UP = "#4EA88A"
-const DOWN = "#C96A6A"
+// Muted green/red: still unmistakably buy/sell, but desaturated into the
+// site's wireframe palette rather than trading-terminal neon.
+const UP = "#5A9B82"
+const DOWN = "#A5726F"
 
 function TradeChart({ mint, className }: { mint: string; className?: string }) {
   const wrapRef = useRef<HTMLDivElement | null>(null)
@@ -167,8 +174,8 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
       upColor: UP,
       downColor: DOWN,
       borderVisible: false,
-      wickUpColor: "rgba(78,168,138,0.85)",
-      wickDownColor: "rgba(201,106,106,0.8)",
+      wickUpColor: "rgba(90,155,130,0.85)",
+      wickDownColor: "rgba(165,114,111,0.8)",
       priceFormat: { type: "price", precision: 6, minMove: 0.000001 },
     })
     const vol = chart.addSeries(HistogramSeries, {
@@ -272,7 +279,7 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
             j.candles.map((c) => ({
               time: c.t as UTCTimestamp,
               value: c.v,
-              color: c.c >= c.o ? "rgba(78,168,138,0.32)" : "rgba(201,106,106,0.3)",
+              color: c.c >= c.o ? "rgba(90,155,130,0.3)" : "rgba(165,114,111,0.28)",
             })),
           )
           if (first) {
@@ -360,19 +367,19 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
 type Vec3 = [number, number, number]
 
 const BID: Vec3[] = [
-  [0x05, 0x2a, 0x20],
-  [0x0d, 0x5e, 0x45],
-  [0x22, 0xc9, 0x93],
-  [0x7c, 0xf2, 0xd8],
+  [0x0a, 0x1c, 0x17],
+  [0x1b, 0x3d, 0x33],
+  [0x45, 0x7d, 0x6b],
+  [0x86, 0xb5, 0xa4],
 ]
 const ASK: Vec3[] = [
-  [0x2c, 0x0c, 0x14],
-  [0x68, 0x1c, 0x28],
-  [0xcf, 0x4b, 0x55],
-  [0xf7, 0xa6, 0xa2],
+  [0x1d, 0x11, 0x12],
+  [0x40, 0x25, 0x26],
+  [0x83, 0x53, 0x51],
+  [0xba, 0x93, 0x90],
 ]
-const BID_MOTE = "130,240,200"
-const ASK_MOTE = "245,165,165"
+const BID_MOTE = "165,205,190"
+const ASK_MOTE = "210,180,178"
 
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v)
 function hash2(x: number, y: number): number {
@@ -958,13 +965,15 @@ function Basin({
   const behind = mark > level() + 0.02
   return (
     <div>
-      <div className="mb-1 flex items-baseline gap-1.5">
-        <span className="text-[9.5px] font-bold uppercase tracking-[0.16em]" style={{ color: accent }}>
+      <div className="mb-1 flex h-4 items-baseline gap-1.5 overflow-hidden whitespace-nowrap">
+        <span className="shrink-0 text-[9.5px] font-bold uppercase tracking-[0.16em]" style={{ color: accent }}>
           {label}
         </span>
-        <span className="font-mono text-[11px] font-bold tabular-nums text-slate-200">${fmtCompact(vol)}</span>
-        <span className="ml-auto font-mono text-[9px] tabular-nums text-slate-500">
-          {Math.round(pct * 100)}% · {n} {n === 1 ? "fill" : "fills"}
+        <span className="shrink-0 font-mono text-[11px] font-bold tabular-nums text-slate-200">
+          ${fmtCompact(vol)}
+        </span>
+        <span className="ml-auto shrink-0 font-mono text-[9px] tabular-nums text-slate-500">
+          {Math.round(pct * 100)}% · {n}
         </span>
       </div>
       <div
@@ -1043,24 +1052,16 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
   const buyFill = useCallback(() => flowLevel(live.current.buy, live.current.ref), [live])
   const sellFill = useCallback(() => flowLevel(live.current.sell, live.current.ref), [live])
 
-  if (model == null) {
-    return (
-      <div className={cx("glass-pane flex min-h-0 flex-col rounded-lg", className)}>
-        <div className="space-y-1.5 p-3">
-          {Array.from({ length: 12 }).map((_, i) => (
-            <div key={i} className="h-4 rounded bg-white/[0.04]" />
-          ))}
-        </div>
-      </div>
-    )
-  }
-
   // Everything in this header answers to the SAME rolling window the basins do,
   // so the printed figures and the liquid can never disagree.
   const flowTotal = snap.buy + snap.sell
   const buyShare = flowTotal > 0 ? snap.buy / flowTotal : 0.5
   const winning = buyShare >= 0.5
   const delta = Math.abs(snap.buy - snap.sell)
+  // The basins are always mounted — only the ladder waits on a priced model —
+  // so switching markets never tears the panel down and rebuilds it at a
+  // different height.
+  const ladder = model?.ladder ?? []
 
   return (
     <div className={cx("glass-pane flex min-h-0 flex-col overflow-hidden rounded-lg", className)}>
@@ -1099,8 +1100,8 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
             lead={!winning}
           />
         </div>
-        <div className="mt-1.5 flex flex-wrap items-center justify-center gap-x-2 text-[8.5px] font-bold uppercase tracking-[0.14em]">
-          <span style={{ color: winning ? UP : DOWN }}>
+        <div className="mt-1.5 flex h-4 items-center justify-center gap-x-2 overflow-hidden whitespace-nowrap text-[8.5px] font-bold uppercase tracking-[0.14em]">
+          <span className="truncate" style={{ color: winning ? UP : DOWN }}>
             {flowTotal > 0 ? `${winning ? "▲ buyers" : "▼ sellers"} ahead by $${fmtCompact(delta)}` : "waiting on flow"}
           </span>
           <span className="font-mono tracking-normal text-slate-600">· last {WINDOW_LABEL[snap.win] ?? "90s"}</span>
@@ -1145,11 +1146,15 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
           <span className="text-center">Buy · Sell</span>
           <span className="text-right">Size</span>
         </div>
-        {model.ladder.map((l) => {
-          const atMid = l.price === model.midPrice
+        {ladder.length === 0 &&
+          Array.from({ length: 10 }).map((_, i) => (
+            <div key={i} className="mx-3 my-[5px] h-3.5 rounded bg-white/[0.03]" />
+          ))}
+        {ladder.map((l) => {
+          const atMid = l.price === model?.midPrice
           const sellDom = l.sell > l.buy
           const buyW = (l.buy / l.vol) * 100
-          const barW = (l.vol / model.maxVol) * 100
+          const barW = (l.vol / (model?.maxVol ?? 1)) * 100
           return (
             <div
               key={l.price}
@@ -1181,12 +1186,80 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
 }
 
 // =========================================================
+// MARKET HEADER (trade page's Stat + Range24h)
+// =========================================================
+
+function Stat({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
+  return (
+    <div className="min-w-0">
+      <div className="text-[9.5px] font-semibold uppercase tracking-[0.18em] text-slate-600">{label}</div>
+      <div
+        className={cx(
+          "truncate text-[13px] font-bold tabular-nums",
+          tone === "up" ? "text-[#5A9B82]" : tone === "down" ? "text-[#A5726F]" : "text-slate-200",
+        )}
+      >
+        {value}
+      </div>
+    </div>
+  )
+}
+
+/** 24h low→high range with the live price marked · derived from 1h candles. */
+function Range24h({ mint, price }: { mint: string; price: number | null }) {
+  const data = usePolled<{ candles: Candle[] }>(
+    mint ? `/api/prizm?kind=candles&mint=${mint}&tf=1h` : null,
+    60_000,
+  )
+  const range = useMemo(() => {
+    const cs = (data?.candles ?? []).slice(-24)
+    if (cs.length === 0) return null
+    const low = Math.min(...cs.map((c) => c.l))
+    const high = Math.max(...cs.map((c) => c.h))
+    const cur = price ?? cs[cs.length - 1].c
+    if (!(high > low) || !Number.isFinite(cur)) return null
+    return { low, high, pct: Math.max(0, Math.min(1, (cur - low) / (high - low))) }
+  }, [data, price])
+  if (!range) return null
+  return (
+    <div className="flex min-w-[168px] flex-col gap-1">
+      <div className="text-[9.5px] font-semibold uppercase tracking-[0.18em] text-slate-600">24h range</div>
+      <div className="flex items-center gap-2">
+        <span className="font-mono text-[10px] tabular-nums text-[#A5726F]">{fmtPrice(range.low)}</span>
+        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-white/[0.06]">
+          <div
+            className="absolute inset-y-0 left-0 rounded-full"
+            style={{ width: `${range.pct * 100}%`, background: "linear-gradient(90deg,#A5726F88,#5A9B82)" }}
+          />
+          <div
+            className="absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.6)]"
+            style={{ left: `${range.pct * 100}%` }}
+          />
+        </div>
+        <span className="font-mono text-[10px] tabular-nums text-[#5A9B82]">{fmtPrice(range.high)}</span>
+      </div>
+    </div>
+  )
+}
+
+// =========================================================
 // THE EMBEDDED TERMINAL SLICE
 // =========================================================
 
 export function PrizmDemo() {
   const [market, setMarket] = useState(0)
   const mint = MARKETS[market].mint
+  // Live spot + 24h change for every market in the switcher (Alchemy first,
+  // Jupiter as fallback), so the chip row and the header agree.
+  const spot = usePolled<Record<string, { usd: number | null; change24h: number | null }>>(
+    `/api/spot?mints=${MARKETS.map((m) => m.mint).join(",")}`,
+    30_000,
+  )
+  const price = spot?.[mint]?.usd ?? null
+  const change = spot?.[mint]?.change24h ?? null
+  const sol = spot?.[MARKETS[0].mint]?.usd ?? null
+  // Exchange rate against SOL — a real derived cross-rate, not a second quote.
+  const inSol = price != null && sol != null && sol > 0 ? price / sol : null
 
   return (
     <div className="space-y-3">
@@ -1206,12 +1279,36 @@ export function PrizmDemo() {
             )}
           >
             {m.symbol}/USD
+            {spot?.[m.mint]?.change24h != null && (
+              <span
+                className="ml-1.5 tabular-nums"
+                style={{ color: (spot[m.mint].change24h as number) >= 0 ? UP : DOWN }}
+              >
+                {fmtPct(spot[m.mint].change24h)}
+              </span>
+            )}
           </button>
         ))}
         <span className="ml-auto inline-flex items-center gap-2">
           <span className="status-dot" style={{ width: 6, height: 6 }} aria-hidden="true" />
           <span className="font-mono text-[10px] uppercase tracking-wider text-emerald-400">live mainnet</span>
         </span>
+      </div>
+
+      <div className="glass-pane flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg px-4 py-3">
+        <Stat label="Price" value={price != null ? fmtPrice(price) : " · "} />
+        <Stat
+          label="24h"
+          value={fmtPct(change)}
+          tone={change == null ? undefined : change >= 0 ? "up" : "down"}
+        />
+        {market !== 0 && (
+          <Stat
+            label="vs SOL"
+            value={inSol != null ? `${inSol < 1 ? inSol.toFixed(4) : inSol.toFixed(3)} SOL` : " · "}
+          />
+        )}
+        <Range24h mint={mint} price={price} />
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_330px]">
