@@ -292,11 +292,23 @@ export function PrizmParallax({ className }: { className?: string }) {
   const [tokens, setTokens] = useState<TokenInfo[]>([])
   const [near, setNear] = useState(false)
 
+  // Phones sit this out entirely. The field is decoration, and a hundred logo
+  // fetches plus a canvas loop is the wrong trade on a small screen; skipping it
+  // also means the list is never fetched and the observer never arms.
+  const [desktop, setDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)")
+    const sync = () => setDesktop(mq.matches)
+    sync()
+    mq.addEventListener("change", sync)
+    return () => mq.removeEventListener("change", sync)
+  }, [])
+
   // Two viewports of lead time: the marks are real logos, and the field should
   // already be climbing by the time the section's top edge arrives.
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || !desktop) return
     const ob = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -308,11 +320,12 @@ export function PrizmParallax({ className }: { className?: string }) {
     )
     ob.observe(el)
     return () => ob.disconnect()
-  }, [])
+  }, [desktop])
 
   // The list itself is one small JSON, so fetch it at mount rather than on
   // approach, the images then have a head start the moment `near` flips.
   useEffect(() => {
+    if (!desktop) return
     let alive = true
     ;(async () => {
       try {
@@ -327,13 +340,13 @@ export function PrizmParallax({ className }: { className?: string }) {
     return () => {
       alive = false
     }
-  }, [])
+  }, [desktop])
 
   // Warm the logo cache the moment the list lands, without mounting the canvas
   // or its frame loop: when the stage does mount, every mark resolves from cache
   // and the field is populated on the first frame instead of filling in.
   useEffect(() => {
-    if (tokens.length === 0) return
+    if (!desktop || tokens.length === 0) return
     const imgs = tokens.map((t) => {
       const im = new Image()
       im.decoding = "async"
@@ -344,7 +357,9 @@ export function PrizmParallax({ className }: { className?: string }) {
     return () => {
       for (const im of imgs) im.src = ""
     }
-  }, [tokens])
+  }, [tokens, desktop])
+
+  if (!desktop) return null
 
   return (
     <div
