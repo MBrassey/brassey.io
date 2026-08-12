@@ -70,10 +70,10 @@ function usePolled<T>(url: string | null, intervalMs: number): T | null {
   const urlRef = useRef(url)
   urlRef.current = url
   useEffect(() => {
-    if (!url) {
-      setData(null)
-      return
-    }
+    // Drop the previous url's payload: holding it would show one market's data
+    // under another market's label until the first new response lands.
+    setData(null)
+    if (!url) return
     let alive = true
     let timer: ReturnType<typeof setTimeout> | null = null
     const load = async () => {
@@ -121,7 +121,7 @@ const POLL: Record<Timeframe, number> = {
   "1d": 120_000,
 }
 const RESOLVE_POLL = 8_000
-const EMPTY_TOLERANCE = 7
+const EMPTY_TOLERANCE = 2
 const RETRY_MAX = 30_000
 
 // Muted green/red: still unmistakably buy/sell, but desaturated into the
@@ -243,6 +243,11 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
     let live = false
     let empties = 0
     setState("loading")
+    // Wipe the previous market immediately — otherwise its candles sit under
+    // the skeleton until the new ones arrive, which reads as a stuck chart.
+    candleRef.current?.setData([])
+    volRef.current?.setData([])
+    setPoolName(null)
 
     const onNoData = () => {
       empties += 1
@@ -1147,8 +1152,15 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
           <span className="text-right">Size</span>
         </div>
         {ladder.length === 0 &&
-          Array.from({ length: 10 }).map((_, i) => (
-            <div key={i} className="mx-3 my-[5px] h-3.5 rounded bg-white/[0.03]" />
+          (trades == null ? (
+            Array.from({ length: 10 }).map((_, i) => (
+              <div key={i} className="mx-3 my-[5px] h-3.5 rounded bg-white/[0.03]" />
+            ))
+          ) : (
+            <p className="px-3 py-6 text-center text-[11px] leading-relaxed text-slate-600">
+              No fills in the window for this pair yet — the ladder is built from
+              executed flow, so it stays empty rather than inventing resting orders.
+            </p>
           ))}
         {ladder.map((l) => {
           const atMid = l.price === model?.midPrice
@@ -1249,6 +1261,31 @@ function Range24h({ mint, price }: { mint: string; price: number | null }) {
 export function PrizmDemo() {
   const [market, setMarket] = useState(0)
   const mint = MARKETS[market].mint
+
+  // Warm every market's candles and tape once the demo mounts, so switching
+  // tabs is served from cache instead of waiting on a cold upstream round trip.
+  useEffect(() => {
+    const ctrl = new AbortController()
+    const warm = async () => {
+      for (const m of MARKETS.slice(1)) {
+        for (const u of [
+          `/api/prizm?kind=candles&mint=${m.mint}&tf=15m`,
+          `/api/prizm?kind=trades&mint=${m.mint}`,
+        ]) {
+          try {
+            await fetch(u, { signal: ctrl.signal })
+          } catch {
+            return
+          }
+        }
+      }
+    }
+    const id = setTimeout(warm, 1200)
+    return () => {
+      clearTimeout(id)
+      ctrl.abort()
+    }
+  }, [])
   // Live spot + 24h change for every market in the switcher (Alchemy first,
   // Jupiter as fallback), so the chip row and the header agree.
   const spot = usePolled<Record<string, { usd: number | null; change24h: number | null }>>(
@@ -1313,7 +1350,7 @@ export function PrizmDemo() {
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_330px]">
         <TradeChart mint={mint} className="min-h-[340px] lg:h-[560px]" />
-        <OrderBook mint={mint} className="h-[560px]" />
+        <OrderBook key={mint} mint={mint} className="h-[560px]" />
       </div>
     </div>
   )
