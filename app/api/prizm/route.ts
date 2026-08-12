@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic"
 
 const UPSTREAM = "https://www.prizm.trading"
 // Only these two datasets, and only the shapes below, are ever forwarded.
-const KINDS = { candles: 8_000, trades: 4_000 } as const
+const KINDS = { candles: 8_000, trades: 4_000, tokens: 60_000 } as const
 type Kind = keyof typeof KINDS
 const TIMEFRAMES = new Set(["1m", "5m", "15m", "1h", "4h", "1d"])
 // Base58, the only shape a Solana mint takes — never interpolate raw input.
@@ -33,6 +33,20 @@ async function upstream(path: string): Promise<unknown> {
   return res.json()
 }
 
+/**
+ * PRIZM hands back logo paths relative to its own origin; point them at this
+ * site's image proxy so the browser still only ever talks to `self` (and the
+ * canvas can read the pixels for the duotone pass without a taint error).
+ */
+function rewriteLogos(body: unknown): unknown {
+  const b = body as { tokens?: { logo?: string; mint?: string }[] } | null
+  if (!b?.tokens) return body
+  return {
+    ...b,
+    tokens: b.tokens.map((t) => (t.mint ? { ...t, logo: `/api/prizm/logo/${t.mint}` } : t)),
+  }
+}
+
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const kind = url.searchParams.get("kind") as Kind | null
@@ -40,19 +54,24 @@ export async function GET(req: Request) {
   const tf = url.searchParams.get("tf") ?? "15m"
 
   if (!kind || !(kind in KINDS)) return Response.json({ error: "bad kind" }, { status: 400 })
-  if (!MINT_RE.test(mint)) return Response.json({ error: "bad mint" }, { status: 400 })
+  // The token list is market-wide; the other two are per-mint.
+  if (kind !== "tokens" && !MINT_RE.test(mint)) return Response.json({ error: "bad mint" }, { status: 400 })
   if (kind === "candles" && !TIMEFRAMES.has(tf)) return Response.json({ error: "bad tf" }, { status: 400 })
 
   const path =
     kind === "candles"
       ? `/api/candles?mint=${mint}&tf=${tf}&limit=240`
-      : `/api/trades?mint=${mint}`
+      : kind === "tokens"
+        ? "/api/tokens"
+        : `/api/trades?mint=${mint}`
   const ttl = KINDS[kind]
   const now = Date.now()
 
   const hit = cache.get(path)
   if (hit && now - hit.at < ttl) {
-    return Response.json(hit.body, { headers: { "cache-control": "no-store" } })
+    return Response.json(kind === "tokens" ? rewriteLogos(hit.body) : hit.body, {
+      headers: { "cache-control": "no-store" },
+    })
   }
 
   try {
@@ -63,7 +82,9 @@ export async function GET(req: Request) {
     }
     const body = await p
     cache.set(path, { at: Date.now(), body })
-    return Response.json(body, { headers: { "cache-control": "no-store" } })
+    return Response.json(kind === "tokens" ? rewriteLogos(body) : body, {
+      headers: { "cache-control": "no-store" },
+    })
   } catch {
     // Serve the last good payload rather than blanking a live surface.
     if (hit) return Response.json(hit.body, { headers: { "cache-control": "no-store" } })

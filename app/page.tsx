@@ -53,6 +53,8 @@ import { Badge } from "@/components/ui/badge"
 import AvatarWeb from "@/components/avatar-web"
 import { WalletDemo } from "@/components/wallet-demo"
 import { PrizmDemo } from "@/components/prizm-demo"
+import { PrizmParallax } from "@/components/prizm-parallax"
+import { AuditKillChain } from "@/components/audit-killchain"
 
 // =========================================================
 // DATA
@@ -2921,9 +2923,11 @@ export default function Home() {
         </section>
 
         {/* ==================== PRIZM TRADING ==================== */}
-        <section id="trading" className="relative py-16 md:py-24">
+        <section id="trading" className="relative py-16 md:py-24 overflow-hidden">
           <div className="section-divider" />
-          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+          {/* The landing page's own rising-token helix, drifting against scroll */}
+          <PrizmParallax />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12 relative z-10">
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -3035,6 +3039,13 @@ export default function Home() {
                   </Link>
                   . A high-intelligence agent reasons its way through a target under nine adversary lenses and ships
                   only findings that come with a proof-of-concept exploit that actually reproduces.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="mb-10 sm:mb-12">
+                <AuditKillChain className="h-[420px] sm:h-[460px]" />
+                <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-slate-600">
+                  // nine lenses → hypothesis bank → ten-phase chain · 41 in, 1 ships
                 </p>
               </motion.div>
 
