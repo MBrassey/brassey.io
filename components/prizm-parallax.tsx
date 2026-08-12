@@ -257,10 +257,10 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
       entries.sort((p, q) => p.depth - q.depth)
       for (const e of entries) {
         // soft glow halo
-        ctx.globalAlpha = e.a * (0.05 + 0.04 * e.pulse)
+        ctx.globalAlpha = e.a * (0.032 + 0.026 * e.pulse)
         ctx.drawImage(e.raster, e.x - e.s * 0.1, e.y - e.s * 0.1, e.s * 1.2, e.s * 1.2)
         // the mark
-        ctx.globalAlpha = e.a * (0.2 + 0.12 * e.pulse)
+        ctx.globalAlpha = e.a * (0.115 + 0.07 * e.pulse)
         ctx.drawImage(e.raster, e.x, e.y, e.s, e.s)
       }
       ctx.globalAlpha = 1

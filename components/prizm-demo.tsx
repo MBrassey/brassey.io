@@ -130,7 +130,17 @@ const RETRY_MAX = 30_000
 const UP = "#5A9B82"
 const DOWN = "#A5726F"
 
-function TradeChart({ mint, className }: { mint: string; className?: string }) {
+function TradeChart({
+  mint,
+  symbol,
+  className,
+  livePrice,
+}: {
+  mint: string
+  symbol: string
+  className?: string
+  livePrice?: number | null
+}) {
   const wrapRef = useRef<HTMLDivElement | null>(null)
   const chartRef = useRef<IChartApi | null>(null)
   const candleRef = useRef<ISeriesApi<"Candlestick"> | null>(null)
@@ -257,11 +267,18 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
 
     const load = async () => {
       try {
-        const res = await fetch(`/api/prizm?kind=candles&mint=${mint}&tf=${tf}`, { cache: "no-store" })
+        const res = await fetch(`/api/candles?mint=${mint}&tf=${tf}`, { cache: "no-store" })
         if (!res.ok) throw new Error(String(res.status))
-        const j = (await res.json()) as { candles: Candle[]; pool: { name: string } | null }
+        const j = (await res.json()) as {
+          candles: Candle[]
+          pool: { name: string } | null
+          source: "alchemy" | "geckoterminal" | null
+          volume: boolean
+        }
         if (!alive) return
-        setPoolName(j.pool?.name ?? null)
+        // Name the leg that actually served, so the surface never implies a
+        // source it did not read.
+        setPoolName(j.source === "jupiter" ? "jupiter · aggregated" : j.source === "alchemy" ? "alchemy · spot" : null)
         if (!j.candles || j.candles.length === 0) {
           onNoData()
         } else {
@@ -281,13 +298,18 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
               close: c.c,
             })),
           )
+          // Alchemy's price feed carries no volume, so the histogram is cleared
+          // rather than drawn from a fabricated number.
           volRef.current?.setData(
-            j.candles.map((c) => ({
-              time: c.t as UTCTimestamp,
-              value: c.v,
-              color: c.c >= c.o ? "rgba(90,155,130,0.3)" : "rgba(165,114,111,0.28)",
-            })),
+            j.volume
+              ? j.candles.map((c) => ({
+                  time: c.t as UTCTimestamp,
+                  value: c.v,
+                  color: c.c >= c.o ? "rgba(90,155,130,0.3)" : "rgba(165,114,111,0.28)",
+                }))
+              : [],
           )
+          lastRef.current = j.candles[j.candles.length - 1]
           if (first) {
             chartRef.current?.timeScale().fitContent()
             first = false
@@ -313,6 +335,21 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
     }
   }, [mint, tf])
 
+  // Between candle refreshes, walk the newest candle's close to the live spot
+  // price — the same price the header shows — so the right edge is never stale.
+  const lastRef = useRef<Candle | null>(null)
+  useEffect(() => {
+    const c = lastRef.current
+    if (!c || livePrice == null || !Number.isFinite(livePrice)) return
+    candleRef.current?.update({
+      time: c.t as UTCTimestamp,
+      open: c.o,
+      high: Math.max(c.h, livePrice),
+      low: Math.min(c.l, livePrice),
+      close: livePrice,
+    })
+  }, [livePrice])
+
   return (
     <div className={cx("glass-pane relative flex flex-col overflow-hidden rounded-lg", className)}>
       <div className="flex items-center justify-between gap-2 border-b border-white/[0.05] px-3 py-2">
@@ -334,7 +371,7 @@ function TradeChart({ mint, className }: { mint: string; className?: string }) {
           ))}
         </div>
         <span className="truncate font-mono text-[10px] uppercase tracking-[0.14em] text-slate-600">
-          {poolName ? `${poolName} · usd` : "deepest pool · usd"}
+          {symbol}/usd{poolName ? ` · ${poolName}` : ""}
         </span>
       </div>
       <div className="relative min-h-[300px] flex-1" ref={wrapRef}>
@@ -1251,10 +1288,7 @@ function Stat({ label, value, tone }: { label: string; value: string; tone?: "up
 
 /** 24h low→high range with the live price marked · derived from 1h candles. */
 function Range24h({ mint, price }: { mint: string; price: number | null }) {
-  const data = usePolled<{ candles: Candle[] }>(
-    mint ? `/api/prizm?kind=candles&mint=${mint}&tf=1h` : null,
-    60_000,
-  )
+  const data = usePolled<{ candles: Candle[] }>(mint ? `/api/candles?mint=${mint}&tf=1h` : null, 60_000)
   const range = useMemo(() => {
     const cs = (data?.candles ?? []).slice(-24)
     if (cs.length === 0) return null
@@ -1301,7 +1335,7 @@ export function PrizmDemo() {
     const warm = async () => {
       for (const m of MARKETS.slice(1)) {
         for (const u of [
-          `/api/prizm?kind=candles&mint=${m.mint}&tf=15m`,
+          `/api/candles?mint=${m.mint}&tf=15m`,
           `/api/prizm?kind=trades&mint=${m.mint}`,
         ]) {
           try {
@@ -1384,7 +1418,7 @@ export function PrizmDemo() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_330px]">
-        <TradeChart mint={mint} className="min-h-[340px] lg:h-[560px]" />
+        <TradeChart mint={mint} symbol={MARKETS[market].symbol} livePrice={price} className="min-h-[340px] lg:h-[560px]" />
         <OrderBook key={mint} mint={mint} className="h-[560px]" />
       </div>
     </div>
