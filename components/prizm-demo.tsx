@@ -16,6 +16,7 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { CandlestickChart } from "lucide-react"
 import {
   CandlestickSeries,
   ColorType,
@@ -1201,6 +1202,37 @@ function OrderBook({ mint, className }: { mint: string; className?: string }) {
 // MARKET HEADER (trade page's Stat + Range24h)
 // =========================================================
 
+/**
+ * The brand glyph badge from the trade page (components/brand/glyph-badge.tsx):
+ * a glass tile with the accent glowing behind a lit icon, closing the market
+ * header bar. Decorative.
+ */
+function GlyphBadge({ icon: Icon, size = 44 }: { icon: typeof CandlestickChart; size?: number }) {
+  return (
+    <span
+      className="relative inline-flex shrink-0 items-center justify-center rounded border border-white/[0.1] bg-white/[0.03] shadow-[inset_0_1px_0_rgb(255_255_255/0.14)]"
+      style={{ width: size, height: size }}
+      aria-hidden="true"
+    >
+      <span
+        className="absolute inset-0 rounded opacity-30 blur-[10px]"
+        style={{ background: "linear-gradient(135deg,#4B7F9B,#6BA3BF)" }}
+      />
+      <span className="absolute inset-px rounded bg-[#0a0e12]/70" />
+      <Icon
+        className="relative"
+        style={{
+          width: size * 0.48,
+          height: size * 0.48,
+          color: "#6BA3BF",
+          filter: "drop-shadow(0 0 8px rgba(75,127,155,0.55))",
+        }}
+        strokeWidth={2}
+      />
+    </span>
+  )
+}
+
 function Stat({ label, value, tone }: { label: string; value: string; tone?: "up" | "down" }) {
   return (
     <div className="min-w-0">
@@ -1333,6 +1365,7 @@ export function PrizmDemo() {
       </div>
 
       <div className="glass-pane flex flex-wrap items-center gap-x-6 gap-y-3 rounded-lg px-4 py-3">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-x-6 gap-y-3">
         <Stat label="Price" value={price != null ? fmtPrice(price) : " · "} />
         <Stat
           label="24h"
@@ -1346,6 +1379,8 @@ export function PrizmDemo() {
           />
         )}
         <Range24h mint={mint} price={price} />
+        </div>
+        <GlyphBadge icon={CandlestickChart} size={44} />
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1fr)_330px]">

@@ -199,11 +199,14 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
         raf = requestAnimationFrame(frame)
         return
       }
-      // Sparse strand (~22 marks up at once). Each slot cycles through the full
-      // token pool over time, so every mark is featured without ever crowding.
-      const STRAND = Math.min(22, pool.length)
-
       const travel = H * 1.9 + 300
+      // Sparse strand — on prizm.trading's viewport-tall stage that is ~22 marks
+      // up at once. Travel scales with the stage height, so hold the marks-per-
+      // pixel density instead of the count: a section-tall stage would otherwise
+      // stretch the same 22 marks over twice the climb and read as empty. Each
+      // slot still cycles through the whole pool, so nothing crowds.
+      const STRAND = Math.min(pool.length, Math.max(18, Math.round(travel / 104)))
+
       const period = travel / 30
       const turns = 2.3
       const cx = W * 0.5 + pointer.current.x * 24
@@ -322,12 +325,10 @@ export function PrizmParallax({ className }: { className?: string }) {
     <div
       ref={ref}
       aria-hidden="true"
-      className={`pointer-events-none absolute inset-x-0 top-0 h-[1050px] overflow-hidden ${className ?? ""}`}
+      className={`pointer-events-none absolute inset-0 overflow-hidden ${className ?? ""}`}
     >
-      {/* A bounded stage, roughly viewport-tall like prizm.trading's. The helix's
-          visibility term peaks at the stage's vertical centre and falls off
-          toward its edges, so spanning a 2,000px section would leave every mark
-          in the dim tails. */}
+      {/* The field runs the full height of the section; the strand density above
+          scales with it so the climb stays as populated as prizm.trading's. */}
       <Parallax speed={70} className="absolute inset-0">
         <div className="absolute inset-x-0 -top-[8%] h-[116%]">{near && <RisingHelix tokens={tokens} />}</div>
       </Parallax>
@@ -336,7 +337,7 @@ export function PrizmParallax({ className }: { className?: string }) {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to bottom, #000102 0%, transparent 14%, transparent 72%, #000102 100%)",
+            "linear-gradient(to bottom, #000102 0%, transparent 9%, transparent 91%, #000102 100%)",
         }}
       />
     </div>
