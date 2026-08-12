@@ -111,14 +111,20 @@ function toSteelDuotone(img: HTMLImageElement): HTMLCanvasElement | null {
       px[i + 1] = DARK[1] + (LIGHT[1] - DARK[1]) * l
       px[i + 2] = DARK[2] + (LIGHT[2] - DARK[2]) * l
     }
-    // A real protocol mark has transparent corners. A logo that is opaque
-    // edge-to-edge is a square card, and in the field it reads as a grey box
-    // floating over the copy rather than as a mark — leave those out.
-    const corner = (x: number, y: number) => px[(y * size + x) * 4 + 3]
-    const m = 3
-    const opaqueCorners =
-      corner(m, m) > 8 && corner(size - 1 - m, m) > 8 && corner(m, size - 1 - m) > 8 && corner(size - 1 - m, size - 1 - m) > 8
-    if (opaqueCorners) return null
+    // Most SPL tokens publish full-bleed square art, so no shape filtering here
+    // — the landing page draws them all and the duotone plus the low compositing
+    // alpha is what keeps the field ambient. A soft radial falloff takes the
+    // hard corner off a square mark without dropping it from the strand.
+    const c2 = size / 2
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const d = Math.hypot(x - c2, y - c2) / c2
+        if (d <= 0.82) continue
+        const k = Math.max(0, 1 - (d - 0.82) / 0.34)
+        const i = (y * size + x) * 4
+        px[i + 3] = px[i + 3] * k * k
+      }
+    }
     ctx.putImageData(data, 0, 0)
     return c
   } catch {
@@ -134,12 +140,11 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
 
   useEffect(() => {
     if (tokens.length === 0) return
-    // 40 marks instead of the landing page's 100 — this is the condensed
-    // slice, and the strand only ever holds ~22 at once anyway.
-    const picks = tokens.slice(0, 40)
+    const picks = tokens
     const marks: Mark[] = picks.map((t) => {
       const mark: Mark = { img: new Image(), steel: null }
       mark.img.decoding = "async"
+      mark.img.fetchPriority = "low"
       mark.img.onload = () => {
         mark.steel = toSteelDuotone(mark.img)
       }
@@ -205,7 +210,7 @@ function RisingHelix({ tokens }: { tokens: TokenInfo[] }) {
       // pixel density instead of the count: a section-tall stage would otherwise
       // stretch the same 22 marks over twice the climb and read as empty. Each
       // slot still cycles through the whole pool, so nothing crowds.
-      const STRAND = Math.min(pool.length, Math.max(18, Math.round(travel / 104)))
+      const STRAND = Math.min(pool.length, Math.max(18, Math.round(travel / 82)))
 
       const period = travel / 30
       const turns = 2.3
@@ -287,6 +292,8 @@ export function PrizmParallax({ className }: { className?: string }) {
   const [tokens, setTokens] = useState<TokenInfo[]>([])
   const [near, setNear] = useState(false)
 
+  // Two viewports of lead time: the marks are real logos, and the field should
+  // already be climbing by the time the section's top edge arrives.
   useEffect(() => {
     const el = ref.current
     if (!el) return
@@ -297,14 +304,15 @@ export function PrizmParallax({ className }: { className?: string }) {
           ob.disconnect()
         }
       },
-      { rootMargin: "900px" },
+      { rootMargin: "2200px" },
     )
     ob.observe(el)
     return () => ob.disconnect()
   }, [])
 
+  // The list itself is one small JSON, so fetch it at mount rather than on
+  // approach — the images then have a head start the moment `near` flips.
   useEffect(() => {
-    if (!near) return
     let alive = true
     ;(async () => {
       try {
@@ -319,7 +327,24 @@ export function PrizmParallax({ className }: { className?: string }) {
     return () => {
       alive = false
     }
-  }, [near])
+  }, [])
+
+  // Warm the logo cache the moment the list lands, without mounting the canvas
+  // or its frame loop: when the stage does mount, every mark resolves from cache
+  // and the field is populated on the first frame instead of filling in.
+  useEffect(() => {
+    if (tokens.length === 0) return
+    const imgs = tokens.map((t) => {
+      const im = new Image()
+      im.decoding = "async"
+      im.fetchPriority = "low"
+      im.src = t.logo
+      return im
+    })
+    return () => {
+      for (const im of imgs) im.src = ""
+    }
+  }, [tokens])
 
   return (
     <div
