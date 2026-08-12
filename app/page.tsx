@@ -15,6 +15,8 @@ import {
   ChevronRight,
   Clock,
   Code2,
+  Bug,
+  CandlestickChart,
   Copy,
   Cpu,
   Database,
@@ -31,14 +33,17 @@ import {
   Network,
   RefreshCw,
   Rocket,
+  Radar,
   Search,
   Server,
   Shield,
   ShieldCheck,
   Sparkles,
+  Target,
   Terminal,
   Users,
   Wallet,
+  Workflow,
   X,
   Zap,
 } from "lucide-react"
@@ -47,24 +52,31 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import AvatarWeb from "@/components/avatar-web"
 import { WalletDemo } from "@/components/wallet-demo"
+import { PrizmDemo } from "@/components/prizm-demo"
 
 // =========================================================
 // DATA
 // =========================================================
 
-const navItems = [
-  { id: "infrastructure", label: "Infrastructure" },
-  { id: "automation", label: "Automation" },
+// Every section: drives the orbital dots, the mobile menu and the command menu.
+// `primary` marks the ones the desktop header has room for — the rest stay a
+// keystroke away in ⌘K rather than crowding the bar into the wordmark.
+const navItems: { id: string; label: string; primary?: boolean }[] = [
+  { id: "infrastructure", label: "Infrastructure", primary: true },
+  { id: "automation", label: "Automation", primary: true },
   { id: "ai", label: "AI Dev" },
   { id: "platform", label: "AI Platform" },
-  { id: "experience", label: "Experience" },
+  { id: "trading", label: "Trading", primary: true },
+  { id: "audit", label: "Security", primary: true },
+  { id: "experience", label: "Experience", primary: true },
   { id: "expertise", label: "Expertise" },
-  { id: "projects", label: "Projects" },
+  { id: "projects", label: "Projects", primary: true },
   { id: "credentials", label: "Credentials" },
   { id: "recommendations", label: "Feedback" },
   { id: "activity", label: "Activity" },
-  { id: "contact", label: "Contact" },
+  { id: "contact", label: "Contact", primary: true },
 ]
+const primaryNav = navItems.filter((n) => n.primary)
 
 interface InfraNode {
   name: string
@@ -713,6 +725,74 @@ function CodeStream() {
     </div>
   )
 }
+
+// =========================================================
+// PRIZM · SOLANA TRADING PLATFORM & DEX
+// =========================================================
+
+const prizmPillars = [
+  {
+    icon: CandlestickChart,
+    title: "CEX-grade terminal over pure DeFi rails",
+    body: "Pro charts on the deepest pool for any of 100+ SPL markets, a ⌘K market switcher, and Market / Limit / DCA orders wired end-to-end through Jupiter — spot swaps, Trigger for limits, Recurring for DCA — with open-order management and cancel. The frontend never cares whether a fill crosses Raydium, Orca, Meteora or Phoenix: the execution engine turns all of it into one quote, one signature, one receipt.",
+    tags: ["Jupiter v6", "limit + DCA", "100+ markets"],
+  },
+  {
+    icon: ShieldCheck,
+    title: "One guarded execution path",
+    body: "Every transaction — swap, send, stake, order, strategy — funnels through a single guarded path that fails closed: the tx is bound to an allowlisted program set (resolving all keys behind address-lookup tables), exactly one required signature with this wallet as fee payer, simulation against fresh on-chain state, then delta verification against an independently derived output floor computed from trusted USD prices rather than the aggregator's self-reported number. Only after all of that is the key ever used.",
+    tags: ["program allowlist", "simulate", "independent floor"],
+  },
+  {
+    icon: KeyRound,
+    title: "Non-custodial by construction",
+    body: "Keys are generated in the browser (BIP-39 → SLIP-0010 m/44'/501'/0'/0' → ed25519) and sealed with AES-256-GCM under a 600k-round PBKDF2-SHA256 key; nothing secret ever reaches a server. The vault auto-locks on inactivity, and recovery runs through the 24-word phrase or an exported encrypted vault file.",
+    tags: ["AES-256-GCM", "600k PBKDF2", "BIP-39"],
+  },
+  {
+    icon: Layers,
+    title: "Atomic strategies & flash-loan aggregation",
+    body: "Drag-and-drop DeFi legos compose into one atomic transaction, with live compile and simulate. A flash-loan aggregator ranks capital across Solana money markets and EVM pools behind a deliberately simple surface, and an immutable on-chain profit guard (Anchor, holds no funds, no authority, no CPI) reverts the whole transaction unless real profit lands in the owner's account — so a failed arb costs gas, never principal.",
+    tags: ["Anchor guard", "atomic", "profit-or-revert"],
+  },
+  {
+    icon: Database,
+    title: "Server-side data plane",
+    body: "Jupiter, GeckoTerminal, DefiLlama and Sanctum all sit behind same-origin proxies with strict method and endpoint allowlists plus rate limits, so the RPC provider URL and its key never reach the browser and the aggregator can't be turned into an open proxy. Live APY across lending, LSTs and liquidity pools, one-click liquid staking, and priority-fee/Jito-ready submission.",
+    tags: ["same-origin proxy", "Jito-ready", "DefiLlama"],
+  },
+]
+
+// =========================================================
+// AUDIT AGENT · IMMUNEFI BUG BOUNTY
+// =========================================================
+
+const auditPhases = [
+  {
+    icon: Target,
+    title: "9 attacker personas, run in parallel",
+    body: "Every audit is driven by a high-intelligence agent — Claude Opus working the target through a 10-phase kill chain — not a scanner dumping results. The agent reasons under nine attacker personas, each a distinct adversary lens: per batch they run in parallel against the target, each emitting a structured hypothesis bank. The agent poses the attack hypotheses, reasons through the contract's trust model, and decides what is actually exploitable.",
+    tags: ["Claude Opus", "10-phase kill chain", "hypothesis bank"],
+  },
+  {
+    icon: Radar,
+    title: "Tools corroborate — they never author a finding",
+    body: "Across every surviving hypothesis the agent orchestrates a deep tool campaign: static (slither, aderyn, semgrep, wake, mythril), symbolic (halmos, kontrol), fuzz (echidna, medusa, etheno) with persistent corpora that compound across batches, composition (forge, cast, anvil) for multi-step state manipulation, and primitive-replay against a curated disclosure cache — Nomad, Ronin, Multichain, Euler, Curve, Wormhole-22. Static, symbolic and fuzz results confirm or refute a hypothesis; they never write one.",
+    tags: ["static", "symbolic", "fuzz", "primitive replay"],
+  },
+  {
+    icon: Workflow,
+    title: "A kill chain that compounds",
+    body: "Per-phase budgets scale by static signal strength, EV-weighted persona slots down-weight unproductive lenses across runs, and a learning DB feeds the next batch with \u201cthis class on this target already returned X\u201d context — so the kill chain compounds rather than re-explores. Eight stacked intel sections (learning DB, attack graph, coverage, fork-diff vs upstream, primitive replay, per-function audit state, symbolic, invariant) feed the agent before it reasons, so nothing is a cold scan funneled to a result.",
+    tags: ["learning DB", "EV-weighted", "8 intel sections"],
+  },
+  {
+    icon: Bug,
+    title: "Every finding ships with a reproducing PoC",
+    body: "For each surviving hypothesis the agent writes a runnable Foundry PoC that must fail on the vulnerable code — a P6.5 mainnet-fork gate drops any PoC that won't reproduce. An independent defender Claude then critiques it red-team / blue-team and the agent refines over rounds before a finding ships. Single-rig friendly: an optional cross-rig consensus tag records concurrence when peers are configured, but never blocks a solo operator. Live operator visibility on /ops.",
+    tags: ["Foundry PoC", "mainnet-fork gate", "red/blue team"],
+  },
+]
 
 // =========================================================
 // SOLANA WALLET SECURITY ARCHITECTURE
@@ -2066,8 +2146,8 @@ export default function Home() {
             <span className="text-slate-500">.io</span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-            {navItems.map((item) => (
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-5">
+            {primaryNav.map((item) => (
               <Link
                 key={item.id}
                 href={`#${item.id}`}
@@ -2836,6 +2916,181 @@ export default function Home() {
                   )
                 })}
               </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ==================== PRIZM TRADING ==================== */}
+        <section id="trading" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <CandlestickChart className="h-3 w-3" />
+                  <span>// prizm-trading</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  PRIZM — <span className="gradient-text">Solana Trading Platform &amp; DEX</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
+                  Personal project, live at{" "}
+                  <Link
+                    href="https://prizm.trading"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#4B7F9B] hover:text-[#6ba3bf] transition-colors"
+                  >
+                    prizm.trading
+                  </Link>
+                  . A non-custodial trading platform on Solana — spot, limit and DCA execution, DeFi yield, liquid
+                  staking, and atomic flash-loan strategies in one account whose keys never leave the device. Below is
+                  the actual terminal code — the chart and order book from the trade page — running on live mainnet
+                  market data.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="mb-12 sm:mb-16">
+                <PrizmDemo />
+              </motion.div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {prizmPillars.map((p, i) => {
+                  const Icon = p.icon
+                  return (
+                    <motion.div
+                      key={p.title}
+                      variants={slideUp}
+                      className={`p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col ${
+                        i === 0 ? "md:col-span-2" : ""
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
+                        </div>
+                        <h3 className="text-base font-bold">{p.title}</h3>
+                      </div>
+                      <p className="text-sm text-slate-400 leading-relaxed mb-4">{p.body}</p>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {p.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+
+              <motion.div variants={slideUp} className="mt-4 flex flex-wrap gap-2">
+                {["Next.js 16", "React 19", "TypeScript", "Solana web3.js", "Anchor / Rust", "Jupiter", "lightweight-charts", "Godot 4.6"].map(
+                  (t) => (
+                    <Badge key={t} variant="outline" className="border-[#4B7F9B]/20 text-[#4B7F9B]/70 px-3 py-1">
+                      {t}
+                    </Badge>
+                  ),
+                )}
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ==================== AUDIT AGENT ==================== */}
+        <section id="audit" className="relative py-16 md:py-24">
+          <div className="section-divider" />
+          <div className="container px-4 md:px-6 max-w-6xl mx-auto pt-12">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={slideUp} className="text-left space-y-4 mb-10 sm:mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-sm border border-[#4B7F9B]/20 bg-[#4B7F9B]/5 text-[#4B7F9B] text-xs">
+                  <Bug className="h-3 w-3" />
+                  <span>// security-auditing</span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
+                  Agentic <span className="gradient-text">Smart Contract Auditing</span>
+                </h2>
+                <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
+                  Personal project — an autonomous audit rig built for{" "}
+                  <Link
+                    href="https://immunefi.com/bug-bounty/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#4B7F9B] hover:text-[#6ba3bf] transition-colors"
+                  >
+                    Immunefi bug bounties
+                  </Link>
+                  . A high-intelligence agent reasons its way through a target under nine adversary lenses and ships
+                  only findings that come with a proof-of-concept exploit that actually reproduces.
+                </p>
+              </motion.div>
+
+              <div className="grid gap-4 md:grid-cols-2">
+                {auditPhases.map((a) => {
+                  const Icon = a.icon
+                  return (
+                    <motion.div
+                      key={a.title}
+                      variants={slideUp}
+                      className="p-6 rounded-lg glass-pane holo-shimmer hover:border-[#4B7F9B]/30 transition-colors duration-300 flex flex-col"
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="p-2 rounded-lg bg-[#4B7F9B]/10">
+                          <Icon className="h-5 w-5 text-[#4B7F9B]" />
+                        </div>
+                        <h3 className="text-base font-bold">{a.title}</h3>
+                      </div>
+                      <p className="text-sm text-slate-400 leading-relaxed mb-4">{a.body}</p>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {a.tags.map((t) => (
+                          <span
+                            key={t}
+                            className="font-mono text-[10px] px-2 py-0.5 rounded border border-[#4B7F9B]/20 text-[#4B7F9B]/70"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                })}
+              </div>
+
+              <motion.div variants={slideUp} className="mt-4 p-6 rounded-lg border border-[#4B7F9B]/25 bg-[#4B7F9B]/[0.05]">
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  <span className="text-[#4B7F9B] font-semibold">The distinction:</span> a scanner emits patterns and
+                  leaves triage to you. This reasons about the trust model first, uses the whole tool estate as
+                  evidence for or against a specific attack hypothesis, and refuses to call anything a finding until an
+                  exploit reproduces on a mainnet fork and survives an independent defender&apos;s critique.
+                </p>
+              </motion.div>
+
+              <motion.div variants={slideUp} className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                {[
+                  { value: "10", label: "phase kill chain" },
+                  { value: "9", label: "attacker personas" },
+                  { value: "13", label: "tools orchestrated" },
+                  { value: "0", label: "findings without a PoC" },
+                ].map((s) => (
+                  <div key={s.label} className="text-left">
+                    <div className="text-2xl md:text-3xl font-bold text-slate-100 font-mono">{s.value}</div>
+                    <div className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-[0.2em]">{s.label}</div>
+                  </div>
+                ))}
+              </motion.div>
             </motion.div>
           </div>
         </section>
