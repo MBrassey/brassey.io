@@ -3024,7 +3024,7 @@ export default function Home() {
                   Agentic <span className="gradient-text">Smart Contract Auditing</span>
                 </h2>
                 <p className="text-slate-400 max-w-3xl text-base sm:text-lg">
-                  Personal project — an autonomous audit rig built for{" "}
+                  An autonomous audit rig operating against{" "}
                   <Link
                     href="https://immunefi.com/bug-bounty/"
                     target="_blank"
